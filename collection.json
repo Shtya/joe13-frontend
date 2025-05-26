@@ -1,0 +1,3856 @@
+{
+	"info": {
+		"_postman_id": "43a0001c-36b6-43fa-a39c-6ae35a1c27c0",
+		"name": "joee13 Copy 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16911877"
+	},
+	"item": [
+		{
+			"name": "aboutus",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/aboutus/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"aboutus",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/aboutus/getAll",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"aboutus",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/aboutus/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"aboutus",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "our vision",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "this our new vision about company,this our new vision about company,this our new vision about ",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "رؤيتنا",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "رؤيه الشركه وسياستها و رؤيه الشركه وسياستها ورؤيه الشركه وسياستها و رؤيه الشركه وسياستها",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/aboutus/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"aboutus",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uppdate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "our vision",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "this our new vision about company,this our new vision about company,this our new vision about ",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "رؤيتنا",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "رؤيه الشركه وسياستها و رؤيه الشركه وسياستها ورؤيه الشركه وسياستها و رؤيه الشركه وسياستها",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/aboutus/update/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"aboutus",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/aboutus/delete/2",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"aboutus",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "نبذه عن الشركه و عن ساستها و التوجهات الخاصه بها"
+		},
+		{
+			"name": "careers",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/careers/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"careers",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/careers/getAll",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"careers",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/careers/get/10",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"careers",
+								"get",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "softeware development",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "this our special section",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تطوير الويب",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "تطوير الويب تطوير الويب تطوير الويب",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "9W-VfBQBf/bmw.jfif"
+								},
+								{
+									"key": "key_res_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "key_res_ar",
+									"value": "ياعسغشس سليشلاسليلشس اتسشيسشل يتسششل سسلالسااس ",
+									"type": "text"
+								},
+								{
+									"key": "requirments_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "requirments_ar",
+									"value": "هسيبسىيسيتبنتشنتشسنسشتينشت نسياتشا سيتسشنتني نسينسيتنس",
+									"type": "text"
+								},
+								{
+									"key": "benefits_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "benefits_en",
+									"value": "تستتس تسيتستاش ستتسشتات تسيتشسسنتش",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/careers/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"careers",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "softeware development",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "this our special section",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تطوير الويب",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "تطوير الويب تطوير الويب تطوير الويب",
+									"type": "text"
+								},
+								{
+									"key": "key_res_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "key_res_ar",
+									"value": "ياعسغشس سليشلاسليلشس اتسشيسشل يتسششل سسلالسااس ",
+									"type": "text"
+								},
+								{
+									"key": "requirments_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "requirments_ar",
+									"value": "هسيبسىيسيتبنتشنتشسنسشتينشت نسياتشا سيتسشنتني نسينسيتنس",
+									"type": "text"
+								},
+								{
+									"key": "benefits_en",
+									"value": "this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test,this for test.",
+									"type": "text"
+								},
+								{
+									"key": "benefits_en",
+									"value": "تستتس تسيتستاش ستتسشتات تسيتشسسنتش",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/careers/update/5",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"careers",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/careers/delete/{iid}",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"careers",
+								"delete",
+								"{iid}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "الوظائف والمهن الداخليه الموجوده ف الشركه"
+		},
+		{
+			"name": "Specials التخصصات",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/specials/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"specials",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/specials/getAll",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"specials",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/specials/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"specials",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new event and  news development",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "this our new and best department,this our new and best department,this our new and best department.",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "UoO-SfEUn/event-management-text-business-man-writing-event-management-concept-GE7P66.jpg"
+								},
+								{
+									"key": "category",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/specials/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"specials",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uppdate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "softeware development",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "our softe development",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "HjReJSfx-/Jellyfish.jpg"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/specials/update/",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"specials",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/specials/delete/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"specials",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "specials get by category id Copy 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/specials/getByCategory/3",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"specials",
+								"getByCategory",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "التخصصات داخل الشركه"
+		},
+		{
+			"name": "blogs",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/blogs/all",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"blogs",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/blogs/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"blogs",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "blogs of all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/blogs/getByCategory/0",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"blogs",
+								"getByCategory",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "blogs get by category id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/blogs/getByCategory/3",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"blogs",
+								"getByCategory",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title_en",
+									"value": "new event blog",
+									"type": "text"
+								},
+								{
+									"key": "title_ar",
+									"value": "مدونات خاصه بالاحداث الاخيره",
+									"type": "text"
+								},
+								{
+									"key": "article_en",
+									"value": "new event blog new event blognew event blognew event blognew event blognew event blognew event blognew event blogز",
+									"type": "text"
+								},
+								{
+									"key": "article_ar",
+									"value": "مدونات خاصه بالاحداث الاخيره مدونات خاصه بالاحداث الاخيره مدونات خاصه بالاحداث الاخيره مدونات خاصه بالاحداث الاخيره.",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "category",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/blogs/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"blogs",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title_en",
+									"value": "new blog new",
+									"type": "text"
+								},
+								{
+									"key": "title_ar",
+									"value": "مدونة جديده",
+									"type": "text"
+								},
+								{
+									"key": "article_en",
+									"value": "new blogggg newww",
+									"type": "text"
+								},
+								{
+									"key": "article_ar",
+									"value": "مدونه جديده",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/blogs/update/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"blogs",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/blogs/delete/{iid}",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"blogs",
+								"delete",
+								"{iid}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "offerrs",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/index",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/getAll",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"getAll"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/get/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"get",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "العروض الخاصه بكل الخدمات",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/getByService/0",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"getByService",
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "العروض الخاصه ب خدمه معينه",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/getByService/2",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"getByService",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "very  good discount on event management ",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "عرض جديد عرض جديد عرض جديد عرض جديد",
+									"type": "text"
+								},
+								{
+									"key": "service_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "priceAfter",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/offers/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"offers",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "very  good discount on HR management ",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "عرض جديد عرض جديد عرض جديد عرض جديد",
+									"type": "text"
+								},
+								{
+									"key": "service_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "priceAfter",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/offers/update/23",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"offers",
+								"update",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/offers/changeStatus",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"offers",
+								"changeStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/offers/delete/19",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"offers",
+								"delete",
+								"19"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "العروض التي تقددمها الشركه ع خدماتها المتاحه"
+		},
+		{
+			"name": "Statics",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/getAll",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "customers",
+									"type": "text"
+								},
+								{
+									"key": "counter",
+									"value": "100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "users",
+									"type": "text"
+								},
+								{
+									"key": "counter",
+									"value": "1000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/update",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/statics/delete/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"statics",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "services",
+			"item": [
+				{
+					"name": "get all services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/get_services",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"get_services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get service by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/get_service/4",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"get_service",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "services get by category id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/services/getByCategory/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"services",
+								"getByCategory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "creat new service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title_ar",
+									"value": "خدمات الاحداث",
+									"type": "text"
+								},
+								{
+									"key": "title_en",
+									"value": "events service",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "تعبتر خدمه  اداره الاحداث من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا .",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "event service is consider on of our good services we offered,marketing serive is conside on of our good services we offered,marketing serive is conside on of our good services we offered.",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "category",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "564545645",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/services/create_service",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"services",
+								"create_service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update services",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title_ar",
+									"value": "خدمات التسويق",
+									"type": "text"
+								},
+								{
+									"key": "title_en",
+									"value": "marketing service",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "تعبتر خدمه التسويق من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا تعبتر خدمه التسويق من الخدمات المميزه لدينا .",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "marketing serive is conside on of our good services we offered,marketing serive is conside on of our good services we offered,marketing serive is conside on of our good services we offered.",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "1144445",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/services/update_service/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"services",
+								"update_service",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/services/delete_service/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"services",
+								"delete_service",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "جميع الخدمااات التي تقدمها الشركه"
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "register new admin",
+							"protocolProfileBehavior": {
+								"followOriginalHttpMethod": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "nour",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "98dfsd77",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "karimhany44@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "1044",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/admin/register/",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"admin",
+										"register",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admin login",
+							"protocolProfileBehavior": {
+								"followOriginalHttpMethod": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "karimhany44@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/admin/login/",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"admin",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get admin by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYzU5YzkyNjg2MjBlY2VmNGExNGUwZGRmNzFjMzRkMzUwNDM0OTVlY2M3ZjZkMzg4YTNlNjQ2MDQ5ZDY5NTRlN2EyMmUxNjYxMDZlZDJlMDAiLCJpYXQiOjE3MjI3NzQ4OTYsIm5iZiI6MTcyMjc3NDg5NiwiZXhwIjoxNzU0MzEwODk2LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.Df8V6fvEeeUmJpwjTSWRL9StYiESstJ3QGEL0eYaS7MdHOKIxnsyWXZ03t652KWvpjM8A7Sa8CD2zgpr5e-Sm3gOJg4KqD6RXfRgAdlXw3uvQhODYloFz4NLq4dVmB0wHw_vJbRvNhyVlxBSxQcAresJKLWLyfZ3J2HmTXMpTFLdRiS980qRiqEUodOoH-ai_c-NkyU5_mg_kF_1yyzmjYZsexusSU9nx8Na0eqcDkpt0gL4T0s7rtohFrQIHrf5RtCDZIHzgUEcl0smE_9ELS09U07NQdYGW4bhYS06KkU7B2z79D2o8ihcJ4N4ylec-IuZ1X_RaibnDEqraTQZmD_OrADcnKHbzTFDFg3pOY0VVi2gwyigiusl_fE2srJOf4HCxYxs8Ilqj6LqFQlHb2h2xm6xR7uV7iPpLKddnfg1A1b69U3FLwO_Y5ym_v6DMpajGFvZ7Qfxf7cltkHsoe9LijlOVRDnbQOrteu6sxLRLyGnzTXdSmGFWPTcNtGhxtUfFuQ3Ykp_kjLfb-s4ei5RQ6APboOhZ-DMD7Zucvl7ZYXjQazai2XX6Tag8walstCdDdguXQzkpL1GhNxHDKiB1jxvPCy6sQO3guOwTMNFAVZOLxwAL2OEX7Q_OtdpJ4Vs-7cA35GPZ6tmKN2hFdzW9G0Ibusx6S6erddutqg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/admin/get/3",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"admin",
+										"get",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "get user by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODc2Njk2ZmE4NzE0YWY5M2IwNGNjZDQ5NmNlM2RjYjRiNjg3MjNhMGI0ZjNlN2FmN2NkNThlNGFkY2M4NDNjNjgzOTUzODk1ZmQzYjI4OGMiLCJpYXQiOjE3MjQ1NTY1MTgsIm5iZiI6MTcyNDU1NjUxOCwiZXhwIjoxNzU2MDkyNTE4LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.Q_aKZSSkSMm-MAeBUBNzxYFUFpVSvjAUYx801tTBjQBgLzHgG8f0Fk1KATNf1j8QK6Oahx5Y870NTZ2Ye3iyhNal3NqqLSYesXRu00Mxb741r_0EGP553E56ddtxrggfBPDMaX2O-SB8xUp1ReEQ1FItEb2kkvAcjgovrAFbHqzDUNn9KtdAwmjJoPelytR6wNlyAiUF-TjjreutFrnSVdtovqUlHTuCH6eC2RmrcLccvz_srUZwqcWTOWDG0Dh8xbVtRmhlFzuJIy_XgZpmdmlMH2EcBzKFSm13GepVPs2IgUI3tFRS2Tl7Jxt9tyREt4d8IGIh5C_iXfT67o1-8NhJsipy2OsPbsElxi6gFtG_zcmAA0Wcy-TTjMSwMBz8kDWSDFNpfhuoZVBvr59k_dR8cRhKlnLiYpzKg7jcVDzC5chjGjRNR8gEjXWP-l2tIxzR_O7bddTEuCODE4Y8k72UfKNbE1WTPYRiFX2ldbdZkBvuHZFMTXjMnao8XPFH_pSqnZuOyXChyUoyyk6we20LCdqv1ZD5UWloUHRarCdwskh3FwG2i8OYbU8AGL03iBJb2k96mVBgs0Wq3NC_LiCmTqJG4dhoFG5Hovl4SawPoOBcub-_LdOwrqr2mJc2VTYCzetwE-Mh8PP5qJfaNdOxol9lZKyIbSpSO_xO8pY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/users/get/12",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"get",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "seearch by code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/users/search/LZvpqaS77K",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"search",
+										"LZvpqaS77K"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register new user",
+							"protocolProfileBehavior": {
+								"followOriginalHttpMethod": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "kaream",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "myfdev1@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01234567999",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "c_password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/users/register/",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"register",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"protocolProfileBehavior": {
+								"followOriginalHttpMethod": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "karimfareg55@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/users/login/",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "kaream24",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "kaream@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+										},
+										{
+											"key": "amount",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/users/update/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change status",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/offers/chargeUser",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"offers",
+										"chargeUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "index",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/users/index",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/users/delete/{{id}}",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"users",
+										"delete",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register new user",
+							"protocolProfileBehavior": {
+								"followOriginalHttpMethod": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "nour",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "98dfsd77",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "karimhany44@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "amount",
+											"value": "1044",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/admin/register/",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"admin",
+										"register",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "send Password Reset Link",
+					"protocolProfileBehavior": {
+						"maxRedirects": 200,
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "myfdev1@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/user/send-ResetCode",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"user",
+								"send-ResetCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"protocolProfileBehavior": {
+						"followOriginalHttpMethod": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiM2RjN2U3NjgzODgyMTRiZGJjOWI3ZDY4MTUxOWYzMWU2ZDA2NTM4ZDQ2MmM5MDA0MTRiZmM0ZDAxMjdjOTQ5NjU3YWE1MWJmYTNlNTJmYWEiLCJpYXQiOjE3MjUzMjI2MzAsIm5iZiI6MTcyNTMyMjYzMCwiZXhwIjoxNzU2ODU4NjMwLCJzdWIiOiIyNyIsInNjb3BlcyI6W119.W0N7pDYrA9-_4i7mp_Jj3J9yl98lEmnwkGGe_tA8hoXYyBr4YSi2HpSjP5X-c8_odbSRtgEPs6n5kxIvA29fqkFqWLmnW0HEUzoDDSkmD59HC9WFOjWYFkx8ZoXO5JqiAu7ANY2ZTHN7qsYSvsysKo5W1CvQBAiCd_clSahsP4WmpD8dCJ6TcCSg_ZnUw_B__Ul0xNyE6tN_Bk8cTi0nAv2-lC1za_U6thOddlSAeTZXQsbhethgM-NLFytAL8Uc9tAz_BrgaX6_PjhwgzCT_eMQlzrWUaDQsIA7wZ6tr37rdMwlJ5B8GDVS8iJKw3osmmfuOA9Eu2UZairUtsei6vdGdJYEiGL0FApCrP-_kLABp1Drg2pTdughR6dROoaJfwmNwi4GxCKM3hV32FpbjF4t4tBcnOj1BbhI-aS9MXEx9TTgX4c_a_7r7pOWCydpf6JgCwP2Ac0OHheGkCHIVyhXOga2kldHMhmVxeYpb0b5xKmCjBwmSbCxI0CnYxiM7km1FO1tE7lSMcfk92siKLEnvTAX4l-uzOHGSpBk-B_0YQKQ5up5NtVICFjhm5E6l1DT4sr1H-yyX_Htg0rFTf-VVgMhwQsqhG5C1I3p3Zn5eCqdeoq1wo8yjxSlYq4WDgPJiziA1KNTDll-vYtpNqjD-AElY7rHPJid6xFD29w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "code",
+									"value": "821397",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12341234",
+									"type": "text"
+								},
+								{
+									"key": "c_password",
+									"value": "12341234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/user/change-password",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"user",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/projects/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"projects",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/projects/get_projects_category/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"projects",
+								"get_projects_category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/projects/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"projects",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/projects/get/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"projects",
+										"get",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 27 May 2024 14:10:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.58 (Ubuntu)"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "*"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"status\": true,\n    \"data\": {\n        \"id\": 1,\n        \"name_ar\": \"مدونة جديده\",\n        \"name_en\": \"new blog\",\n        \"description_ar\": \"مدونه جديده\",\n        \"description_en\": \"new blogggg\",\n        \"image\": \"http://146.190.169.246/uploads/projects/project_1716818953\",\n        \"category\": {\n            \"id\": 1,\n            \"name_ar\": \"تصنببف جديد\",\n            \"name_en\": \"new category\"\n        },\n        \"images\": [\n            {\n                \"id\": 1,\n                \"name\": \"http://146.190.169.246/uploads/projects_images/project_image_1716818953\",\n                \"project_id\": 1\n            },\n            {\n                \"id\": 2,\n                \"name\": \"http://146.190.169.246/uploads/projects_images/project_image_1716818953\",\n                \"project_id\": 1\n            }\n        ]\n    },\n    \"message\": \"Success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "NEW important event 2024",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "حدث جديد 2024",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "this one of most important event we covered it this one of most important event we covered it this one of most important event we covered it this one of most important event we covered it .",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "يعتبر من الاحداث المهمه التي قامت الشركه بتنظيمها او الاشراف عليها ,يعتبر من الاحداث المهمه التي قامت الشركه بتنظيمها او الاشراف عليها يعتبر من الاحداث المهمه التي قامت الشركه بتنظيمها او الاشراف عليها .",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								},
+								{
+									"key": "code",
+									"value": "244dgsgs586",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/projects/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"projects",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "online store",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "متجر الكتروني",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "online store is one of our biggest projects we have made ,online store is one of our biggest projects we have made ,online store is one of our biggest projects we have made .",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "من المشاريع الضخمه التي تقوم بالاشراف عليها شركتنا و يعتبر اكبر مشاريع الويب لدينا ويقدم خدمه للعملاء,من المشاريع الضخمه التي تقوم بالاشراف عليها شركتنا و يعتبر اكبر مشاريع الويب لدينا ويقدم خدمه للعملاء.",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+										"DtP6jF54h/Koala.jpg",
+										"keCes-3QH/Jellyfish.jpg"
+									],
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "KrPxDsgDh/Hydrangeas.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/projects/update/4",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"projects",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update projects images",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+										"DtP6jF54h/Koala.jpg",
+										"keCes-3QH/Jellyfish.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/projects/upload_project_images",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"projects",
+								"upload_project_images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/projects/delete/{iid}",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"projects",
+								"delete",
+								"{iid}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project image",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/projects/delete_project_image/{id}",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"projects",
+								"delete_project_image",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "المشاريع التي تقدمها الشركه من مشاريع في البرمجه والدعايا والاعلان وغيرها"
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "get all categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/category/index",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"category",
+										"index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "affiliate marketing",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/category/get/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"category",
+										"get",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WEB DEVELPMENT",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/category/get/2",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"category",
+										"get",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EVENT MANAGEMENT",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/category/get/3",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"category",
+										"get",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get by id Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/category/get/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"category",
+										"get",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/category/index",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"category",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/category/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"category",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "Affiliate Marketing",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "اداره الاعلانات",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "Affiliate Marketing is our good section we care about so much and have brilliant skills and talents ,web development is our good section we care about so much and have brilliant skills and talents .",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eee1eed-e11f-4950-8c72-0308a0832918"
+								},
+								{
+									"key": "description_ar",
+									"value": "اداره الاعلانات من اهم الاقسام التي توجد داخل الشركه ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/category/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"category",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_en",
+									"value": "WEB DEVELOPMENT",
+									"type": "text"
+								},
+								{
+									"key": "name_ar",
+									"value": "تطوير الويب",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Tasks associated with creating, building, and maintaining websites and web applications that run online on a browser. It may, however, also include web design, web programming, and database management.",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "wgQzDRaW9/web_dev.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/category/update/2",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"category",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/category/delete/{iid}",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"category",
+								"delete",
+								"{iid}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "كل التصنيفات الخاصه بالشركه مثل اداره الويب و الدعايا والاعلان واداراه الاخبار والاحداث وغيرها\n\n1=> affialiat marketing  \n2=>web develoment  \n3=>event management"
+		},
+		{
+			"name": "content",
+			"item": [
+				{
+					"name": "get headers and footers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/get_header_content",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"get_header_content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get fast facts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/get_fast_facts",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"get_fast_facts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get about us",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/get_about_us",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"get_about_us"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create header and footer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title_ar",
+									"value": "العنوان",
+									"type": "text"
+								},
+								{
+									"key": "title_en",
+									"value": "address",
+									"type": "text"
+								},
+								{
+									"key": "description_ar",
+									"value": "العنوان العنوان العنوان العنوان",
+									"type": "text"
+								},
+								{
+									"key": "description_en",
+									"value": "address address address address",
+									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/admin/create_header",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"admin",
+								"create_header"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact us",
+			"item": [
+				{
+					"name": "contacts",
+					"item": [
+						{
+							"name": "get all contact us",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/getAll/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"getAll",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "type",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "kaream",
+											"type": "text"
+										},
+										{
+											"key": "address_ar",
+											"value": "القاهره",
+											"type": "text"
+										},
+										{
+											"key": "address_en",
+											"value": "cairo",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0123456789",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "kaream@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/create",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "careers",
+					"item": [
+						{
+							"name": "get all contact us of careers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/getAll/2",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"getAll",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "type",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "kaream",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0123456789",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "kaream@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "cont_key",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/create",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "offers",
+					"item": [
+						{
+							"name": "get all contact us of offers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/getAll/3",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"getAll",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "type",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "kaream",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "kaream@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0123456789",
+											"type": "text"
+										},
+										{
+											"key": "cont_key",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/contact/create",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"contact",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get contact by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/contact/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"contact",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/contact/delete/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"contact",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/getAll",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by client id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/getByClient/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"getByClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/get/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete transctions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/destroy/1",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"destroy",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "150.00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/create",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "120.00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://146.190.169.246/api/transaction/update",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "التعاملات الخاصه بالممولين"
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "Get Manager",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/team/get/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"get",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Manager",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name_ar",
+											"value": "يوسف كمال",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "yousef kamal",
+											"type": "text"
+										},
+										{
+											"key": "position_ar",
+											"value": "ceo of joe13",
+											"type": "text"
+										},
+										{
+											"key": "position_en",
+											"value": "رئيس مجلس اداره جو 13",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/team/update/1",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Members",
+					"item": [
+						{
+							"name": "all members",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/team/all",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show member by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://146.190.169.246/api/team/get/7",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"get",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create member",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name_ar",
+											"value": "نور",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "Nour",
+											"type": "text"
+										},
+										{
+											"key": "position_ar",
+											"value": "Software Team Manager ",
+											"type": "text"
+										},
+										{
+											"key": "position_en",
+											"value": "مدير فريق البرمجيات",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/team/create",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update member",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name_ar",
+											"value": "نور",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "Nour",
+											"type": "text"
+										},
+										{
+											"key": "position_ar",
+											"value": "Software Team Manager ",
+											"type": "text"
+										},
+										{
+											"key": "position_en",
+											"value": "مدير فريق البرمجيات",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef2330e-55b6-4830-baf5-7eb5b15a4b3d"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://146.190.169.246/api/team/update/7",
+									"protocol": "http",
+									"host": [
+										"146",
+										"190",
+										"169",
+										"246"
+									],
+									"path": [
+										"api",
+										"team",
+										"update",
+										"7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete one of team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://146.190.169.246/api/team/delete/2",
+							"protocol": "http",
+							"host": [
+								"146",
+								"190",
+								"169",
+								"246"
+							],
+							"path": [
+								"api",
+								"team",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
