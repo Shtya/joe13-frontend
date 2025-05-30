@@ -38,7 +38,7 @@ export default function Section({ opacity_overly = 1 , bg_cover , image_alt ,dat
                 ) : (
                     <>
                         <h2  className="text-[40px] max-md:text-[30px] font-[600] text-white " >{data?.title?.[locale]}</h2>
-                        <p  className="text-[20px] max-md:text-[16px] text-center font-[400] opacity-70 " >{data?.content?.[locale]}</p>
+                        <p  className="text-[20px] max-md:text-[16px] text-center font-[400] opacity-70 text-balance " >{data?.content?.[locale]}</p>
                     </>
                 )}
             </div>

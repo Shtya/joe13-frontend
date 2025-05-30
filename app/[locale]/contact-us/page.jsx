@@ -1,9 +1,8 @@
-import { Metadata } from 'next';
 import ClientPage from './ClientPage';
 import { getPageMetadata } from '@/hooks/usePageMeta';
 
 export async function generateMetadata(){
-  return getPageMetadata('contact');
+  return getPageMetadata('contact-us');
 }
 
 export default function Page() {

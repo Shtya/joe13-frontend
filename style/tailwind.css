@@ -206,6 +206,11 @@ html {
 
 }
 
+
+.my-slider-partners .slick-slide >div {
+    background-color: transparent !important;
+}
+
 /*  Skelton */
 
 .skeleton-box {

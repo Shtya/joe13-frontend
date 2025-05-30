@@ -1,4 +1,3 @@
-import SeoHead from '@/hooks/SeoHead';
 import ClientPage from './ClientPage';
 import { getPageMetadata } from '@/hooks/usePageMeta';
 

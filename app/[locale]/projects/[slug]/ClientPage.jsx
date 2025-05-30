@@ -20,19 +20,6 @@ export default function ProjectDetails() {
         return <ProjectDetailsSkeleton />;
     }
 
-    if (!project) {
-        return (
-            <div className='min-h-screen  bg-gradient text-white flex items-center justify-center'>
-                <div className='text-center p-8'>
-                    <h1 className='text-3xl font-bold capitalize mb-4'>{t('project-not-found')}</h1>
-                    <Link href='/projects' className='btn-blue btn-blue-3d inline-flex items-center gap-2 mt-4'>
-                        <ArrowLeft size={18} />
-                        {t('back-to-projects')}
-                    </Link>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className='min-h-screen bg-gradient pt-[30px]  text-white flex items-center justify-center'>
@@ -134,7 +121,7 @@ function Gallery({ project }) {
                             exit={{ scale: 0.8 }}
                             onClick={e => e.stopPropagation()} // prevent modal close on click inside
                         >
-                            <Image src={baseImage(popupImage.url)} alt={popupImage.alt} width={1200} height={800} className='  w-full h-auto !rounded-[20px] object-contain' />
+                            <Image src={baseImage(popupImage.url)} alt={popupImage.alt} width={1200} height={800} className='  w-full h-[80vh] !rounded-[20px] object-contain' />
                             <button onClick={() => setPopupImage(null)} className='absolute !flex-none !rounded-full  !w-[40px] !h-[40px] flex items-center justify-center !cursor-pointer btn-blue-3d btn-blue-3d-hover  top-2 right-2 z-[100] text-white p-1  transition'>
                                 <X size={18} />
                             </button>

@@ -3,19 +3,16 @@ import { MenuIcon, Plus } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import SwitchLang from'../atoms/SwitchLang';
+import SwitchLang from '../atoms/SwitchLang';
 import { useValues } from '@/app/context';
 
 export default function Navbar({ isclick, handleClick }) {
     const t = useTranslations('Navbar');
-    const locale = useLocale()
+    const locale = useLocale();
     const pathname = usePathname();
-    const {projects , loading} = useValues()
+    const { projects, loading, services } = useValues();
 
-    const ourProduct = projects?.data?.filter(e => e.department?.id == 1)
-    const ourTelecoms = projects?.data?.filter(e => e.department?.id == 5)
-    const ourHR = projects?.data?.filter(e => e.department?.id == 6)
-    const Digital = projects?.data?.filter(e => e.department?.id == 3)
+    const ourProduct = projects?.data?.filter(e => e.department?.id == 1);
 
     const [addBg, setaddBg] = useState(false);
     useEffect(() => {
@@ -27,45 +24,25 @@ export default function Navbar({ isclick, handleClick }) {
     const links = [
         { value: '/?section=home', name: t('home') },
         { value: '/projects', name: t('projects') },
-        // {
-        //     value: '',
-        //     name: Digital?.[0]?.department?.name?.[locale],
-        //     list: Digital?.map(e=> {
-        //         return {
-        //             name : e?.name?.[locale],
-        //             value : `/projects/${e?.slug}`
-        //         }
-        //     } )
-        // },
+        {
+            value: '',
+            name: t('our-services'),
+            list: services?.data?.map(e => {
+                return {
+                    name: e?.title?.[locale],
+                    value: `/services/${e?.slug}`,
+                };
+            }),
+        },
         {
             value: '',
             name: ourProduct?.[0]?.department?.name?.[locale],
-            list: ourProduct?.map(e=> {
+            list: ourProduct?.map(e => {
                 return {
-                    name : e?.name?.[locale],
-                    value : `/projects/${e?.slug}`
-                }
-            } )
-        },
-        {
-            value: '',
-            name: ourTelecoms?.[0]?.department?.name?.[locale],
-            list: ourTelecoms?.map(e=> {
-                return {
-                    name : e?.name?.[locale],
-                    value : `/projects/${e?.slug}`
-                }
-            } )
-        },
-        {
-            value: '',
-            name: ourHR?.[0]?.department?.name?.[locale],
-            list: ourHR?.map(e=> {
-                return {
-                    name : e?.name?.[locale],
-                    value : `/projects/${e?.slug}`
-                }
-            } )
+                    name: e?.name?.[locale],
+                    value: `/projects/${e?.slug}`,
+                };
+            }),
         },
         { value: '/?section=partners', name: t('our-partners') },
         { value: '/blogs', name: t('blogs') },
@@ -74,10 +51,10 @@ export default function Navbar({ isclick, handleClick }) {
         { value: '/contact-us', name: t('contact-us') },
     ];
 
-    const style = { a: 'block p-[10px] cursor-pointer hover:text-white hover:bg-primary', };
+    const style = { a: 'block p-[10px] cursor-pointer hover:text-white hover:bg-primary' };
 
     const handleClose = e => {
-        if (e.value)  handleClick();
+        if (e.value) handleClick();
     };
 
     const [isFooterInView, setIsFooterInView] = useState(false);
@@ -128,13 +105,11 @@ export default function Navbar({ isclick, handleClick }) {
         };
     }, []);
 
-
-
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50 && (pathname === '/join-us' ||  pathname?.startsWith('/projects') || pathname?.startsWith('/blogs') )) {
+            if (window.scrollY > 50 && (pathname === '/join-us' || pathname?.startsWith('/services') || pathname?.startsWith('/projects') || pathname?.startsWith('/blogs'))) {
                 setScrolled(true);
             } else {
                 setScrolled(false);
@@ -146,7 +121,6 @@ export default function Navbar({ isclick, handleClick }) {
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, [pathname]);
-
 
     return (
         <nav className={` text-white scroll-style-2 z-[100000] relative `}>

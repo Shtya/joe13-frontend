@@ -11,7 +11,6 @@ export default function UploadFile({ place, dataAos, error, watch , trigger , cn
 
     const handleImage = e => {
         const selectedFile = e.target.files[0];
-        // console.log(selectedFile)
         if (selectedFile) {
             setFile(selectedFile);
             setValue(KEY, selectedFile);

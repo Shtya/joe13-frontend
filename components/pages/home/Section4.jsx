@@ -2,9 +2,7 @@
 import Title from '@/components/atoms/Title';
 import { baseImage } from '@/helpers/baseUrl';
 import EffectFixed from '@/helpers/EffectFixed';
-import TextAnimation from '@/helpers/TextAnimation';
-import TextSlide from '@/helpers/TextSlide';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 export default function Section4({data , loading}) {
     const locale = useLocale()

@@ -15,10 +15,8 @@ export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide) {
         setTimeout(() => {
             if (nav) {
                 if (swiper.activeIndex === 0) {
-                    console.log('Adding bg-remove class');
                     nav.classList.add('bg-remove');
                 } else {
-                    console.log('Removing bg-remove class');
                     nav.classList.remove('bg-remove');
                 }
             }

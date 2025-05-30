@@ -1,7 +1,6 @@
 import { baseImage, baseUrl } from '@/helpers/baseUrl';
 
 export async function getPageMetadata(slug) {
-    console.log(slug)
     try {
         const res = await fetch(`${baseUrl}/api/v1/pages/${slug}`, {
             cache: 'no-store',
@@ -16,11 +15,6 @@ export async function getPageMetadata(slug) {
         const keywords = Array.isArray(data?.meta.keywords) ? data?.meta.keywords.join(', ') : '';
 
         return {
-            // icons: {
-            //     icon: '/favicon.ico', // or '/icons/favicon.ico' if that's your path
-            //     shortcut: '/favicon.ico',
-            //     apple: '/apple-touch-icon.png', // optional
-            // },
             title: data?.meta?.title,
             description: data?.meta?.description,
             keywords: keywords,

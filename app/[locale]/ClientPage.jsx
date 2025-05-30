@@ -5,7 +5,6 @@ import Section2 from '@/components/pages/home/Section2';
 import Section3 from '@/components/pages/home/Section3';
 import Section4 from '@/components/pages/home/Section4';
 import TextCopy from '@/components/pages/home/TextCopy';
-import PreLoading from '@/components/atoms/PreLoading';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 

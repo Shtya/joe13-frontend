@@ -52,20 +52,20 @@ export default function Hero({ type , data, projects, loading, loadingProjects }
                     ) : (
                         <div className=' max-md:hidden scroll-style-2 bg-white/10  w-full backdrop-blur-md '>
                             <h2 className='  tracking-widest  uppercase text-center  text-white text-xl font-semibold mt-4'> { type== "blog" ? t('latest-blogs') : t('our-proudcts')} </h2>
-                            <div className=' p-4 flex flex-col gap-[15px]  w-full  max-h-[495px] overflow-auto '>
+                            <div className=' p-4 flex flex-col gap-[15px]  w-full  max-h-[465px] overflow-auto '>
                                 {projects?.map((e, i) => (
                                     <div key={i} className=' w-full flex items-center gap-4 bg-white/20 p-2 '>
-                                        <div className='bg-white/40 flex-none w-[70px] h-[70px] overflow-hidden rounded-md'>
+                                        <div className=' p-[3px] bg-white/40 flex-none w-[70px] h-[70px] overflow-hidden rounded-md'>
                                         {
                                             e?.image_url
-                                            ? <Image src={  baseImage( e?.image_url)} alt={e?.image_alt} width={64} height={64} className='object-contain w-full h-full' />
-                                            : <Image src={  baseImage( e.images?.[0]?.url )} alt={e.images?.[0]?.alt} width={64} height={64} className='object-contain w-full h-full' />
+                                            ? <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} src={  baseImage( e?.image_url)} alt={e?.image_alt} width={64} height={64} className='object-contain w-full h-full' />
+                                            : <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} src={  baseImage( e.images?.[0]?.url )} alt={e.images?.[0]?.alt} width={64} height={64} className='object-contain w-full h-full' />
                                         }
 
                                         </div>
                                         <div className='w-full flex flex-col  gap-[2px]  min-w-0 '>
                                             <h3 className='text-base font-bold leading-tight !truncate !overflow-hidden !whitespace-nowrap '>{type == "blog" ? e.title?.[locale] :  e.name?.[locale]}</h3>
-                                            <p className='text-sm text-gray-300 !truncate ' dangerouslySetInnerHTML={{__html : type == "blog" ? e.content?.[locale] :  e.description?.[locale] }} /> 
+                                            <p className='text-sm  text-gray-300 truncate whitespace-nowrap overflow-hidden text-ellipsis h-[19px] ' dangerouslySetInnerHTML={{__html : type == "blog" ? e.content?.[locale] :  e.description?.[locale] }} /> 
                                             <Link href={ type == "blog" ? `/blogs/${e.slug}` : `/projects/${e.slug}`} className='btn-blue btn-blue-3d mt-[3px]  !rounded-[12px] w-fit text-sm !min-w-[30px] !px-[10px] capitalize  !h-[35px] group   '>
                                                 <Image className=' rtl:rotate-[-270deg] rotate-[0deg] group-hover:!rotate-[-90deg] duration-500 ' src='/down-right-arrow.png' alt='' width={18} height={18} />
                                             </Link>

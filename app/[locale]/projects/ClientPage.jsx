@@ -11,7 +11,6 @@ export default function ClientPage() {
 
     const projectsHeroSection = projects?.data?.filter((e)=> e.department.id == 1 )
 
-    console.log(projects)
     
     return (
         <div className="min-h-screen" >

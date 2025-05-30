@@ -1,4 +1,5 @@
 import { useProjects } from "@/hooks/useProjects";
+import { useServices } from "@/hooks/useServices";
 import { useSetting } from "@/hooks/useSettings";
 import React, { createContext, useContext, useState } from "react";
 
@@ -8,13 +9,14 @@ const ModalContext = createContext(undefined);
 
 export const Context = ({ children }) => {
   const {projects , loading} = useProjects()
+  const {services } = useServices()
   const {settings} = useSetting()
 
   const [isModalOpen, setModalOpen] = useState(true);
   const [file, setFile] = useState(null);
 
   return (
-    <ModalContext.Provider value={{projects , settings , loading ,file, setFile , isModalOpen, setModalOpen }}>
+    <ModalContext.Provider value={{projects ,services , settings , loading ,file, setFile , isModalOpen, setModalOpen }}>
       {children}
     </ModalContext.Provider>
   );

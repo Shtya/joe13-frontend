@@ -1,14 +1,16 @@
 import { useValues } from '@/app/context';
 import { baseImage } from '@/helpers/baseUrl';
+import { usePathname } from '@/navigation';
 import { AtSign, MapPin, MapPinHouse, Phone, PhoneCall } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Footer = ({ cn, id }) => {
     const t = useTranslations('Footer');
     const locale = useLocale();
-    const { projects, loading, settings } = useValues();
+    const { projects, loading, settings , services } = useValues();
 
     const ourProduct = projects?.data?.filter(e => e.department?.id == 1);
     const ourTelecoms = projects?.data?.filter(e => e.department?.id == 5);
@@ -25,23 +27,15 @@ const Footer = ({ cn, id }) => {
             }),
         },
         {
-            head: ourTelecoms?.[0]?.department?.name?.[locale],
-            links: ourTelecoms?.slice(0, 5)?.map(e => {
+            head: t("services"),
+            links: services?.data?.map(e=> {
                 return {
-                    name: e?.name?.[locale],
-                    link: `/projects/${e?.slug}`,
-                };
-            }),
+                    name : e?.title?.[locale],
+                    link : `/services/${e?.slug}`
+                }
+            } )
         },
-        {
-            head: ourHR?.[0]?.department?.name?.[locale],
-            links: ourHR?.slice(0, 5)?.map(e => {
-                return {
-                    name: e?.name?.[locale],
-                    link: `/projects/${e?.slug}`,
-                };
-            }),
-        },
+
     ];
 
     const style = {
@@ -49,10 +43,24 @@ const Footer = ({ cn, id }) => {
         link: ' text-black/80 text-base max-md:text-sm block font-[500] leading-[22px] cursor-pointer hover:text-primary duration-200 mb-[7px] ',
     };
 
-    return loading ? (
+    const pathname = usePathname();
+    const [showFooter, setShowFooter] = useState(true);
+
+    useEffect(() => {
+        // Check on route change
+        if (pathname.startsWith('/services')) {
+            setShowFooter(false);
+        } else {
+            setShowFooter(true);
+        }
+    }, [pathname]);
+
+
+    if(!showFooter) return ;
+    return   loading ? (
         // Skeleton loading
         <div className='!bg-white/20 backdrop-blur-[10px]  relative z-[1000] text-black max-md:pt-[50px] !py-[100px]'>
-            <div className=' px-[20px] max-w-[1500px] w-full mx-auto grid grid-cols-6 gap-[40px] max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1'>
+            <div className=' px-[20px] max-w-[1500px] w-full mx-auto grid grid-cols-5 gap-[40px] max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1'>
                 {[...Array(6)].map((_, i) => (
                     <div key={i} className='col  space-y-4'>
                         <div className='h-5 w-3/4 skeleton-box bg-white/10 rounded' />
@@ -65,7 +73,7 @@ const Footer = ({ cn, id }) => {
         </div>
     ) : (
         <footer id={id} className={`  bg-white  z-[1000] text-black max-md:pt-[50px] py-[50px] ${cn} `}>
-            <div className=' lg:pr-[70px] px-[20px] max-w-[1500px] w-full mx-auto  grid grid-cols-6 gap-[30px] max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 '>
+            <div className=' lg:pr-[70px] px-[20px] max-w-[1500px] w-full mx-auto  grid grid-cols-5 gap-[30px] max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 '>
                 <div className='col '>
                     {settings?.site_logo && <Image className='mt-[-15px] max-w-[200px] w-full ' src={baseImage(settings?.site_logo?.url)} alt={settings?.site_logo?.alt} width={200} height={50} />}
                     <p className='text-black/90 text-sm max-w-[400px] w-full  mb-[10px] mt-[-5px]   '> {settings?.about_us_footer?.[locale]} </p>
@@ -142,8 +150,8 @@ const Footer = ({ cn, id }) => {
                 </div>
             </div>
 
-            <div className=" max-w-[400px] w-full  h-[1px] bg-gray-100  mx-auto mt-[20px] "  />
-            <p className="mt-[20px] text-sm  mb-[-30px] text-black/80 text-center  " > {settings?.copyright?.[locale]} </p>
+            <div className=' max-w-[400px] w-full  h-[1px] bg-gray-100  mx-auto mt-[20px] ' />
+            <p className='mt-[20px] text-sm  mb-[-30px] text-black/80 text-center  '> {settings?.copyright?.[locale]} </p>
         </footer>
     );
 };

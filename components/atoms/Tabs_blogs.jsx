@@ -127,7 +127,7 @@ function Project({ project, i }) {
     return (
         <div data-aos='fade-up' data-aos-delay={`${i}00`} className='bg-[#ceced0]/50 !rounded-[12px] p-[10px]  shadow-xl backdrop-blur'>
             <div className='w-full max-md:h-[230px]  h-[350px] max-sm:!h-auto  '>
-                <img data-aos='zoom-in' className=' object-fill !rounded-[12px] overflow-hidden  w-full h-full -contain bg-white/30  object-center  ' src={baseImage(project?.image_url)} alt={project?.image_alt} width={300} height={200} />
+                <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} data-aos='zoom-in' className=' object-fill !rounded-[12px] overflow-hidden  w-full h-full -contain bg-white/30  object-center  ' src={baseImage(project?.image_url)} alt={project?.image_alt} width={300} height={200} />
             </div>
 
             <h3 className=' mt-[15px]  mb-[8px] text-xl font-bold !truncate '>{project.title?.[locale]}</h3>

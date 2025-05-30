@@ -1,5 +1,5 @@
 'use client';
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { baseImage } from '@/helpers/baseUrl';
 import Image from 'next/image';
@@ -18,19 +18,7 @@ export default function ProjectDetails() {
         return <BlogSkeleton />;
     }
 
-    if (!blog) {
-        return (
-            <div className='min-h-screen  bg-gradient text-white flex items-center justify-center'>
-                <div className='text-center p-8'>
-                    <h1 className='text-2xl max-w-[800px] w-full leading-[50px] text-balance font-bold capitalize mb-4'>{t('blogs-not-found')}</h1>
-                    <Link href='/blogs' className='btn-blue btn-blue-3d inline-flex items-center gap-2 mt-4'>
-                        <ArrowLeft size={18} />
-                        {t('back-to-blogs')}
-                    </Link>
-                </div>
-            </div>
-        );
-    }
+    if (!blog)  notFound()
 
     function splitHtmlByWords(html, wordCount = 30) {
         const tmp = document.createElement('div');

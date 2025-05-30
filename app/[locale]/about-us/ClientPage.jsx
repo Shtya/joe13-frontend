@@ -1,7 +1,4 @@
 'use client';
-
-import BoardMembers from '@/components/pages/aboutus/BoardMembers';
-import { useLocale } from 'next-intl';
 import React, { useRef , useState , useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,13 +8,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/mousewheel';
 import Footer from '@/components/molecules/Footer';
-import { useSectionsData } from '@/hooks/useSections';
-import { baseUrl } from '@/helpers/baseUrl';
 import Section from '@/components/molecules/Section';
 
 import VerticalSlider from '@/hooks/useAboutUsSwiperConfig';
 import { useAboutUsSwiperConfig } from '@/hooks/useAboutUsSwiperConfig';
 import { usePages } from '@/hooks/usePages';
+import Board from '@/components/pages/aboutus/Board';
 
 
 export default function Page() {
@@ -49,7 +45,8 @@ export default function Page() {
 
                 <SwiperSlide className='  flex justify-center items-start '>
                     <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='bg-white/0 z-[100] max-h-screen overflow-auto  rounded shadow w-full'>
-                        <BoardMembers  /> 
+                        {/* <BoardMembers  />  */}
+                        <Board />
                     </div>
                 </SwiperSlide>
 
