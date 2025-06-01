@@ -25,13 +25,6 @@ export async function generateMetadata({ params }) {
         title: meta.title,
         description: meta.description,
         keywords: meta.keywords.join(', '),
-        openGraph: {
-            title: meta.ogTitle,
-            description: meta.ogDescription,
-            type: meta.ogType,
-            url: meta.ogUrl,
-            images: [{ url: meta.ogImage }],
-        },
         twitter: { card: 'summary_large_image' },
         scripts: { head: meta.headScript, body: meta.bodyScript },
         canonicalUrl: meta.canonicalUrl,
