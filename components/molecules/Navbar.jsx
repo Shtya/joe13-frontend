@@ -147,10 +147,10 @@ export default function Navbar({ isclick, handleClick }) {
                     <li key={index} className=' group relative  ' onClick={() => handleDropDown(link?.list?.[0].name)}>
                         <Link onClick={() => handleClose(link)} href={link.value} className={` ${style.a} capitalize text18 flex justify-between items-center  `}>
                             {link.name}
-                            {link.list && <Plus className={`${link?.list?.[0].name == currentDrop ? 'full-square rotate-[0deg] ' : 'half-square rotate-[135deg]'} duration-300 opacity-80 `} />}
+                            {link.list && <Plus className={`${link?.list?.[0]?.name == currentDrop ? 'full-square rotate-[0deg] ' : 'half-square rotate-[135deg]'} duration-300 opacity-80 `} />}
                         </Link>
 
-                        <ul className={`bg-white z-[10000] ${link?.list?.[0].name == currentDrop && 'max-sm:!block open '} max-sm:dropdown-animation  sm:group-hover:block hidden  max-sm:hidden ltr:sm:border-l-[4px] ltr:border-l-black rtl:sm:border-r-[4px] rtl:border-r-black   shadow-md top-0  sm:absolute rtl:sm:right-[250px] ltr:sm:left-[250px]  sm:w-[200px]`}>
+                        <ul className={`bg-white z-[10000] ${link?.list?.[0]?.name == currentDrop && 'max-sm:!block open '} max-sm:dropdown-animation  sm:group-hover:block hidden  max-sm:hidden ltr:sm:border-l-[4px] ltr:border-l-black rtl:sm:border-r-[4px] rtl:border-r-black   shadow-md top-0  sm:absolute rtl:sm:right-[250px] ltr:sm:left-[250px]  sm:w-[200px]`}>
                             {link.list &&
                                 link.list.map((e, i) => (
                                     <li key={i} className='text14 hover:text-white hover:bg-primary relative hover:after:h-[60%] after:top-[50%] after:translate-y-[-50%] after:absolute after:h-0 after:w-[3px] after:bg-white ltr:after:right-[5px] rtl:after:left-[5px] after:duration-300  '>

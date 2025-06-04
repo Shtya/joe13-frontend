@@ -10,13 +10,12 @@ const nextConfig = {
         pathname: '/uploads/**',
       },
       {
-        protocol: 'http',
-        hostname: '146.190.169.246',
+        protocol: 'https',
+        hostname: 'back.joe13th.com',
         port: '8095',
         pathname: '/uploads/**',
       },
     ],
-    domains: ["backend.joe13th.com" ],
   },
 };
 export default withNextIntl("./il8n.js")(nextConfig);
