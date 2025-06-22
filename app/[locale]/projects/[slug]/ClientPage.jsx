@@ -35,10 +35,10 @@ export default function ProjectDetails() {
                         </div>
                     </div>
                     <p className='text-lg max-md:text-base text-white/80 max-w-[600px] w-full leading-relaxed max-lg:text-center'>{project.description?.[locale]}</p>
-                    <button className=' mt-[10px] btn-blue btn-blue-3d flex !rounded-[10px] items-center gap-2'>
+                    <Link href="/contact-us" className=' mt-[10px] btn-blue btn-blue-3d flex !rounded-[10px] items-center gap-2'>
                         <Headset size={18} />
                         {t('contact-us')}
-                    </button>
+                    </Link>
                 </div>
 
                 <Gallery project={project} />

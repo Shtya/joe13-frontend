@@ -26,6 +26,6 @@ export function getHeaderConfig() {
 
 export let api = axios.create({
     baseURL: baseUrl,
-    timeout: 100000,
+    timeout: 200000,
     headers: getHeaderConfig().headers,
 });

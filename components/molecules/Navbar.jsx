@@ -23,7 +23,7 @@ export default function Navbar({ isclick, handleClick }) {
 
     const links = [
         { value: '/?section=home', name: t('home') },
-        { value: '/projects', name: t('projects') },
+        { value: '/projects', name: t('our-department') },
         {
             value: '',
             name: t('our-services'),

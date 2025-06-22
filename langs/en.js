@@ -3,7 +3,7 @@ export default {
     "not-found-page-2" : "The page you're looking for doesn't exist, has been moved, or was never here in the first place.",
     "not-found-page-3" : "Go back to homepage",
     "MEET OUR TEAM" : "MEET OUR TEAM",
-    
+    "our-department" : "Our Department",
     
     
     

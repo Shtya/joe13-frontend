@@ -42,8 +42,7 @@ export const hookJoinUs = () => {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-        })
-            .then(res => {
+        }).then(res => {
                 toast.success(t('contactSuccess'), { id: toastId });
                 reset();
             })
