@@ -125,7 +125,7 @@ export default {
         readMore: 'Read More',
     },
     Navbar: {
-        'our-department': 'اقسامنا',
+        'our-department': 'Our department',
 
         projects: 'Our Projects',
         home: 'Home',
