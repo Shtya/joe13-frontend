@@ -1,10 +1,9 @@
 export default {
-        "MEET OUR TEAM" : "قابل فريقنا",
+    'MEET OUR TEAM': 'قابل فريقنا',
     'not-found-page-1': 'عذرًا! الصفحة غير موجودة',
     'not-found-page-2': 'الصفحة التي تبحث عنها غير موجودة، ربما تم نقلها أو لم تكن موجودة من الأساس.',
     'not-found-page-3': 'العودة إلى الصفحة الرئيسية',
     'contact-us-now': 'تواصل معنا الان',
-    "our-department" : "اقسامنا",
     all: 'الكل',
     'blogs-not-found': 'عذرًا، لم نتمكن من العثور على المشروع الذي تبحث عنه. قد يكون قد تم حذفه أو أن الرابط غير صحيح.',
     'back-to-blogs': 'العودة إلى المشاريع',
@@ -135,6 +134,7 @@ export default {
         readMore: 'قراءة المزيد',
     },
     Navbar: {
+        'our-department': 'اقسامنا',
         projects: 'مشاريعنا',
         home: 'الرئيسية',
         'business-units': 'وحدات الأعمال',

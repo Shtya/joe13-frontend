@@ -1,19 +1,16 @@
 export default {
-    "not-found-page-1" : "Oops! Page Not Found",
-    "not-found-page-2" : "The page you're looking for doesn't exist, has been moved, or was never here in the first place.",
-    "not-found-page-3" : "Go back to homepage",
-    "MEET OUR TEAM" : "MEET OUR TEAM",
-    "our-department" : "Our Department",
-    
-    
-    
-    
-    "contact-us-now" : "Consult Us Now" ,
-    "all" : "All",
+    'not-found-page-1': 'Oops! Page Not Found',
+    'not-found-page-2': "The page you're looking for doesn't exist, has been moved, or was never here in the first place.",
+    'not-found-page-3': 'Go back to homepage',
+    'MEET OUR TEAM': 'MEET OUR TEAM',
+    'our-department': 'Our Department',
+
+    'contact-us-now': 'Consult Us Now',
+    all: 'All',
     'blogs-not-found': "Sorry, we couldn't find the project you're looking for. It may have been removed or the link may be incorrect.",
     'back-to-blogs': 'Back to Projects',
-    "department" : "Department",
-    "views" : "views",
+    department: 'Department',
+    views: 'views',
 
     'contact us': 'contact us',
     'our-proudcts': 'our products',
@@ -21,7 +18,6 @@ export default {
     'show-more': 'Show More',
     'back-to-projects': 'Back to Projects',
     'latest-blogs': 'Latest Blog Posts',
-
 
     loading: 'Loading ..',
     submitting: 'Submitting ..',
@@ -129,6 +125,8 @@ export default {
         readMore: 'Read More',
     },
     Navbar: {
+        'our-department': 'اقسامنا',
+
         projects: 'Our Projects',
         home: 'Home',
         'business-units': 'Business Units',
