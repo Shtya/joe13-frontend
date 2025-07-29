@@ -3,7 +3,7 @@ export default {
     'not-found-page-2': "The page you're looking for doesn't exist, has been moved, or was never here in the first place.",
     'not-found-page-3': 'Go back to homepage',
     'MEET OUR TEAM': 'MEET OUR TEAM',
-    'our-department': 'Our Department',
+    'our-department': 'Our Departments',
 
     'contact-us-now': 'Consult Us Now',
     all: 'All',
@@ -125,7 +125,7 @@ export default {
         readMore: 'Read More',
     },
     Navbar: {
-        'our-department': 'Our department',
+        'our-department': 'Our departments',
 
         projects: 'Our Projects',
         home: 'Home',
