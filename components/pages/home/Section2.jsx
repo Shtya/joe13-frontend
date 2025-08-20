@@ -14,7 +14,7 @@ export default function Section2({ data, loading }) {
     const locale = useLocale();
 
     const downloadPDF = () => {
-        const pdfURL = `/joe-pdf-${locale}.pdf`;
+        const pdfURL = `/joe-pdf-en2.pdf`;
         const link = document.createElement('a');
         link.href = pdfURL;
         link.download = 'JOE13 Profile'; // File name for the downloaded file
