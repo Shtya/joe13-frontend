@@ -32,17 +32,7 @@ export default function ClientPage() {
     const section9 = data?.sections?.find(e => e.id == "sec9")
     const section10 = data?.sections?.find(e => e.id == "sec10")
     const section11 = data?.sections?.find(e => e.id == "sec11")
-
-
-    // const t = useTranslations();
-    // const data5 = t.raw('data5');
-    // const data6 = t.raw('data6');
-    // const data7 = t.raw('data7');
-    // const data8 = t.raw('data8');
-    // const data9 = t.raw('data9');
-    // const data10 = t.raw('data10');
-    // const data11 = t.raw('data11');
-
+ 
     const swiperRef = useRef(null);
     const [isLastSlide, setIsLastSlide] = useState(false);
     const { handleScrollInside } = VerticalSlider();

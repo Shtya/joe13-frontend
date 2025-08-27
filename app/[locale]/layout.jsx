@@ -12,6 +12,13 @@ export async function getSettings() {
     return setting?.custom_scripts;
 }
 
+export const metadata = {
+  icons: {
+    icon: "/favicon.ico",          
+    shortcut: "/favicon.ico",      
+   },
+};
+
 export default function RootLayout({ children, params: { locale } }) {
     const messages = useMessages();
 
@@ -20,7 +27,8 @@ export default function RootLayout({ children, params: { locale } }) {
             <head>
                 <meta name='google-site-verification' content='zJyIE3QZ-5AyKid90sn0qSevc_ChsFUc0aG_8hbOYj4' />
                 <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Cairo:wght@900&display=swap' rel='stylesheet' />
-                {/* {getSettings().then(res => console.log(res?.head) )} */}
+                
+  
             </head>
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <body className={locale === 'en' ? 'font-montserrat' : 'font-cairo'}>
