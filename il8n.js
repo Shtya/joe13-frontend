@@ -13,6 +13,4 @@ export default getRequestConfig(async ({ locale }) => {
   };
 });
 
-
-
-        // sitemap , robots , google search console code
+ 
