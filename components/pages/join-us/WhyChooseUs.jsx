@@ -1,7 +1,9 @@
 "use client";
 import Input from "@/components/atoms/input/Input";
+import InputNational from "@/components/atoms/input/InputNational";
 import UploadFile from "@/components/atoms/input/UploadFile";
 import Select from "@/components/atoms/select/Select";
+import SelectValue from "@/components/atoms/select/SelectValue";
 import TextSlide from "@/helpers/TextSlide";
 import { useLocale, useTranslations } from "next-intl";
 import React from "react";
@@ -216,7 +218,6 @@ export const Positions = [
   },
   { name_ar: "محلل بيانات", name_en: "Data Analyst", value: "data_analyst" },
   { name_ar: "علم بيانات", name_en: "Data Scientist", value: "data_scientist" },
-
   {
     name_ar: "مدير علاقات عامة",
     name_en: "Public Relations Manager",
@@ -239,6 +240,9 @@ export default function WhyChooseUs({
 }) {
   const t = useTranslations("JoinUs");
   const locale = useLocale();
+
+  // Use the original arrays directly - they already have the correct structure
+  // The Select component should use the 'value' field for storage and 'name_ar/name_en' for display
 
   return (
     <div className="w-screen">
@@ -280,16 +284,20 @@ export default function WhyChooseUs({
             label={""}
             place={t("fullName")}
           />
-          <Input
-            register={register("phone")}
-            error={errors?.phone}
-            type={"tel"}
-            KEY={"phone"}
+
+          <InputNational
+            register={register} // ✅ Pass the function itself
+            error={errors?.national_id}
+            type={"text"} // Use text type
+            KEY={"national_id"}
             cnInput={""}
             label={""}
-            place={t("phoneNumber")}
+            place={t("national_id") || "National ID"}
+            maxLength={10}
           />
-          <Select
+
+          {/* City Dropdown - will send "Riyadh", "Jeddah", etc. */}
+          <SelectValue
             data={Cities}
             icon={true}
             place={t("city")}
@@ -298,6 +306,22 @@ export default function WhyChooseUs({
             setValue={setValue}
             error={errors?.city}
             KEY={"city"}
+            valueField="value" // Make sure Select uses 'value' field
+            displayField={locale === "ar" ? "name_ar" : "name_en"} // Display based on locale
+          />
+
+          {/* Position Dropdown - will send "general_manager", "software_engineer", etc. */}
+          <SelectValue
+            data={Positions}
+            icon={true}
+            place={t("offers_name")}
+            trigger={trigger}
+            watch={watch}
+            setValue={setValue}
+            error={errors?.offers_name}
+            KEY={"offers_name"}
+            valueField="value" // Make sure Select uses 'value' field
+            displayField={locale === "ar" ? "name_ar" : "name_en"} // Display based on locale
           />
           <Input
             register={register("email")}
@@ -308,19 +332,15 @@ export default function WhyChooseUs({
             label={""}
             place={t("email")}
           />
-
-          {/* Changed from Input to Select for offers_name */}
-          <Select
-            data={Positions}
-            icon={true}
-            place={t("offers_name")}
-            trigger={trigger}
-            watch={watch}
-            setValue={setValue}
-            error={errors?.offers_name}
-            KEY={"offers_name"}
+          <Input
+            register={register("phone")}
+            error={errors?.phone}
+            type={"tel"}
+            KEY={"phone"}
+            cnInput={""}
+            label={""}
+            place={t("phoneNumber")}
           />
-
           <Input
             register={register("offers_price")}
             error={errors?.offers_price}
