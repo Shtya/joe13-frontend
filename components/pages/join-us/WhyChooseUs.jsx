@@ -2,6 +2,7 @@
 import Input from "@/components/atoms/input/Input";
 import InputNational from "@/components/atoms/input/InputNational";
 import UploadFile from "@/components/atoms/input/UploadFile";
+import UploadFileField from "@/components/atoms/input/UploadFileField";
 import Select from "@/components/atoms/select/Select";
 import SelectValue from "@/components/atoms/select/SelectValue";
 import TextSlide from "@/helpers/TextSlide";
@@ -241,8 +242,8 @@ export default function WhyChooseUs({
   const t = useTranslations("JoinUs");
   const locale = useLocale();
 
-  // Use the original arrays directly - they already have the correct structure
-  // The Select component should use the 'value' field for storage and 'name_ar/name_en' for display
+  // Add translation for personal photo
+  const personalPhotoText = t("personalPhoto") || "Personal Photo";
 
   return (
     <div className="w-screen">
@@ -323,6 +324,7 @@ export default function WhyChooseUs({
             valueField="value" // Make sure Select uses 'value' field
             displayField={locale === "ar" ? "name_ar" : "name_en"} // Display based on locale
           />
+
           <Input
             register={register("email")}
             error={errors?.email}
@@ -332,6 +334,7 @@ export default function WhyChooseUs({
             label={""}
             place={t("email")}
           />
+
           <Input
             register={register("phone")}
             error={errors?.phone}
@@ -341,6 +344,7 @@ export default function WhyChooseUs({
             label={""}
             place={t("phoneNumber")}
           />
+
           <Input
             register={register("offers_price")}
             error={errors?.offers_price}
@@ -351,6 +355,22 @@ export default function WhyChooseUs({
             place={t("offers_price")}
           />
 
+          {/* Optional Personal Photo Upload */}
+          <UploadFileField
+            setValue={setValue}
+            watch={watch}
+            trigger={trigger}
+            error={errors?.personal_photo}
+            KEY={"personal_photo"}
+            cnInput={""}
+            label={""}
+            place={personalPhotoText}
+            optional={true} // Make it optional
+            accept="image/*" // Accept only image files
+            maxSize={5} // 5MB max size (adjust as needed)
+          />
+
+          {/* CV Upload (Required) */}
           <UploadFile
             setValue={setValue}
             watch={watch}
@@ -359,7 +379,9 @@ export default function WhyChooseUs({
             KEY={"CV"}
             cnInput={""}
             label={""}
+            accept="application/pdf"
             place={t("uploadCV")}
+            optional={false} // This remains required
           />
         </form>
       </div>

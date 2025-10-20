@@ -36,6 +36,7 @@ export const hookJoinUs = () => {
     formData.append("offers_price", data?.offers_price);
     formData.append("address", data?.city);
     formData.append("file", file);
+    formData.append("personal_photo", data.personal_photo);
 
     const toastId = toast.loading(t("submitting"));
     api

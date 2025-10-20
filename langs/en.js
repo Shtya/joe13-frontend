@@ -282,6 +282,8 @@ export default {
   },
   JoinUs: {
     joinUs: "Join Us",
+    personalPhoto: "Personal Photo",
+
     aboutJoe13th:
       "At Joe13th, we are dedicated to fostering a dynamic and inclusive work environment where innovation, collaboration, and personal growth are at the heart of everything we do. We're on the lookout for talented individuals who are passionate about making a difference and eager to contribute to a company that values their unique perspectives and skills.",
     viewMore: "View More",
