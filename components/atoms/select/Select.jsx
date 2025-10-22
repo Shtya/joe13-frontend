@@ -92,7 +92,7 @@ const Select = ({
     <div
       ref={selectRef}
       data-aos={dataAos}
-      className={`${classname} z-[100] relative select flex  flex-col gap-[5px]  w-full `}
+      className={`${classname} z-[100]  relative select flex  flex-col gap-[5px]  w-full `}
     >
       {label && (
         <label htmlFor={KEY} className={`text16`}>
@@ -125,7 +125,7 @@ const Select = ({
       <div
         className={`${
           show ? "opacity-100 pointer-events-auto" : ""
-        } z-[10000]  max-h-[180px] overflow-auto  duration-300 shadow-md opacity-0 pointer-events-none ease-in-out absolute top-[110%] w-full bg-[#9ca3af] shadow-box`}
+        } z-[10000]  max-h-[180px]  overflow-auto  duration-300 shadow-md opacity-0 pointer-events-none ease-in-out absolute top-[110%] w-full bg-[#9ca3af] shadow-box`}
       >
         {data.map((e, i) => (
           <div

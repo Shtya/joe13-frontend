@@ -218,7 +218,7 @@ const SelectValue = ({
           show
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
-        } z-[10000] max-h-[280px] overflow-auto duration-300 shadow-md ease-in-out absolute top-[110%] w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-box`}
+        } z-[10000] max-h-[280px] overflow-auto pb-10 duration-300 shadow-md ease-in-out absolute top-[110%] w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-box`}
       >
         {/* Search Input */}
         {searchable && (
