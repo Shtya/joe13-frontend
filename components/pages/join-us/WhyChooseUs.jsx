@@ -285,7 +285,6 @@ export default function WhyChooseUs({
             label={""}
             place={t("fullName")}
           />
-
           <InputNational
             register={register} // ✅ Pass the function itself
             error={errors?.national_id}
@@ -296,7 +295,6 @@ export default function WhyChooseUs({
             place={t("national_id") || "National ID"}
             maxLength={10}
           />
-
           {/* City Dropdown - will send "Riyadh", "Jeddah", etc. */}
           <SelectValue
             data={Cities}
@@ -310,7 +308,6 @@ export default function WhyChooseUs({
             valueField="value" // Make sure Select uses 'value' field
             displayField={locale === "ar" ? "name_ar" : "name_en"} // Display based on locale
           />
-
           {/* Position Dropdown - will send "general_manager", "software_engineer", etc. */}
           <SelectValue
             data={Positions}
@@ -324,7 +321,6 @@ export default function WhyChooseUs({
             valueField="value" // Make sure Select uses 'value' field
             displayField={locale === "ar" ? "name_ar" : "name_en"} // Display based on locale
           />
-
           <Input
             register={register("email")}
             error={errors?.email}
@@ -334,17 +330,22 @@ export default function WhyChooseUs({
             label={""}
             place={t("email")}
           />
-
           <Input
-            register={register("phone")}
+            register={register("phone", {
+              required: "phoneRequired",
+              pattern: {
+                value: /^05[0-9]{8}$/,
+                message: "phoneInvalid",
+              },
+            })}
             error={errors?.phone}
             type={"tel"}
             KEY={"phone"}
             cnInput={""}
             label={""}
             place={t("phoneNumber")}
+            onBlur={() => trigger("phone")} // Trigger validation when user leaves the field
           />
-
           <Input
             register={register("offers_price")}
             error={errors?.offers_price}
@@ -354,7 +355,6 @@ export default function WhyChooseUs({
             label={""}
             place={t("offers_price")}
           />
-
           {/* Optional Personal Photo Upload */}
           <UploadFileField
             setValue={setValue}
@@ -369,7 +369,6 @@ export default function WhyChooseUs({
             accept="image/*" // Accept only image files
             maxSize={5} // 5MB max size (adjust as needed)
           />
-
           {/* CV Upload (Required) */}
           <UploadFile
             setValue={setValue}

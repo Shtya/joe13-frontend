@@ -336,6 +336,9 @@ export default {
   errors: {
     fullName: "Full name is required.",
     phone: "Phone number is required.",
+    phoneInvalid: "Phone number is invalid.",
+    nationalIdRequired: "National ID is required",
+    nationalIdInvalid: "National ID must be 10 digits",
     invalidEmail: "Please enter a valid email address.",
     email: "Email is required.",
     city: "City is required.",

@@ -314,7 +314,10 @@ export default {
   },
   errors: {
     fullName: "الاسم الكامل مطلوب.",
+    phoneInvalid: "رقم الهاتف غير صالح.",
     phone: "رقم الهاتف مطلوب.",
+    nationalIdRequired: "الرقم القومي مطلوب.",
+    nationalIdInvalid: "الرقم القومي يجب أن يتكون من 10 أرقام.",
     invalidEmail: "يرجى إدخال عنوان بريد إلكتروني صالح.",
     email: "البريد الإلكتروني مطلوب.",
     city: "المدينة مطلوبة.",
