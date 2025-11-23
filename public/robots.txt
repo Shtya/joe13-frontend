@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.joe13th.com/en
+
+# Sitemaps
+Sitemap: https://www.joe13th.com/en/sitemap.xml
