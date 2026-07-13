@@ -108,15 +108,23 @@ export default function Navbar({ isclick, handleClick }) {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            if (window.scrollY > 50 && (pathname === '/join-us' || pathname?.startsWith('/services') || pathname?.startsWith('/projects') || pathname?.startsWith('/blogs'))) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
+            if (ticking) return;
+            ticking = true;
+
+            requestAnimationFrame(() => {
+                if (window.scrollY > 50 && (pathname === '/join-us' || pathname?.startsWith('/services') || pathname?.startsWith('/projects') || pathname?.startsWith('/blogs'))) {
+                    setScrolled(true);
+                } else {
+                    setScrolled(false);
+                }
+                ticking = false;
+            });
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         handleScroll(); // run once on load
 
         return () => window.removeEventListener('scroll', handleScroll);
@@ -127,22 +135,25 @@ export default function Navbar({ isclick, handleClick }) {
             <div className={`  second-nav ${scrolled ? '!bg-black/40 backdrop-blur-[2px] ' : ''}  ${addBg ? (isFooterInView ? 'bg-white' : 'bg-black bg-opacity-30 ') : null} ${isclick ? ' rtl:right-[251px] ltr:left-[251px] top-[0px]' : 'rtl:right-0 ltr:left-0 top-0 '}  py-[20px] fixed !duration-300 !transition-all w-full `}>
                 <div className={` ${isclick ? '' : 'container'}  flex items-center justify-between gap-[10px]`}>
                     <div className='flex items-center gap-[10px]  '>
-                        <div onClick={handleClick} className={`   cursor-pointer hover:bg-primary !duration-300 !transition-all flex items-center justify-center text-white w-[40px] h-[40px] `}>
+                        <button type='button' onClick={handleClick} aria-label={locale === 'ar' ? 'القائمة' : 'Menu'} className={`   cursor-pointer hover:bg-primary !duration-300 !transition-all flex items-center justify-center text-white w-[40px] h-[40px] `}>
                             <MenuIcon size={29} className={isFooterInView ? 'text-black' : 'text-white'} />
-                        </div>
+                        </button>
                         <SwitchLang cn={`${isFooterInView ? 'text-black' : 'text-white'}`} />
                     </div>
-                    <Link href='/?section=home' className='outline-none'>
-                        <Image className={` ${scrolled ? 'scale-[1.3] ltr:translate-x-[-20px] rtl:translate-x-[20px] ' : 'scale-[1]'} duration-500 w-[160px] max-md:w-[100px]`} src={`/assets/svg/${isFooterInView ? 'logo' : 'logo-white'}.svg`} width={160} height={60} alt='' />
+                    <Link href='/?section=home' className='outline-none' aria-label='Joe13'>
+                        <div className={`relative w-[160px] h-[60px] max-md:w-[100px] max-md:h-[38px] ${scrolled ? 'scale-[1.3] ltr:translate-x-[-20px] rtl:translate-x-[20px] ' : 'scale-[1]'} duration-500`}>
+                            <Image className='object-contain' src={`/assets/svg/${isFooterInView ? 'logo' : 'logo-white'}.svg`} alt='Joe13' fill sizes='(max-width: 768px) 100px, 160px' />
+                        </div>
                     </Link>
                 </div>
             </div>
 
-            <ul className={`  z-[1000] ${isclick ? 'ltr:left-0 rtl:right-0' : 'ltr:left-[-250px] rtl:right-[-250px]'} max-sm:overflow-y-auto !duration-300 !transition-all fixed top-0 w-[250px] h-screen bg-white text-black py-[50px] flex flex-col gap-[2px]`}>
-                <div className=' mb-[40px] mt-[-40px] '>
-                    <Image className='object-contain' src='/assets/svg/logo.svg' alt='' width={120} height={90} />
+            <div className={`  z-[1000] ${isclick ? 'ltr:left-0 rtl:right-0' : 'ltr:left-[-250px] rtl:right-[-250px]'} max-sm:overflow-y-auto !duration-300 !transition-all fixed top-0 w-[250px] h-screen bg-white text-black py-[50px] flex flex-col gap-[2px]`}>
+                <div className='mb-[40px] mt-[-40px] w-[120px] h-[90px]'>
+                    <Image className='object-contain w-[120px] h-[90px]' src='/assets/svg/logo.svg' alt='Joe13' width={120} height={90} />
                 </div>
 
+                <ul className='flex flex-col gap-[2px]'>
                 {links.map((link, index) => (
                     <li key={index} className=' group relative  ' onClick={() => handleDropDown(link?.list?.[0].name)}>
                         <Link onClick={() => handleClose(link)} href={link.value} className={` ${style.a} capitalize text18 flex justify-between items-center  `}>
@@ -162,7 +173,8 @@ export default function Navbar({ isclick, handleClick }) {
                         </ul>
                     </li>
                 ))}
-            </ul>
+                </ul>
+            </div>
         </nav>
     );
 }

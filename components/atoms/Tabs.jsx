@@ -75,7 +75,7 @@ export default function Tabs({ loading, projects }) {
             <div className=' container  px-4'>
                 {loading 
                   ?  <div className="pb-[50px] grid grid-cols-[repeat(auto-fill,_minmax(350px,_1fr))] max-md:grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] max-md:gap-3 gap-6">
-                      {Array.from({ length: 3 }).map((_, i) => ( <SkeletonCard />   ))}
+                      {Array.from({ length: 3 }).map((_, i) => ( <SkeletonCard key={i} />   ))}
                       </div>
                   : filteredProjects.length === 0 
                     ? <p className='text-center'>No projects found.</p>
@@ -121,12 +121,12 @@ function Project({ project, i }) {
         <div data-aos='fade-up' data-aos-delay={`${i}00`} className='bg-[#ceced0]/50 !rounded-[12px] p-[10px]  shadow-xl backdrop-blur'>
             <div className=' grid grid-cols-[1fr_90px]  max-md:grid-cols-1  items-start gap-[10px]'>
                 <div className='w-full max-md:h-[200px] !rounded-[12px] h-[300px] bg-[#cdcdcf]  p-[8px] '>
-                    <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} className=' overflow-hidden  w-full h-full object-contain  ' src={baseImage(mainImage?.url)} alt={mainImage?.alt} width={300} height={200} />
+                    <Image onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} className=' overflow-hidden  w-full h-full object-contain  ' src={baseImage(mainImage?.url)} alt={mainImage?.alt || ''} width={300} height={200} />
                 </div>
 
                 <div className='max-md:grid max-md:grid-cols-3 h-full  flex md:flex-col flex-none w-full  items-center gap-[10px]  '>
                     {project?.images?.slice(0, 3)?.map((e, i) => (
-                        <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} onClick={() => setMainImage(e)} className={`  ${mainImage?.url == e?.url ? '  scale-[.95]  btn-blue-3d  ' : ''}  !rounded-[12px] hover:scale-[.95] hover:border-primary border-2 border-transparent  duration-500 cursor-pointer w-full max-md:h-[60px] h-[93px]  p-[5px]   bg-[#cdcdcf] object-contain`} src={baseImage(e.url)} alt={e.alt} width={70} height={70} />
+                        <Image key={i} onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} onClick={() => setMainImage(e)} className={`  ${mainImage?.url == e?.url ? '  scale-[.95]  btn-blue-3d  ' : ''}  !rounded-[12px] hover:scale-[.95] hover:border-primary border-2 border-transparent  duration-500 cursor-pointer w-full max-md:h-[60px] h-[93px]  p-[5px]   bg-[#cdcdcf] object-contain`} src={baseImage(e.url)} alt={e.alt || ''} width={70} height={70} />
                     ))}
                 </div>
             </div>

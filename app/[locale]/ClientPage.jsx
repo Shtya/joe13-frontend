@@ -18,8 +18,8 @@ import { useSearchParams } from 'next/navigation';
 import Footer from '@/components/molecules/Footer';
 import { usePages } from '@/hooks/usePages';
 
-export default function ClientPage() {
-    const {loading , data} = usePages({page_name : "home-page"})
+export default function ClientPage({ initialData }) {
+    const {loading , data} = usePages({page_name : "home-page", initialData})
 
     const section1 = data?.sections?.find(e => e.id == "sec1")
     const section2 = data?.sections?.find(e => e.id == "sec2")

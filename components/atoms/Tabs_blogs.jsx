@@ -82,7 +82,7 @@ export default function Tabs_blogs({ loading, projects }) {
                 {loading ? (
                     <div className='pb-[50px] grid grid-cols-[repeat(auto-fill,_minmax(350px,_1fr))] max-md:grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))] max-md:gap-3 gap-6'>
                         {Array.from({ length: 3 }).map((_, i) => (
-                            <SkeletonCard />
+                            <SkeletonCard key={i} />
                         ))}
                     </div>
                 ) : filteredProjects.length === 0 ? (
@@ -127,7 +127,7 @@ function Project({ project, i }) {
     return (
         <div data-aos='fade-up' data-aos-delay={`${i}00`} className='bg-[#ceced0]/50 !rounded-[12px] p-[10px]  shadow-xl backdrop-blur'>
             <div className='w-full max-md:h-[230px]  h-[350px] max-sm:!h-auto  '>
-                <img onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} data-aos='zoom-in' className=' object-fill !rounded-[12px] overflow-hidden  w-full h-full -contain bg-white/30  object-center  ' src={baseImage(project?.image_url)} alt={project?.image_alt} width={300} height={200} />
+                <Image onError={(e) => { e.currentTarget.src = '/not-image.jpg' }} data-aos='zoom-in' className=' object-fill !rounded-[12px] overflow-hidden  w-full h-full -contain bg-white/30  object-center  ' src={baseImage(project?.image_url)} alt={project?.image_alt || ''} width={300} height={200} />
             </div>
 
             <h3 className=' mt-[15px]  mb-[8px] text-xl font-bold !truncate '>{project.title?.[locale]}</h3>
@@ -135,7 +135,7 @@ function Project({ project, i }) {
 
             <div className='flex  mt-[20px]  max-md:justify-center items-center gap-[10px] '>
                 <div className='w-[40px] h-[40px] btn-blue-3d  !rounded-full flex items-center justify-center  '>
-                    <img className=' w-[18px] h-[18px]  ' src='/user.png' />
+                    <Image className=' w-[18px] h-[18px]  ' src='/user.png' alt='' width={18} height={18} />
                 </div>
                 <div className="" >
                     <h4 className='text-sm font-semibold text-white/80 '>{project?.author}</h4>

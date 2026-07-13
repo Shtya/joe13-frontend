@@ -4,6 +4,10 @@ module.exports = {
 
     theme: {
         extend: {
+            fontFamily: {
+                montserrat: ['var(--font-montserrat)', 'system-ui', 'sans-serif'],
+                cairo: ['var(--font-cairo)', 'system-ui', 'sans-serif'],
+            },
             colors: {
                 primary: '#2B7BC2',
             },

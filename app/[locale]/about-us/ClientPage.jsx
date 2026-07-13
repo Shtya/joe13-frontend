@@ -16,8 +16,8 @@ import { usePages } from '@/hooks/usePages';
 import Board from '@/components/pages/aboutus/Board';
 
 
-export default function Page() {
-    const { loading , data } = usePages({ page_name: 'about-us' });
+export default function Page({ initialData }) {
+    const { loading , data } = usePages({ page_name: 'about-us', initialData });
     const section1 = data?.sections?.find(e => e.id == 'sec1');
     const section2 = data?.sections?.find(e => e.id == 'sec2');
     const section3 = data?.sections?.find(e => e.id == 'sec3');

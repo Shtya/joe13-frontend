@@ -1,12 +1,14 @@
 import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
 
-export function useBlog({slug_name}) {
-  const [blog, setblog] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function useBlog({slug_name, initialData}) {
+  const [blog, setblog] = useState(initialData ?? null);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (initialData) return;
+
     async function fetchblog() {
       try {
         const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug_name}`, {
@@ -27,7 +29,7 @@ export function useBlog({slug_name}) {
     }
 
     fetchblog();
-  }, []);
+  }, [slug_name, initialData]);
 
   return { blog, loading, error };
 }

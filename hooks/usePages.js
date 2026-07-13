@@ -1,24 +1,18 @@
-import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
+import { getPageData } from './getPageData';
 
-export function usePages({page_name}) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function usePages({ page_name, initialData }) {
+  const [data, setData] = useState(initialData ?? null);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    
+    if (initialData) return;
+
     async function fetchData() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/pages/${page_name}`, {
-          cache: 'no-store',
-        });
-
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
-        }
-
-        const json = await res.json();
+        const json = await getPageData(page_name);
+        if (!json) throw new Error('Error fetching page data');
         setData(json);
       } catch (err) {
         setError(err.message);
@@ -27,8 +21,8 @@ export function usePages({page_name}) {
       }
     }
 
-    if(page_name) fetchData();
-  }, [page_name]);
+    if (page_name) fetchData();
+  }, [page_name, initialData]);
 
   return { data, loading, error };
 }

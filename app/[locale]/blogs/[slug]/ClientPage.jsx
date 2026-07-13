@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { ArrowLeft, Hash, Expand, Pause, Play, Headset, X, ChevronRight, Eye } from 'lucide-react';
 import { useBlog } from '@/hooks/useBlog';
 
-export default function ProjectDetails() {
+export default function ProjectDetails({ initialData }) {
     const { slug } = useParams();
-    const { blog, loading } = useBlog({ slug_name: slug });
+    const { blog, loading } = useBlog({ slug_name: slug, initialData });
 
     const locale = useLocale();
     const t = useTranslations();
@@ -21,11 +21,9 @@ export default function ProjectDetails() {
     if (!blog)  notFound()
 
     function splitHtmlByWords(html, wordCount = 30) {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html;
-        const text = tmp.textContent || tmp.innerText || '';
+        const text = (html || '').replace(/<[^>]*>/g, ' ');
 
-        const words = text.split(/\s+/);
+        const words = text.split(/\s+/).filter(Boolean);
         const preview = words.slice(0, wordCount).join(' ');
         const remain = words.slice(wordCount).join(' ');
 
@@ -75,7 +73,7 @@ export default function ProjectDetails() {
 
                         <div className='flex  max-md:justify-center items-center gap-[10px] '>
                             <div className='w-[40px] h-[40px] btn-blue-3d !rounded-full flex items-center justify-center  '>
-                                <img className=' w-[18px] h-[18px]  ' src='/user.png' />
+                                <Image className=' w-[18px] h-[18px]  ' src='/user.png' alt='' width={18} height={18} />
                             </div>
                             <div>
                                 <h4 className='text-sm font-semibold text-white/80 '>{blog?.author}</h4>

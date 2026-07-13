@@ -2,14 +2,20 @@ import React from 'react'
 import { baseUrl } from '@/helpers/baseUrl';
 import ClientPage from './ClientPage';
 
-export async function generateMetadata({ params }) {
-  const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${params.slug}`, {
+export async function fetchBlogBySlug(slug) {
+  const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug}`, {
     cache: 'no-store',
   });
 
-  if (!res.ok) return {};
+  if (!res.ok) return null;
 
-  const project = await res.json();
+  return res.json();
+}
+
+export async function generateMetadata({ params }) {
+  const project = await fetchBlogBySlug(params.slug);
+
+  if (!project) return {};
 
   return {
     title: project.meta_title,
@@ -30,9 +36,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function page() {
+export default async function page({ params }) {
+  const initialData = await fetchBlogBySlug(params.slug);
 
   return (
-    <ClientPage />
+    <ClientPage initialData={initialData} />
   )
 }

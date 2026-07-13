@@ -9,8 +9,8 @@ import { hookJoinUs } from "@/hooks/hookJoinUs";
 import { usePages } from "@/hooks/usePages";
 import { baseImage } from "@/helpers/baseUrl";
 
-export default function page() {
-  const { loading: loadingPage, data } = usePages({ page_name: "join-us" });
+export default function page({ initialData }) {
+  const { loading: loadingPage, data } = usePages({ page_name: "join-us", initialData });
   const section1 = data?.sections?.find((e) => e.id == "sec1");
   const locale = useLocale();
 

@@ -18,8 +18,8 @@ export default function TextCopy({ loading, data, more, btn = true, overlay = tr
     return (
         <EffectFixed loading={loading} overlay={overlay} image={baseImage(data?.image?.url)} alt={data?.image?.alt}>
             {icon && (
-                <div className={` transition-all duration-300 `}>
-                    <Image className=' object-contain ' src='/assets/imgs/logo2.png' alt='' width={200} height={80} />
+                <div className={`relative w-[200px] h-[80px] transition-all duration-300 `}>
+                    <Image className='object-contain' src='/assets/imgs/logo2.png' alt='' fill sizes='200px' />
                 </div>
             )}
 

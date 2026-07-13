@@ -1,9 +1,23 @@
-// Importing fonts from Google Fonts
 import { useMessages } from 'next-intl';
 import { NextIntlClientProvider } from 'next-intl';
+import { Montserrat, Cairo } from 'next/font/google';
 import '@/style/tailwind.css';
 import Layout from '@/components/template/Layout';
 import { baseUrl } from '@/helpers/baseUrl';
+
+const montserrat = Montserrat({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700', '800'],
+    display: 'swap',
+    variable: '--font-montserrat',
+});
+
+const cairo = Cairo({
+    subsets: ['latin', 'arabic'],
+    weight: ['400', '500', '600', '700', '800'],
+    display: 'swap',
+    variable: '--font-cairo',
+});
 
 export async function getSettings() {
     const res = await fetch(`${baseUrl}/api/v1/settings`);
@@ -14,8 +28,8 @@ export async function getSettings() {
 
 export const metadata = {
   icons: {
-    icon: "/favicon.ico",          
-    shortcut: "/favicon.ico",      
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
    },
 };
 
@@ -23,12 +37,11 @@ export default function RootLayout({ children, params: { locale } }) {
     const messages = useMessages();
 
     return (
-        <html lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'}>
+        <html lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'} className={`${montserrat.variable} ${cairo.variable}`}>
             <head>
                 <meta name='google-site-verification' content='zJyIE3QZ-5AyKid90sn0qSevc_ChsFUc0aG_8hbOYj4' />
-                <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Cairo:wght@900&display=swap' rel='stylesheet' />
-                
-  
+                <link rel='preconnect' href='https://back.joe13th.com' crossOrigin='anonymous' />
+                <link rel='dns-prefetch' href='https://back.joe13th.com' />
             </head>
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <body className={locale === 'en' ? 'font-montserrat' : 'font-cairo'}>

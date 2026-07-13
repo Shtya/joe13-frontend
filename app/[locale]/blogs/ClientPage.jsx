@@ -4,9 +4,9 @@ import Tabs_blogs from '@/components/atoms/Tabs_blogs';
 import { useBlogs } from '@/hooks/useblogs';
 import { usePages } from '@/hooks/usePages';
 
-export default function ClientPage() {
+export default function ClientPage({ initialData }) {
     const { loading:loadingBlogs, blogs } = useBlogs();
-    const { loading, data } = usePages({ page_name: 'blogs' });
+    const { loading, data } = usePages({ page_name: 'blogs', initialData });
 
     const section1 = data?.sections?.find(e => e.id == 'sec1');
     const latestBlogs = blogs?.data?.slice(0,4)

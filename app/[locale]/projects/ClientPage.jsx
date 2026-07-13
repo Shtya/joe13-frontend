@@ -4,9 +4,9 @@ import Tabs from '@/components/atoms/Tabs';
 import { usePages } from '@/hooks/usePages';
 import { useProjects } from '@/hooks/useProjects';
 
-export default function ClientPage() {
+export default function ClientPage({ initialData }) {
     const { loading:loadingProjects, projects } = useProjects();
-    const { loading, data } = usePages({ page_name: 'projects' });
+    const { loading, data } = usePages({ page_name: 'projects', initialData });
     const section1 = data?.sections?.find(e => e.id == 'sec1');
 
     const projectsHeroSection = projects?.data?.filter((e)=> e.department.id == 1 )

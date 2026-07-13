@@ -11,7 +11,7 @@ export default function Hero({ type , data, projects, loading, loadingProjects }
 
     return (
         <div className='relative flex items-center min-h-screen  max-md:!py-[80px]  max-md:min-h-fit  bg-gradient  text-white '>
-            <img className=' fixed top-0 object-top  w-full h-full inset-0 object-cover   ' src={baseImage(data?.image?.url)}  />
+            <Image className=' fixed top-0 object-top object-cover ' src={baseImage(data?.image?.url)} alt='' fill priority sizes='100vw' />
             <div className=' fixed top-0  bg-gradient-to-br from-gray-900 to-gray-800 opacity-70  w-full h-full inset-0 object-cover   ' />
             <div className='container relative '>
                 <div className='grid  grid-cols-[1fr_400px] max-lg:grid-cols-[1fr_300px] max-md:grid-cols-1  gap-8 mt-8 items-center'>

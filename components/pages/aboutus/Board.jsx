@@ -2,6 +2,7 @@
 import { baseImage } from '@/helpers/baseUrl';
 import { useTeamMemeberData } from '@/hooks/useTeamMemeber';
 import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 import Slider from 'react-slick';
 import { useState, useEffect, useRef } from 'react';
@@ -85,7 +86,7 @@ export default function Board() {
 						?.map((member, idx) => (
 							<div key={idx} className={` !to-white/5 btn-blue-3d bg-white/20 rounded-[10px] shadow-md p-[10px] flex flex-col items-center `}>
 								<div className=' aspect-square w-full shadow-lg bg-white   rounded-[10px] overflow-hidden mb-4'>
-									<img src={baseImage(member.image_url)} alt={member.image_alt} width={128} height={128} className=' p-[2px] rounded-[10px] object-contain  w-full h-full' />
+									<Image src={baseImage(member.image_url)} alt={member.image_alt || ''} width={128} height={128} className=' p-[2px] rounded-[10px] object-contain  w-full h-full' />
 								</div>
 								<h3 className='text-lg font-semibold text-white '>{member.name?.[locale]}</h3>
 								<p className='text-sm text-white/70 mb-4'>{member.position?.[locale]}</p>

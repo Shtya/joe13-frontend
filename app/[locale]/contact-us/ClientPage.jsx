@@ -11,11 +11,11 @@ import React from 'react';
 
 
 
-export default function page() {
+export default function page({ initialData }) {
     const t = useTranslations('ContactUs');
-    const { register, errors , loading , trigger , clearErrors, setError, getValues, setValue, submit , watch, reset } = hookContactUs() 
-    
-    const { loading: loading_section, data } = usePages({ page_name: 'contact-us' });
+    const { register, errors , loading , trigger , clearErrors, setError, getValues, setValue, submit , watch, reset } = hookContactUs()
+
+    const { loading: loading_section, data } = usePages({ page_name: 'contact-us', initialData });
     const section1 = data?.sections?.find(e => e.id == 'sec1');
     
     const locale = useLocale()
