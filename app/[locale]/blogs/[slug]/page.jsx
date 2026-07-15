@@ -4,7 +4,7 @@ import ClientPage from './ClientPage';
 
 export async function fetchBlogBySlug(slug) {
   const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug}`, {
-    cache: 'no-store',
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) return null;

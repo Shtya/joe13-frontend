@@ -3,14 +3,20 @@ import { baseUrl } from "@/helpers/baseUrl";
 import ClientPage from "./ClientPage";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({ params }) {
-  const res = await fetch(`${baseUrl}/api/v1/projects/slug/${params.slug}`, {
-    cache: "no-store",
+async function fetchProjectBySlug(slug) {
+  const res = await fetch(`${baseUrl}/api/v1/projects/slug/${slug}`, {
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) return null;
 
-  const project = await res.json();
+  return res.json();
+}
+
+export async function generateMetadata({ params }) {
+  const project = await fetchProjectBySlug(params.slug);
+
+  if (!project) return null;
 
   return {
     title: project.meta_title,
@@ -32,13 +38,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const res = await fetch(`${baseUrl}/api/v1/projects/slug/${params.slug}`, {
-    cache: "no-store",
-  });
+  const project = await fetchProjectBySlug(params.slug);
 
-  if (!res.ok) notFound();
-
-  const project = await res.json();
+  if (!project) notFound();
 
   return <ClientPage project={project} />;
 }

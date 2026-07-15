@@ -9,9 +9,7 @@ export function useServices() {
   useEffect(() => {
     async function fetchservices() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/services?limit=10000`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/services?limit=10000`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);

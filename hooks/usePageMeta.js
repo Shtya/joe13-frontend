@@ -3,10 +3,7 @@ import { baseImage, baseUrl } from '@/helpers/baseUrl';
 export async function getPageMetadata(slug) {
     try {
         const res = await fetch(`${baseUrl}/api/v1/pages/${slug}`, {
-            cache: 'no-store',
-            headers: {
-                Accept: 'application/json',
-            },
+            next: { revalidate: 60 },
         });
 
         if (!res.ok) throw new Error('Failed to fetch');

@@ -20,10 +20,11 @@ const cairo = Cairo({
 });
 
 export async function getSettings() {
-    const res = await fetch(`${baseUrl}/api/v1/settings`);
+    const res = await fetch(`${baseUrl}/api/v1/settings`, {
+        next: { revalidate: 60 },
+    });
     if (!res.ok) return null;
-    const setting = await res.json()
-    return setting?.custom_scripts;
+    return res.json();
 }
 
 export const metadata = {
@@ -32,6 +33,11 @@ export const metadata = {
     shortcut: "/favicon.ico",
    },
 };
+
+async function SettingsLayout({ children }) {
+    const initialSettings = await getSettings();
+    return <Layout initialSettings={initialSettings}>{children}</Layout>;
+}
 
 export default function RootLayout({ children, params: { locale } }) {
     const messages = useMessages();
@@ -45,7 +51,7 @@ export default function RootLayout({ children, params: { locale } }) {
             </head>
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <body className={locale === 'en' ? 'font-montserrat' : 'font-cairo'}>
-                    <Layout> {children} </Layout>
+                    <SettingsLayout> {children} </SettingsLayout>
                 </body>
             </NextIntlClientProvider>
         </html>

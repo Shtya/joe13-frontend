@@ -9,9 +9,7 @@ export function useProjects() {
   useEffect(() => {
     async function fetchprojects() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/projects?limit=10000`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/projects?limit=10000`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);

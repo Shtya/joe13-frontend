@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 export async function fetchServiceMeta(slug) {
     const res = await fetch(`${baseUrl}/api/v1/services/slug/${slug}`, {
-        cache: 'no-store',
+        next: { revalidate: 60 },
     });
 
     if (!res.ok) return null;

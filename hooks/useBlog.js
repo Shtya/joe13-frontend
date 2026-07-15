@@ -11,9 +11,7 @@ export function useBlog({slug_name, initialData}) {
 
     async function fetchblog() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug_name}`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug_name}`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);

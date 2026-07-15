@@ -7,10 +7,10 @@ import React, { createContext, useContext, useState } from "react";
 
 const ModalContext = createContext(undefined);
 
-export const Context = ({ children }) => {
+export const Context = ({ children, initialSettings }) => {
   const {projects , loading} = useProjects()
   const {services } = useServices()
-  const {settings} = useSetting()
+  const {settings} = useSetting(initialSettings)
 
   const [isModalOpen, setModalOpen] = useState(true);
   const [file, setFile] = useState(null);

@@ -9,7 +9,7 @@ import WhatsApp from "../WhatsApp";
 import { usePathname } from "@/navigation";
 import { Context } from "@/app/context";
 
-export default function Layout({ children }) {
+export default function Layout({ children, initialSettings }) {
   const [isclick, setisclick] = useState(false);
   const handleClick = () => {
     setisclick(!isclick);
@@ -33,7 +33,7 @@ export default function Layout({ children }) {
     pathname === "/test" || pathname === "/about-us" || pathname === "/";
 
   return (
-    <Context>
+    <Context initialSettings={initialSettings}>
       <main className="overflow-x-hidden">
         <Navbar isclick={isclick} handleClick={handleClick} />
         <WhatsApp />

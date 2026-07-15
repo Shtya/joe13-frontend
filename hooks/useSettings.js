@@ -1,17 +1,17 @@
 import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
 
-export function useSetting() {
-  const [settings, setsettings] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function useSetting(initialSettings) {
+  const [settings, setsettings] = useState(initialSettings ?? null);
+  const [loading, setLoading] = useState(!initialSettings);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (initialSettings) return;
+
     async function fetchsettings() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/settings`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/settings`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
@@ -27,7 +27,7 @@ export function useSetting() {
     }
 
     fetchsettings();
-  }, []);
+  }, [initialSettings]);
 
   return { settings, loading, error };
 }

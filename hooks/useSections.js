@@ -9,9 +9,7 @@ export function useSectionsData({section_name}) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/sections/by-slug/${section_name}`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/sections/by-slug/${section_name}`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);

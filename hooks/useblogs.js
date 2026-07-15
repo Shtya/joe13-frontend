@@ -9,9 +9,7 @@ export function useBlogs() {
   useEffect(() => {
     async function fetchblogs() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/blogs?blogs?sortBy=created_at&sortOrder=DESC&limit=10000`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/blogs?blogs?sortBy=created_at&sortOrder=DESC&limit=10000`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);

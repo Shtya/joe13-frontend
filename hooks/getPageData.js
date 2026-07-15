@@ -3,7 +3,7 @@ import { baseUrl } from '@/helpers/baseUrl';
 export async function getPageData(page_name) {
   try {
     const res = await fetch(`${baseUrl}/api/v1/pages/${page_name}`, {
-      cache: 'no-store',
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) return null;

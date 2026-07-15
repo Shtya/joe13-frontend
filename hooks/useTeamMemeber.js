@@ -9,9 +9,7 @@ export function useTeamMemeberData() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/team-members?limit=30&sortBy=order&sortOrder=ASC`, {
-          cache: 'no-store',
-        });
+        const res = await fetch(`${baseUrl}/api/v1/team-members?limit=30&sortBy=order&sortOrder=ASC`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
