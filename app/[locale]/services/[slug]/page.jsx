@@ -1,5 +1,6 @@
 import React from 'react';
 import { baseUrl } from '@/helpers/baseUrl';
+import { getAlternates } from '@/helpers/seo';
 import ClientPage from './ClientPage';
 import { notFound } from 'next/navigation';
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }) {
         keywords: meta.keywords.join(', '),
         twitter: { card: 'summary_large_image' },
         scripts: { head: meta.headScript, body: meta.bodyScript },
-        canonicalUrl: meta.canonicalUrl,
+        alternates: getAlternates(params.locale, `services/${params.slug}`),
         structuredData: meta.structuredData,
     };
 }

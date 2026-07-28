@@ -1,5 +1,6 @@
 import React from 'react'
 import { baseUrl } from '@/helpers/baseUrl';
+import { getAlternates } from '@/helpers/seo';
 import ClientPage from './ClientPage';
 
 export async function fetchBlogBySlug(slug) {
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: 'summary_large_image',
     },
+    alternates: getAlternates(params.locale, `blogs/${params.slug}`),
   };
 }
 

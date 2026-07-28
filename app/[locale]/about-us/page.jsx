@@ -2,8 +2,8 @@ import ClientPage from './ClientPage';
 import { getPageMetadata } from '@/hooks/usePageMeta';
 import { getPageData } from '@/hooks/getPageData';
 
-export async function generateMetadata(){
-  return getPageMetadata('about-us');
+export async function generateMetadata({ params }){
+  return getPageMetadata('about-us', { locale: params.locale, path: 'about-us' });
 }
 
 export default async function Page() {

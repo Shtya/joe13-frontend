@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.joe13th.com/en
+Host: https://www.joe13th.com
 
 # Sitemaps
-Sitemap: https://www.joe13th.com/en/sitemap.xml
+Sitemap: https://www.joe13th.com/sitemap.xml

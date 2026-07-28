@@ -1,5 +1,6 @@
 import React from "react";
 import { baseUrl } from "@/helpers/baseUrl";
+import { getAlternates } from "@/helpers/seo";
 import ClientPage from "./ClientPage";
 import { notFound } from "next/navigation";
 
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
     },
+    alternates: getAlternates(params.locale, `projects/${params.slug}`),
   };
 }
 

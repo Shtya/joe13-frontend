@@ -28,6 +28,7 @@ export async function getSettings() {
 }
 
 export const metadata = {
+  metadataBase: new URL('https://www.joe13th.com'),
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

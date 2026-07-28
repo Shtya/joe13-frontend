@@ -1,6 +1,7 @@
 import { baseImage, baseUrl } from '@/helpers/baseUrl';
+import { getAlternates } from '@/helpers/seo';
 
-export async function getPageMetadata(slug) {
+export async function getPageMetadata(slug, { locale, path = '' } = {}) {
     try {
         const res = await fetch(`${baseUrl}/api/v1/pages/${slug}`, {
             next: { revalidate: 60 },
@@ -22,7 +23,7 @@ export async function getPageMetadata(slug) {
                 type: data?.meta.ogType,
                 images: baseImage(data?.meta.ogImage.url),
             },
-            alternates: { canonical: data?.meta.canonicalUrl },
+            alternates: getAlternates(locale, path),
 
             other: {
                 headScript: data?.meta.headScript || '',
