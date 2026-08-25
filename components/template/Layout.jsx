@@ -29,6 +29,13 @@ export default function Layout({ children, initialSettings }) {
     : "ltr:left-0 rtl:right-0";
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Client-side route changes mount new [data-aos] elements that AOS's
+    // initial scan (above) never saw, leaving them stuck at opacity:0 until
+    // a full page reload re-runs AOS.init(). refreshHard() re-scans the DOM.
+    AOS.refreshHard();
+  }, [pathname]);
   const hideFooter =
     pathname === "/test" || pathname === "/about-us" || pathname === "/";
 
