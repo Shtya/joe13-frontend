@@ -1,4 +1,5 @@
-import { baseImage, baseUrl } from '@/helpers/baseUrl';
+import { baseUrl } from '@/helpers/baseUrl';
+import { cmsImage, resolveMeta } from '@/helpers/cms';
 import { getAlternates } from '@/helpers/seo';
 
 export async function getPageMetadata(slug, { locale, path = '' } = {}) {
@@ -10,25 +11,27 @@ export async function getPageMetadata(slug, { locale, path = '' } = {}) {
         if (!res.ok) throw new Error('Failed to fetch');
 
         const data = await res.json();
-        const keywords = Array.isArray(data?.meta.keywords) ? data?.meta.keywords.join(', ') : '';
+        const meta = resolveMeta(data?.meta, locale);
+        const keywords = Array.isArray(meta.keywords) ? meta.keywords.join(', ') : '';
+        const ogImageUrl = meta?.ogImage?.url || (typeof meta?.ogImage === 'string' ? meta.ogImage : '');
 
         return {
-            title: data?.meta?.title,
-            description: data?.meta?.description,
+            title: meta?.title,
+            description: meta?.description,
             keywords: keywords,
             openGraph: {
-                title: data?.meta.ogTitle,
-                description: data?.meta.ogDescription,
-                url: data?.meta.ogUrl,
-                type: data?.meta.ogType,
-                images: baseImage(data?.meta.ogImage.url),
+                title: meta.ogTitle || meta.title,
+                description: meta.ogDescription || meta.description,
+                url: meta.ogUrl,
+                type: meta.ogType,
+                images: ogImageUrl ? cmsImage(ogImageUrl, ogImageUrl) : undefined,
             },
             alternates: getAlternates(locale, path),
 
             other: {
-                headScript: data?.meta.headScript || '',
-                structuredData: data?.meta.structuredData || '',
-                bodyScript: data?.meta.bodyScript || '',
+                headScript: meta.headScript || '',
+                structuredData: meta.structuredData || '',
+                bodyScript: meta.bodyScript || '',
             },
         };
     } catch (error) {

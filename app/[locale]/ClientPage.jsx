@@ -4,7 +4,12 @@ import Section1 from '@/components/pages/home/Section1';
 import Section2 from '@/components/pages/home/Section2';
 import Section3 from '@/components/pages/home/Section3';
 import Section4 from '@/components/pages/home/Section4';
-import TextCopy from '@/components/pages/home/TextCopy';
+import Section5 from '@/components/pages/home/Section5';
+import Section6 from '@/components/pages/home/Section6';
+import Section8 from '@/components/pages/home/Section8';
+import Section9 from '@/components/pages/home/Section9';
+import Section10 from '@/components/pages/home/Section10';
+import Section11 from '@/components/pages/home/Section11';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -27,7 +32,6 @@ export default function ClientPage({ initialData }) {
     const section4 = data?.sections?.find(e => e.id == "sec4")
     const section5 = data?.sections?.find(e => e.id == "sec5")
     const section6 = data?.sections?.find(e => e.id == "sec6")
-    const section7 = data?.sections?.find(e => e.id == "sec7")
     const section8 = data?.sections?.find(e => e.id == "sec8")
     const section9 = data?.sections?.find(e => e.id == "sec9")
     const section10 = data?.sections?.find(e => e.id == "sec10")
@@ -60,50 +64,49 @@ export default function ClientPage({ initialData }) {
         if (name === 'home')  goToSlide(0);
     }, [name]);
 
-    useEffect(() => {
-        const ele = document.querySelectorAll('.swiper-pagination-bullet');
-        if (isLastSlide)
-            if (ele)
-                ele.forEach(element => {
-                    element.classList.add('black');
-                });
-            else if (ele)
-                ele.forEach(element => {
-                    element.classList?.remove('black');
-                });
-    }, [isLastSlide]);
-
 
     return (
         <div className='bg-black'>
             <Swiper {...config} ref={swiperRef} className='mySwiper h-screen'>
                 <SwiperSlide> <Section1 data={section1} loading={loading} /> </SwiperSlide>
 
-                <SwiperSlide className='  flex justify-center items-start '>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='bg-white/0 z-[100] max-h-screen overflow-auto  rounded shadow w-full'>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='z-[100] max-h-screen w-full overflow-x-hidden overflow-y-auto [scrollbar-gutter:stable_both-edges]'>
                         <Section2  data={section2} loading={loading} />
                     </div> 
                 </SwiperSlide>
 
 
                 <SwiperSlide> <Section3 data={section3} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section4 data={section4} loading={loading} /> </SwiperSlide>
+                <SwiperSlide>
+                    <Section4
+                        data={section4}
+                        loading={loading}
+                        units={[
+                            { data: section5, slideIndex: 4 },
+                            { data: section6, slideIndex: 5 },
+                            { data: section8, slideIndex: 6 },
+                            { data: section9, slideIndex: 7 },
+                            { data: section10, slideIndex: 8 },
+                            { data: section11, slideIndex: 9 },
+                        ]}
+                    />
+                </SwiperSlide>
 
-                <SwiperSlide> <TextCopy data={section5} loading={loading} grid={2}  /> </SwiperSlide>
-                <SwiperSlide> <TextCopy data={section6} loading={loading}  /> </SwiperSlide>
-                <SwiperSlide> <TextCopy icon={'/assets/imgs/logo2.png'} data={section7} loading={loading}  /> </SwiperSlide>
-                <SwiperSlide> <TextCopy data={section8} loading={loading}  /> </SwiperSlide>
-                <SwiperSlide> <TextCopy data={section9} loading={loading}  /> </SwiperSlide>
-                <SwiperSlide> <TextCopy data={section10} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <TextCopy data={section11} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section5 data={section5} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section6 data={section6} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section8 data={section8} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section9 data={section9} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section10 data={section10} loading={loading} /> </SwiperSlide>
+                <SwiperSlide> <Section11 data={section11} loading={loading} /> </SwiperSlide>
                 
-                <SwiperSlide className='footer-slide overflow-auto py-[80px] bg-white !flex flex-col justify-center items-center '>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='bg-white/0 z-[100] bg-white max-h-screen overflow-auto  rounded  w-full'>
-                         <Footer cn={"px-[50px]"} id={'footer2'} /> 
+                <SwiperSlide className='footer-slide overflow-auto !flex flex-col'>
+                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position' }} className='z-[100] max-h-screen w-full overflow-auto'>
+                         <Footer id={'footer2'} /> 
                     </div> 
                 </SwiperSlide>
             </Swiper>
-            <div className='swiper-pagination'></div>
+            <div className='swiper-pagination hero-pagination'></div>
         </div>
     );
 }

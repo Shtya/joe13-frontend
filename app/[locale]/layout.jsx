@@ -1,6 +1,6 @@
 import { useMessages } from 'next-intl';
 import { NextIntlClientProvider } from 'next-intl';
-import { Montserrat, Cairo } from 'next/font/google';
+import { Montserrat, Cairo, Orbitron, Inter } from 'next/font/google';
 import '@/style/tailwind.css';
 import Layout from '@/components/template/Layout';
 import { baseUrl } from '@/helpers/baseUrl';
@@ -17,6 +17,20 @@ const cairo = Cairo({
     weight: ['400', '500', '600', '700', '800'],
     display: 'swap',
     variable: '--font-cairo',
+});
+
+const orbitron = Orbitron({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700', '800'],
+    display: 'swap',
+    variable: '--font-orbitron',
+});
+
+const inter = Inter({
+    subsets: ['latin'],
+    weight: ['300', '400', '500', '600', '700', '800'],
+    display: 'swap',
+    variable: '--font-inter',
 });
 
 export async function getSettings() {
@@ -44,7 +58,7 @@ export default function RootLayout({ children, params: { locale } }) {
     const messages = useMessages();
 
     return (
-        <html lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'} className={`${montserrat.variable} ${cairo.variable}`}>
+        <html lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'} className={`${montserrat.variable} ${cairo.variable} ${orbitron.variable} ${inter.variable}`}>
             <head>
                 <meta name='google-site-verification' content='zJyIE3QZ-5AyKid90sn0qSevc_ChsFUc0aG_8hbOYj4' />
                 <link rel='preconnect' href='https://back.joe13th.com' crossOrigin='anonymous' />

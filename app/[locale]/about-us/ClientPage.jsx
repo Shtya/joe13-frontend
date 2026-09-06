@@ -54,15 +54,15 @@ export default function Page({ initialData }) {
                 <SwiperSlide> <Section bg_cover={true} loading={loading} data={section2} /> </SwiperSlide>
                 <SwiperSlide> <Section bg_cover={true} loading={loading} data={section3} /> </SwiperSlide>
 
-                <SwiperSlide className="  flex justify-center items-start ">
-                    <div data-scrollable className=" grid items-center max-h-screen min-h-screen overflow-auto  bg-[#ffffff] p-6 rounded shadow w-full" >
-                        <Footer id={'footer2'} cn={"w-full"} /> 
+                <SwiperSlide className='footer-slide overflow-auto !flex flex-col'>
+                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position' }} className='z-[100] max-h-screen min-h-screen w-full overflow-auto'>
+                        <Footer id={'footer2'} />
                     </div>
                 </SwiperSlide>
 
             </Swiper>
 
-            <div className='swiper-pagination'></div>
+            <div className='swiper-pagination hero-pagination'></div>
         </div>
     );
 }

@@ -9,6 +9,9 @@ import WhatsApp from "../WhatsApp";
 import { usePathname } from "@/navigation";
 import { Context } from "@/app/context";
 
+const MENU_OFFSET =
+  "ltr:left-[320px] rtl:right-[320px] max-[360px]:ltr:left-[280px] max-[360px]:rtl:right-[280px]";
+
 export default function Layout({ children, initialSettings }) {
   const [isclick, setisclick] = useState(false);
   const handleClick = () => {
@@ -24,20 +27,20 @@ export default function Layout({ children, initialSettings }) {
     });
   }, []);
 
-  const direction = isclick
-    ? " ltr:left-[250px] rtl:right-[250px] "
-    : "ltr:left-0 rtl:right-0";
-
   const pathname = usePathname();
 
   useEffect(() => {
-    // Client-side route changes mount new [data-aos] elements that AOS's
-    // initial scan (above) never saw, leaving them stuck at opacity:0 until
-    // a full page reload re-runs AOS.init(). refreshHard() re-scans the DOM.
     AOS.refreshHard();
   }, [pathname]);
+
+  useEffect(() => {
+    setisclick(false);
+  }, [pathname]);
+
   const hideFooter =
     pathname === "/test" || pathname === "/about-us" || pathname === "/";
+
+  const shift = isclick ? MENU_OFFSET : "ltr:left-0 rtl:right-0";
 
   return (
     <Context initialSettings={initialSettings}>
@@ -45,23 +48,18 @@ export default function Layout({ children, initialSettings }) {
         <Navbar isclick={isclick} handleClick={handleClick} />
         <WhatsApp />
 
-        <div className={`relative ${direction}  duration-300 transition-all `}>
-          {" "}
-          {children}{" "}
-        </div>
+        <div className={`relative duration-300 ${shift}`}>{children}</div>
         {!hideFooter && (
-          <Footer
-            id="footer"
-            cn={`relative ${direction} duration-300 transition-all`}
-          />
+          <Footer id="footer" cn={`relative duration-300 ${shift}`} />
         )}
 
-        {isclick && (
+        {isclick ? (
           <div
             onClick={handleClick}
-            className="bg-black z-[1000] fixed bg-opacity-70 w-screen h-screen fixed top-0  "
-          ></div>
-        )}
+            className="fixed inset-0 z-[99980] bg-black/70"
+          />
+        ) : null}
+
         <Toaster position="bottom-center" duration={9000} />
       </main>
     </Context>

@@ -9,7 +9,7 @@ export default function Section({ opacity_overly = 1 , bg_cover , image_alt ,dat
     return (
         <div className='py-[50px] section overflow-x-hidden relative min-h-screen w-full flex flex-col gap-[30px] justify-center items-center'>
             
-            <div className={`fixed w-full h-full top-0 left-0 opacity-100 transition-opacity duration-300 ease-in-out`}>
+            <div className={`hero-slide-bg fixed w-full h-full top-0 left-0 overflow-hidden opacity-100 transition-opacity duration-300 ease-in-out`}>
                 {loading ? (
                     <div className="w-full h-full bg-gray-900 animate-pulse"></div>
                 ) : (
@@ -21,14 +21,14 @@ export default function Section({ opacity_overly = 1 , bg_cover , image_alt ,dat
                             layout='fill'
                             objectFit={bg_cover ? "cover" :'contain'}
                         />
-                        {overlay && <div className="bg-overlay" style={{opacity : opacity_overly}} ></div>}
+                        {overlay && <div className="bg-overlay hero-slide-veil" style={{opacity : opacity_overly}} ></div>}
                     </>
                 )}
             </div>
 
 
 
-            <div className={`container  z-10 !py-[40px] !px-[60px] flex flex-col gap-[15px] justify-center items-center ${cnParent}`}>
+            <div className={`container hero-stage  z-10 !py-[40px] !px-[60px] flex flex-col gap-[15px] justify-center items-center ${cnParent}`}>
                 {loading ? (
                     <>
                         <div className="w-[200px] h-[30px] bg-gray-300  skeleton-box rounded"></div>

@@ -10,7 +10,8 @@ export default function Button({ btnStyle ="btn-blue btn-blue-3d " , cn, loading
     return (
         <button
 		disabled={disabled}
-		className={`${btnStyle}  max-md:!h-[40px] max-md:!text-base max-md:!min-w-[150px] ${cn} ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+		type='button'
+		className={`${btnStyle}  max-md:!h-[40px] max-md:!text-base max-md:!min-w-[150px] ${cn} ${loading ? 'opacity-50 cursor-not-allowed' : ''} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
 		onClick={() => onClick?.() || (href && router.push(href))}
 
 		>
