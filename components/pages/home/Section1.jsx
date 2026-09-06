@@ -34,7 +34,7 @@ export default function Section1({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center px-[23px] pb-28 pt-[76px] pointer-events-auto max-[390px]:px-[19px] max-md:pb-24 md:px-[5vw] md:pt-[100px] [@media(min-width:768px)_and_(max-height:800px)]:pb-20 [@media(min-width:768px)_and_(max-height:800px)]:pt-20'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center px-[23px] pb-28 pt-[76px] pointer-events-auto max-md:py-[88px] max-[390px]:px-[19px] md:px-[5vw] md:pt-[100px] [@media(min-width:768px)_and_(max-height:800px)]:pb-20 [@media(min-width:768px)_and_(max-height:800px)]:pt-20'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>

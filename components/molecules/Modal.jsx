@@ -4,7 +4,8 @@ import { useValues } from '@/app/context';
 import { TITLE_ACCENT } from '@/components/atoms/titleAccent';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useId } from 'react';
+import { useEffect, useId, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export function getModalItems(data, locale) {
   if (!data) return [];
@@ -44,6 +45,11 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
   const isAr = locale === 'ar';
   const bodyFont = isAr ? 'font-cairo' : 'font-inter';
   const titleId = useId();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const body = document.body;
@@ -66,6 +72,31 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
   }, [isModalOpen]);
 
   useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const swiper = document.querySelector('.mySwiper')?.swiper;
+    if (!swiper) return undefined;
+
+    swiper.allowTouchMove = false;
+    swiper.allowSlideNext = false;
+    swiper.allowSlidePrev = false;
+    swiper.autoplay?.stop();
+    swiper.mousewheel?.disable();
+
+    const closeOnSlide = () => onClose();
+    swiper.on('slideChange', closeOnSlide);
+
+    return () => {
+      swiper.off('slideChange', closeOnSlide);
+      swiper.allowTouchMove = true;
+      swiper.allowSlideNext = true;
+      swiper.allowSlidePrev = true;
+      const paused = swiper.el?.classList.contains('is-user-paused');
+      if (!paused && !swiper.isEnd) swiper.autoplay?.start();
+    };
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
     if (!isOpen) return;
 
     const onKeyDown = event => {
@@ -76,7 +107,9 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isOpen, onClose]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className={`fixed inset-0 z-[1000000000000] flex items-center justify-center p-3 max-[900px]:p-5 max-[700px]:p-3 ${
         isOpen ? 'pointer-events-auto visible opacity-100' : 'pointer-events-none invisible opacity-0'
@@ -84,6 +117,7 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
       role='dialog'
       aria-modal='true'
       aria-hidden={!isOpen}
+      aria-label={title || t('Hero.ourServices')}
       aria-labelledby={title ? titleId : undefined}
     >
       <div
@@ -110,7 +144,7 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
         </button>
 
         <div className='flex h-full w-full flex-col overflow-hidden rounded-[20px] border border-[rgba(39,128,195,0.75)] bg-[linear-gradient(118deg,rgba(5,25,42,0.97)_0%,rgba(7,24,39,0.965)_43%,rgba(16,27,35,0.96)_100%)] shadow-[0_25px_70px_rgba(0,0,0,0.58),0_0_35px_rgba(0,90,170,0.13),inset_0_1px_1px_rgba(130,201,246,0.13)] min-[701px]:grid min-[701px]:grid-cols-[300px_1fr] min-[701px]:rounded-[22px] min-[901px]:grid-cols-[360px_1fr] min-[901px]:rounded-[27px] min-[1201px]:grid-cols-[440px_1fr]'>
-          <aside className='relative isolate h-full overflow-hidden border-e border-[rgba(51,115,161,0.18)] bg-[linear-gradient(145deg,rgba(9,39,65,0.54),rgba(5,23,39,0.27)_50%,rgba(3,17,29,0.14))] px-[42px] pb-9 ps-[57px] pt-[73px] before:pointer-events-none before:absolute before:start-[-210px] before:top-[-130px] before:size-[470px] before:rotate-[22deg] before:rounded-full before:border before:border-[rgba(21,128,218,0.25)] after:pointer-events-none after:absolute after:bottom-[-300px] after:start-[-225px] after:size-[500px] after:-rotate-[20deg] after:rounded-full after:border after:border-[rgba(20,123,214,0.23)] after:shadow-[0_0_30px_rgba(0,111,215,0.05)] max-[1200px]:px-6 max-[1200px]:ps-[38px] max-[900px]:px-[22px] max-[900px]:pb-5 max-[900px]:ps-[30px] max-[900px]:pt-[45px] max-[700px]:h-[290px] max-[700px]:flex-none max-[700px]:border-e-0 max-[700px]:border-b max-[700px]:border-[rgba(51,115,161,0.2)] max-[700px]:px-6 max-[700px]:pb-0 max-[700px]:pt-[31px] max-[390px]:h-[265px] max-[390px]:px-[21px] max-[390px]:pt-[27px]'>
+          <aside className='relative isolate h-full overflow-hidden border-e border-[rgba(51,115,161,0.18)] bg-[linear-gradient(145deg,rgba(9,39,65,0.54),rgba(5,23,39,0.27)_50%,rgba(3,17,29,0.14))] px-[42px] pb-9 ps-[57px] pt-[73px] before:pointer-events-none before:absolute before:start-[-210px] before:top-[-130px] before:size-[470px] before:rotate-[22deg] before:rounded-full before:border before:border-[rgba(21,128,218,0.25)] after:pointer-events-none after:absolute after:bottom-[-300px] after:start-[-225px] after:size-[500px] after:-rotate-[20deg] after:rounded-full after:border after:border-[rgba(20,123,214,0.23)] after:shadow-[0_0_30px_rgba(0,111,215,0.05)] max-[1200px]:px-6 max-[1200px]:ps-[38px] max-[900px]:px-[22px] max-[900px]:pb-5 max-[900px]:ps-[30px] max-[900px]:pt-[45px] max-[700px]:hidden'>
           <div className='relative z-10 mb-6 flex items-center gap-6 max-[900px]:mb-[13px] max-[900px]:gap-3.5'>
             <span
               className={`whitespace-nowrap text-[#12a8ef] ${
@@ -126,7 +160,7 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
 
           <h2
             id={titleId}
-            className={`${bodyFont} relative z-10 m-0 text-[58px] font-bold leading-[1.02] tracking-[-2.9px] text-[#f7f9fc] max-[1200px]:text-[47px] max-[900px]:text-[38px] max-[700px]:text-[32px] max-[700px]:tracking-[-1.5px] max-[390px]:text-[29px]`}
+            className={`${bodyFont} relative z-10 m-0 text-[58px] font-bold leading-[1.02] tracking-[-2.9px] text-[#f7f9fc] max-[1200px]:text-[47px] max-[900px]:text-[38px]`}
           >
             {t('Hero.fullService')}
             <br />
@@ -156,7 +190,7 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
 
           <div
           role='list'
-          className='grid h-full grid-cols-2 content-center gap-x-[27px] gap-y-2 overflow-y-auto overflow-x-hidden px-[39px] py-[58px] pe-[39px] ps-[35px] max-[1200px]:px-7 max-[1200px]:ps-[25px] max-[900px]:gap-x-3 max-[900px]:gap-y-1.5 max-[900px]:px-5 max-[900px]:py-10 max-[700px]:h-auto max-[700px]:flex-1 max-[700px]:grid-cols-1 max-[700px]:gap-2 max-[700px]:px-[15px] max-[700px]:py-[15px] max-[700px]:pb-5 max-[390px]:gap-[7px] [scrollbar-color:rgba(21,139,219,0.5)_transparent] [scrollbar-width:thin]'
+          className='grid h-full grid-cols-2 content-center gap-x-[27px] gap-y-2 overflow-y-auto overflow-x-hidden px-[39px] py-[58px] pe-[39px] ps-[35px] max-[1200px]:px-7 max-[1200px]:ps-[25px] max-[900px]:gap-x-3 max-[900px]:gap-y-1.5 max-[900px]:px-5 max-[900px]:py-10 max-[700px]:h-full max-[700px]:flex-1 max-[700px]:content-start max-[700px]:gap-2 max-[700px]:px-3 max-[700px]:py-12 max-[700px]:pb-5 max-[390px]:gap-1.5 [scrollbar-color:rgba(21,139,219,0.5)_transparent] [scrollbar-width:thin]'
         >
           {items.length > 0
             ? items.map((item, index) => {
@@ -165,16 +199,16 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
                   <div
                     key={`${item.label}-${index}`}
                     role='listitem'
-                    className={`${bodyFont} group relative flex min-h-[82px] min-w-0 items-center overflow-hidden rounded-2xl border border-[rgba(78,110,137,0.34)] bg-[linear-gradient(105deg,rgba(26,39,51,0.82),rgba(17,30,42,0.76))] px-[15px] py-[9px] ps-[13px] text-[#f3f7fb] shadow-[inset_0_1px_1px_rgba(255,255,255,0.045),0_5px_13px_rgba(0,0,0,0.12)] transition duration-[250ms] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(110deg,rgba(24,151,232,0.07),transparent_38%)] hover:translate-x-[3px] hover:border-[rgba(26,158,235,0.68)] hover:bg-[linear-gradient(105deg,rgba(23,49,70,0.9),rgba(15,33,48,0.84))] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.07),0_0_17px_rgba(0,125,220,0.11)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-[3px] max-[1200px]:min-h-[74px] max-[900px]:min-h-[67px] max-[900px]:rounded-xl max-[700px]:min-h-[65px] max-[390px]:min-h-[60px] max-[390px]:ps-2.5`}
+                    className={`${bodyFont} group relative flex min-h-[82px] min-w-0 items-center overflow-hidden rounded-2xl border border-[rgba(78,110,137,0.34)] bg-[linear-gradient(105deg,rgba(26,39,51,0.82),rgba(17,30,42,0.76))] px-[15px] py-[9px] ps-[13px] text-[#f3f7fb] shadow-[inset_0_1px_1px_rgba(255,255,255,0.045),0_5px_13px_rgba(0,0,0,0.12)] transition duration-[250ms] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(110deg,rgba(24,151,232,0.07),transparent_38%)] hover:translate-x-[3px] hover:border-[rgba(26,158,235,0.68)] hover:bg-[linear-gradient(105deg,rgba(23,49,70,0.9),rgba(15,33,48,0.84))] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.07),0_0_17px_rgba(0,125,220,0.11)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-[3px] max-[1200px]:min-h-[74px] max-[900px]:min-h-[67px] max-[900px]:rounded-xl max-[700px]:min-h-[92px] max-[700px]:flex-col max-[700px]:items-center max-[700px]:justify-center max-[700px]:gap-1.5 max-[700px]:px-2 max-[700px]:py-2.5 max-[700px]:text-center max-[390px]:min-h-[84px] max-[390px]:ps-2`}
                   >
-                    <span className='relative z-[2] flex size-[61px] shrink-0 items-center justify-center rounded-[13px] border border-[rgba(11,166,246,0.76)] bg-[linear-gradient(145deg,rgba(10,89,151,0.88),rgba(3,45,81,0.9))] shadow-[inset_0_1px_2px_rgba(255,255,255,0.16),0_0_11px_rgba(0,137,226,0.14)] max-[1200px]:size-[54px] max-[900px]:size-[46px] max-[900px]:rounded-[10px] max-[390px]:size-[42px]'>
+                    <span className='relative z-[2] flex size-[61px] shrink-0 items-center justify-center rounded-[13px] border border-[rgba(11,166,246,0.76)] bg-[linear-gradient(145deg,rgba(10,89,151,0.88),rgba(3,45,81,0.9))] shadow-[inset_0_1px_2px_rgba(255,255,255,0.16),0_0_11px_rgba(0,137,226,0.14)] max-[1200px]:size-[54px] max-[900px]:size-[46px] max-[900px]:rounded-[10px] max-[700px]:size-10 max-[390px]:size-9'>
                       <Icon />
                     </span>
-                    <span className='relative z-[2] min-w-0 ms-[25px] pe-[30px] text-[17px] font-normal leading-[1.25] tracking-[-0.25px] text-[#edf2f8] max-[1200px]:ms-[17px] max-[1200px]:text-[15px] max-[900px]:ms-3 max-[900px]:text-xs max-[700px]:text-[13px] max-[390px]:ms-[11px] max-[390px]:text-xs'>
+                    <span className='relative z-[2] min-w-0 ms-[25px] pe-[30px] text-[17px] font-normal leading-[1.25] tracking-[-0.25px] text-[#edf2f8] max-[1200px]:ms-[17px] max-[1200px]:text-[15px] max-[900px]:ms-3 max-[900px]:text-xs max-[700px]:ms-0 max-[700px]:pe-0 max-[700px]:text-[11px] max-[390px]:text-[10px]'>
                       <span className='block'>{item.label}</span>
                       {item.desc ? <span className='mt-0.5 block text-[13px] leading-snug text-[rgba(215,228,241,0.65)] max-[900px]:text-[11px]'>{item.desc}</span> : null}
                     </span>
-                    <span className='absolute end-[18px] top-1/2 z-[2] -translate-y-1/2 font-sans text-[26px] font-light leading-none text-[#a9d2f4] transition duration-[250ms] group-hover:translate-x-1 group-hover:text-[#2ab7f6] motion-reduce:transition-none rtl:rotate-180 rtl:group-hover:-translate-x-1 max-[900px]:end-3 max-[900px]:text-[21px] max-[390px]:end-[9px] max-[390px]:text-[19px]'>
+                    <span className='absolute end-[18px] top-1/2 z-[2] -translate-y-1/2 font-sans text-[26px] font-light leading-none text-[#a9d2f4] transition duration-[250ms] group-hover:translate-x-1 group-hover:text-[#2ab7f6] motion-reduce:transition-none rtl:rotate-180 rtl:group-hover:-translate-x-1 max-[900px]:end-3 max-[900px]:text-[21px] max-[700px]:hidden'>
                       →
                     </span>
                   </div>
@@ -184,7 +218,8 @@ const Modal = ({ isOpen, onClose, children, title, description, items = [] }) =>
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 

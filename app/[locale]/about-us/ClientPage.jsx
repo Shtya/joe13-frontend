@@ -8,7 +8,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/mousewheel';
 import Footer from '@/components/molecules/Footer';
-import Section from '@/components/molecules/Section';
+import AboutHero from '@/components/pages/aboutus/AboutHero';
+import AboutVision from '@/components/pages/aboutus/AboutVision';
+import AboutMission from '@/components/pages/aboutus/AboutMission';
 
 import VerticalSlider from '@/hooks/useAboutUsSwiperConfig';
 import { useAboutUsSwiperConfig } from '@/hooks/useAboutUsSwiperConfig';
@@ -40,19 +42,18 @@ export default function Page({ initialData }) {
     return (
         <div>
             <Swiper {...config} ref={swiperRef} className='mySwiper h-screen'>
-                <SwiperSlide>  <Section opacity_overly={.1} data={section1} loading={loading} /> </SwiperSlide>
+                <SwiperSlide>  <AboutHero data={section1} loading={loading} /> </SwiperSlide>
                 
 
-                <SwiperSlide className='  flex justify-center items-start '>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='bg-white/0 z-[100] max-h-screen overflow-auto  rounded shadow w-full'>
-                        {/* <BoardMembers  />  */}
+                <SwiperSlide className='!flex h-full items-stretch overflow-hidden'>
+                    <div className='z-[100] h-full max-h-screen w-full overflow-hidden'>
                         <Board />
                     </div>
                 </SwiperSlide>
 
 
-                <SwiperSlide> <Section bg_cover={true} loading={loading} data={section2} /> </SwiperSlide>
-                <SwiperSlide> <Section bg_cover={true} loading={loading} data={section3} /> </SwiperSlide>
+                <SwiperSlide> <AboutVision loading={loading} data={section2} /> </SwiperSlide>
+                <SwiperSlide> <AboutMission loading={loading} data={section3} /> </SwiperSlide>
 
                 <SwiperSlide className='footer-slide overflow-auto !flex flex-col'>
                     <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position' }} className='z-[100] max-h-screen min-h-screen w-full overflow-auto'>

@@ -26,7 +26,7 @@ export default function Section3({ data, loading }) {
       id='ourPartners'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-partners-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -40,7 +40,7 @@ export default function Section3({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center gap-8 py-[85px] pointer-events-auto max-md:py-[70px]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center gap-8 py-[85px] pointer-events-auto max-md:gap-5 max-md:px-2 max-md:py-[88px]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -98,7 +98,7 @@ export default function Section3({ data, loading }) {
 
 function PartnersTitle({ id, title, locale, className }) {
   const accent = locale === 'ar' ? 'شركاؤنا' : 'Partners';
-  const titleClass = `${className} m-0 text-[clamp(47px,15vw,68px)] font-bold leading-[0.95] tracking-[-3px] text-[#f8f9fc] [text-shadow:0_3px_18px_rgba(0,0,0,0.22)] md:text-[clamp(70px,6.15vw,96px)] md:tracking-[-4px]`;
+  const titleClass = `${className} m-0 text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.05] tracking-[-1.2px] text-[#f8f9fc] [text-shadow:0_3px_18px_rgba(0,0,0,0.22)] md:text-[clamp(70px,6.15vw,96px)] md:leading-[0.95] md:tracking-[-4px]`;
   const accentClass = `${TITLE_ACCENT} font-bold`;
 
   const start = title.indexOf(accent);
@@ -123,12 +123,12 @@ function LogoSet({ logos, hidden }) {
   return (
     <div
       aria-hidden={hidden || undefined}
-      className='grid shrink-0 grid-flow-col auto-cols-[125px] gap-2 pe-2 [grid-template-rows:repeat(2,79px)] md:auto-cols-[185px] md:gap-[11px] md:pe-[11px] md:[grid-template-rows:repeat(2,108px)] xl:auto-cols-[224px] xl:gap-3.5 xl:pe-3.5 xl:[grid-template-rows:repeat(2,126px)]'
+      className='grid shrink-0 grid-flow-col auto-cols-[108px] gap-2 pe-2 [grid-template-rows:repeat(2,68px)] md:auto-cols-[185px] md:gap-[11px] md:pe-[11px] md:[grid-template-rows:repeat(2,108px)] xl:auto-cols-[224px] xl:gap-3.5 xl:pe-3.5 xl:[grid-template-rows:repeat(2,126px)]'
     >
       {logos.map((logo, i) => (
         <article
           key={`${logo.url}-${i}`}
-          className={`relative flex h-[79px] w-[125px] items-center justify-center overflow-x-clip rounded-[11px] border border-[rgba(94,154,202,0.52)] bg-[linear-gradient(145deg,rgba(27,63,96,0.7)_0%,rgba(11,32,54,0.78)_48%,rgba(8,24,42,0.72)_100%)] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(125deg,rgba(91,188,249,0.11),transparent_31%,transparent_70%,rgba(42,137,212,0.05))] after:pointer-events-none after:absolute after:-start-[45px] after:-top-[45px] after:h-[100px] after:w-[130px] after:rounded-full after:bg-[rgba(0,130,230,0.08)] after:blur-[25px] transition-[border-color,box-shadow,transform] duration-[350ms] hover:-translate-y-[3px] hover:border-[rgba(46,173,247,0.82)] motion-reduce:transition-none md:h-[108px] md:w-[185px] md:rounded-[14px] xl:h-[126px] xl:w-[224px] ${cardShadow} ${cardShadowHover}`}
+          className={`relative flex h-[68px] w-[108px] items-center justify-center overflow-x-clip rounded-[10px] border border-[rgba(94,154,202,0.52)] bg-[linear-gradient(145deg,rgba(27,63,96,0.7)_0%,rgba(11,32,54,0.78)_48%,rgba(8,24,42,0.72)_100%)] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(125deg,rgba(91,188,249,0.11),transparent_31%,transparent_70%,rgba(42,137,212,0.05))] after:pointer-events-none after:absolute after:-start-[45px] after:-top-[45px] after:h-[100px] after:w-[130px] after:rounded-full after:bg-[rgba(0,130,230,0.08)] after:blur-[25px] transition-[border-color,box-shadow,transform] duration-[350ms] hover:-translate-y-[3px] hover:border-[rgba(46,173,247,0.82)] motion-reduce:transition-none md:h-[108px] md:w-[185px] md:rounded-[14px] xl:h-[126px] xl:w-[224px] ${cardShadow} ${cardShadowHover}`}
         >
           <Image
             src={cmsImage(logo.url, logo.url)}

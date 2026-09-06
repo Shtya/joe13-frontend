@@ -85,7 +85,7 @@ const Footer = ({ cn, id }) => {
   return (
     <footer
       id={id}
-      className={`relative isolate z-[1000] min-h-[930px] overflow-hidden text-white max-[1200px]:min-h-0 max-[1450px]:min-h-[900px] max-[640px]:min-h-0 ${bodyFont} ${cn || ''}`}
+      className={`relative isolate z-[1000] min-h-screen overflow-hidden text-white max-[1200px]:min-h-screen max-[1450px]:min-h-screen max-[640px]:min-h-screen max-[640px]:pe-2 ${bodyFont} ${cn || ''}`}
     >
       <div className='pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -102,8 +102,8 @@ const Footer = ({ cn, id }) => {
         className='pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_82%_10%,rgba(0,104,211,0.16),transparent_33%),radial-gradient(ellipse_at_16%_58%,rgba(0,117,213,0.08),transparent_29%)]'
       />
 
-      <div className='relative z-10 mx-auto grid min-h-[805px] w-[min(1370px,calc(100%-120px))] grid-cols-[1.22fr_.95fr_1.22fr_1.12fr_.92fr] max-[1450px]:w-[calc(100%-110px)] max-[1200px]:w-[calc(100%-60px)] max-[1200px]:grid-cols-[1.15fr_.9fr_1.25fr_1.1fr] max-[900px]:w-[calc(100%-42px)] max-[900px]:grid-cols-2 max-[900px]:pb-[35px] max-[640px]:block max-[640px]:w-[calc(100%-36px)] max-[640px]:pb-5 max-[390px]:w-[calc(100%-28px)]'>
-        <section className='pe-10 pt-24 max-[1450px]:pe-[27px] max-[900px]:col-span-2 max-[900px]:pe-0 max-[900px]:pt-[70px] max-[640px]:pt-[52px]'>
+      <div className='relative z-10 mx-auto grid min-h-[805px] w-[min(1370px,calc(100%-120px))] grid-cols-[1.22fr_.95fr_1.22fr_1.12fr_.92fr] pt-2 max-[1450px]:w-[calc(100%-110px)] max-[1200px]:w-[calc(100%-60px)] max-[1200px]:grid-cols-[1.15fr_.9fr_1.25fr_1.1fr] max-[900px]:w-[calc(100%-42px)] max-[900px]:grid-cols-2 max-[900px]:pb-[35px] max-[640px]:block max-[640px]:w-[calc(100%-36px)] max-[640px]:pb-5 max-[390px]:w-[calc(100%-28px)]'>
+        <section className='pe-10 pt-[120px] max-[1450px]:pe-[27px] max-[900px]:col-span-2 max-[900px]:pe-0 max-[900px]:pt-[88px] max-[640px]:pt-[68px]'>
           <div className='flex w-[198px] flex-col text-[#f8fbff] max-[640px]:w-40'>
             <span className='block origin-start scale-x-[1.04] text-[51px] font-bold leading-[0.77] tracking-[-5px] [text-shadow:0_0_7px_rgba(255,255,255,0.15)] max-[640px]:text-[42px] max-[390px]:text-[37px]'>
               JOE13
@@ -210,7 +210,7 @@ const Footer = ({ cn, id }) => {
 
         <FooterColumn className='max-[1200px]:px-5' heading={t('contact_us')}>
           {address ? (
-            <div className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] max-[640px]:min-h-[75px] max-[640px]:text-xs ${contactShadow}`}>
+            <div className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow}`}>
               <ContactIcon src='/landing/location.png' />
               <span>{address}</span>
             </div>
@@ -219,7 +219,7 @@ const Footer = ({ cn, id }) => {
           {email ? (
             <a
               href={`mailto:${email}`}
-              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-[3px] max-[640px]:min-h-[75px] max-[640px]:text-xs ${contactShadow} ${focusRing}`}
+              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-[3px] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow} ${focusRing}`}
             >
               <ContactIcon src='/landing/emails.png' />
               <span>{email}</span>
@@ -232,7 +232,7 @@ const Footer = ({ cn, id }) => {
               target='_blank'
               rel='noopener noreferrer'
               dir='ltr'
-              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:text-right rtl:hover:-translate-x-[3px] max-[640px]:min-h-[75px] max-[640px]:text-xs ${contactShadow} ${focusRing}`}
+              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:text-right rtl:hover:-translate-x-[3px] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow} ${focusRing}`}
             >
               <ContactIcon src='/landing/phone.png' />
               <span className='underline underline-offset-2'>{phone}</span>
@@ -241,9 +241,9 @@ const Footer = ({ cn, id }) => {
 
           <Link
             href='/contact-us'
-            className={`relative mt-[19px] flex min-h-[113px] w-full items-center rounded-2xl border border-[rgba(8,153,237,0.9)] bg-[linear-gradient(135deg,rgba(7,68,116,0.75),rgba(3,36,65,0.69))] p-[15px] text-white transition duration-[250ms] hover:-translate-y-[3px] hover:shadow-[0_0_28px_rgba(0,142,243,0.28),inset_0_1px_2px_rgba(180,232,255,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-[640px]:min-h-[103px] ${talkShadow} ${focusRing}`}
+            className={`relative mt-[19px] flex min-h-[113px] w-full items-center rounded-2xl border border-[rgba(8,153,237,0.9)] bg-[linear-gradient(135deg,rgba(7,68,116,0.75),rgba(3,36,65,0.69))] p-[15px] text-white transition duration-[250ms] hover:-translate-y-[3px] hover:shadow-[0_0_28px_rgba(0,142,243,0.28),inset_0_1px_2px_rgba(180,232,255,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-[640px]:min-h-[88px] max-[640px]:p-3 ${talkShadow} ${focusRing}`}
           >
-            <span className='relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-[46px]'>
+            <span className='relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-9'>
               <LandingIcon src='/landing/msg.png' />
             </span>
             <span className='ms-3 flex flex-col'>
@@ -258,7 +258,7 @@ const Footer = ({ cn, id }) => {
             {branches.map((branch, index) => (
               <li key={index} className='mb-[11px]'>
                 <div className='flex min-h-[57px] items-center gap-[17px] rounded-[15px] border border-[rgba(7,117,190,0.26)] bg-[linear-gradient(135deg,rgba(5,47,79,0.57),rgba(3,28,51,0.45))] px-[13px] py-1.5 text-[13px] text-[rgba(227,236,245,0.9)] max-[640px]:min-h-[55px]'>
-                  <ContactIcon className='size-[52px] shrink-0 basis-[52px]' src='/landing/location.png' />
+                  <ContactIcon src='/landing/location.png' />
                   <span>{branch}</span>
                 </div>
               </li>
@@ -281,7 +281,7 @@ const Footer = ({ cn, id }) => {
 function FooterColumn({ heading, children, className = '' }) {
   return (
     <section
-      className={`relative px-[34px] pb-[70px] pt-[95px] before:absolute before:bottom-12 before:start-0 before:top-[98px] before:w-px before:bg-[linear-gradient(to_bottom,rgba(30,107,163,0.16),rgba(30,107,163,0.4)_28%,rgba(30,107,163,0.13)_85%,transparent)] max-[1450px]:px-[27px] max-[640px]:px-0 max-[640px]:pb-[25px] max-[640px]:pt-[38px] max-[640px]:before:hidden max-[900px]:pb-[25px] max-[900px]:pt-[45px] ${className}`}
+      className={`relative px-[34px] pb-[70px] pt-[120px] before:absolute before:bottom-12 before:start-0 before:top-[123px] before:w-px before:bg-[linear-gradient(to_bottom,rgba(30,107,163,0.16),rgba(30,107,163,0.4)_28%,rgba(30,107,163,0.13)_85%,transparent)] max-[1450px]:px-[27px] max-[640px]:px-0 max-[640px]:pb-[25px] max-[640px]:pt-[52px] max-[640px]:before:hidden max-[900px]:pb-[25px] max-[900px]:pt-[60px] ${className}`}
     >
       {heading ? (
         <>
@@ -298,7 +298,7 @@ function FooterColumn({ heading, children, className = '' }) {
 
 function ContactIcon({ src, className = '' }) {
   return (
-    <span className={`relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-[46px] ${className}`}>
+    <span className={`relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-9 ${className}`}>
       <LandingIcon src={src} />
     </span>
   );

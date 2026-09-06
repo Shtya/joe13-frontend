@@ -40,7 +40,7 @@ export default function Section2({ data, loading }) {
       id='success'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-success-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white max-md:overflow-y-auto'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -54,7 +54,7 @@ export default function Section2({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-1 flex-col items-center justify-center px-6 py-[72px] pointer-events-auto max-[390px]:px-4 md:px-12 lg:px-[96px] lg:py-[80px]'>
+      <div className='relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-1 flex-col items-center justify-center px-6 py-[72px] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-12 lg:px-[96px] lg:py-[80px]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -90,7 +90,7 @@ export default function Section2({ data, loading }) {
 
             <div
               ref={ref}
-              className='mx-auto mt-[35px] grid w-full min-w-0 grid-cols-2 gap-2.5 max-[390px]:gap-2 md:gap-3 lg:mt-10 lg:grid-cols-5 lg:gap-3'
+              className='mx-auto mt-[35px] grid w-full min-w-0 grid-cols-2 gap-2 max-[390px]:gap-1.5 md:gap-3 lg:mt-10 lg:grid-cols-5 lg:gap-3'
             >
               {stats.map(([name, rawValue], i) => (
                 <StatCard
@@ -117,7 +117,7 @@ export default function Section2({ data, loading }) {
 
 function SuccessTitle({ id, title, locale, className }) {
   const accent = locale === 'ar' ? 'عبر مختلف الصناعات' : 'Across Industries';
-  const titleClass = `${className} m-0 mx-auto w-full min-w-0 max-w-[16.5em] whitespace-normal text-balance text-[clamp(27px,7.4vw,37px)] font-bold leading-[1.18] tracking-[-1px] text-[#f5f7fb] [text-shadow:0_2px_12px_rgba(0,0,0,0.2)] lg:text-[clamp(36px,3.45vw,54px)] lg:leading-[1.12] lg:tracking-[-1.8px]`;
+  const titleClass = `${className} m-0 mx-auto w-full min-w-0 max-w-[16.5em] whitespace-normal text-balance text-[clamp(22px,6.2vw,30px)] font-bold leading-[1.18] tracking-[-0.6px] text-[#f5f7fb] [text-shadow:0_2px_12px_rgba(0,0,0,0.2)] max-md:px-1 lg:text-[clamp(36px,3.45vw,54px)] lg:leading-[1.12] lg:tracking-[-1.8px]`;
   const accentClass = TITLE_ACCENT;
 
   const withAccent = text => {
@@ -155,19 +155,19 @@ function StatCard({ name, rawValue, inView, iconIndex, caption, bodyFont }) {
 
   return (
     <article
-      className={`relative min-w-0 overflow-hidden rounded-[16px] border border-[rgba(100,173,226,0.43)] bg-[linear-gradient(145deg,rgba(20,66,105,0.65)_0%,rgba(17,37,61,0.68)_48%,rgba(16,31,49,0.76)_100%)] p-3.5 text-start backdrop-blur-[4px] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(130deg,rgba(87,178,245,0.15),transparent_27%,transparent_73%,rgba(72,163,229,0.06))] after:pointer-events-none after:absolute after:-start-[50px] after:-top-[80px] after:h-[150px] after:w-[180px] after:rounded-full after:bg-[rgba(0,130,240,0.12)] after:blur-[35px] max-[390px]:p-3 md:p-4 lg:rounded-[18px] lg:p-4 ${cardShadow}`}
+      className={`relative min-w-0 overflow-hidden rounded-[14px] border border-[rgba(100,173,226,0.43)] bg-[linear-gradient(145deg,rgba(20,66,105,0.65)_0%,rgba(17,37,61,0.68)_48%,rgba(16,31,49,0.76)_100%)] p-2.5 text-start backdrop-blur-[4px] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(130deg,rgba(87,178,245,0.15),transparent_27%,transparent_73%,rgba(72,163,229,0.06))] after:pointer-events-none after:absolute after:-start-[50px] after:-top-[80px] after:h-[150px] after:w-[180px] after:rounded-full after:bg-[rgba(0,130,240,0.12)] after:blur-[35px] max-[390px]:p-2 md:rounded-[16px] md:p-4 lg:rounded-[18px] lg:p-4 ${cardShadow}`}
     >
       <div className='relative z-[2] flex min-w-0 items-center justify-between gap-1'>
         <StatIcon index={iconIndex} />
         <StatNumber number={number} suffix={suffix} inView={inView} />
       </div>
 
-      <h3 className={`${bodyFont} relative z-[2] mt-2 text-[13px] font-semibold leading-[1.15] tracking-[-0.4px] text-[#f2f5fa] max-[390px]:text-[12px] lg:mt-2.5 lg:text-[17px]`}>
+      <h3 className={`${bodyFont} relative z-[2] mt-1.5 text-[11px] font-semibold leading-[1.15] tracking-[-0.3px] text-[#f2f5fa] max-[390px]:text-[10px] md:mt-2 md:text-[13px] lg:mt-2.5 lg:text-[17px]`}>
         {name}
       </h3>
 
       {caption ? (
-        <p className={`${bodyFont} relative z-[2] mt-1.5 text-[10px] font-normal leading-[1.35] tracking-[-0.15px] text-[rgba(196,208,224,0.67)] max-[390px]:text-[9px] lg:mt-1.5 lg:text-[13px] lg:leading-[1.38]`}>
+        <p className={`${bodyFont} relative z-[2] mt-1 hidden text-[10px] font-normal leading-[1.35] tracking-[-0.15px] text-[rgba(196,208,224,0.67)] sm:block lg:mt-1.5 lg:text-[13px] lg:leading-[1.38]`}>
           {caption}
         </p>
       ) : null}
@@ -178,7 +178,7 @@ function StatCard({ name, rawValue, inView, iconIndex, caption, bodyFont }) {
 function StatNumber({ number, suffix, inView }) {
   return (
     <div
-      className={`${TITLE_ACCENT} min-w-0 flex-1 text-end text-[clamp(26px,2.1vw,38px)] font-bold leading-none tracking-[-0.06em] tabular-nums max-[390px]:text-[24px]`}
+      className={`${TITLE_ACCENT} min-w-0 flex-1 text-end text-[20px] font-bold leading-none tracking-[-0.05em] tabular-nums max-[390px]:text-[18px] md:text-[clamp(26px,2.1vw,38px)]`}
     >
       {inView ? (
         <span dir='ltr' className='inline-block max-w-full whitespace-nowrap'>
@@ -197,7 +197,7 @@ function StatNumber({ number, suffix, inView }) {
 
 function StatIcon({ index }) {
   return (
-    <div className='relative size-[64px] shrink-0 max-[390px]:size-[56px] lg:size-[72px]'>
+    <div className='relative size-[56px] shrink-0 max-[390px]:size-[52px] md:size-[64px] lg:size-[72px]'>
       <LandingIcon src={`/landing/icon-4-${(index % 5) + 1}.png`} />
     </div>
   );

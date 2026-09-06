@@ -43,7 +43,7 @@ export default function Section10({ data, loading }) {
       id='merchandising'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-merchandising-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -57,7 +57,7 @@ export default function Section10({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-[390px]:px-[19px] md:px-[5%] md:pt-[12%] xl:px-[6.65%] xl:pt-[14.1%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[5%] md:pt-[12%] xl:px-[6.65%] xl:pt-[14.1%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -115,7 +115,7 @@ export default function Section10({ data, loading }) {
 }
 
 function MerchTitle({ id, title, locale, className }) {
-  const titleClass = `${className} m-0 block w-full max-w-[620px] text-[clamp(38px,11.9vw,62px)] font-bold leading-[0.97] tracking-[-2.2px] text-[#f8fafc] [text-shadow:0_3px_14px_rgba(0,0,0,0.24)] max-[390px]:text-[37px] max-[390px]:tracking-[-1.9px] max-[1100px]:max-w-[530px] max-[1100px]:md:text-[57px] max-[1100px]:md:tracking-[-2.8px] max-[850px]:max-w-[470px] max-[850px]:md:text-[51px] md:text-[67px] md:tracking-[-3.4px] min-[1600px]:max-w-[650px] min-[1600px]:text-[70px]`;
+  const titleClass = `${className} m-0 block w-full max-w-[620px] text-[clamp(22px,7vw,32px)] font-bold leading-[1.1] tracking-[-1px] text-[#f8fafc] [text-shadow:0_3px_14px_rgba(0,0,0,0.24)] max-[1100px]:max-w-[530px] max-[1100px]:md:text-[57px] max-[1100px]:md:tracking-[-2.8px] max-[850px]:max-w-[470px] max-[850px]:md:text-[51px] md:text-[67px] md:tracking-[-3.4px] min-[1600px]:max-w-[650px] min-[1600px]:text-[70px]`;
   const accentClass = `${TITLE_ACCENT} font-bold not-italic`;
   const andClass = 'ms-2 font-bold not-italic text-[#f8fafc] max-md:ms-1';
 

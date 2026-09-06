@@ -48,11 +48,15 @@ function setProgress(swiper, elapsed01) {
     ring.style.strokeDashoffset = String(circ * (1 - Math.min(1, Math.max(0, elapsed01))));
 }
 
+function paginationInset() {
+    return window.matchMedia('(max-width: 768px)').matches ? '10px' : '28px';
+}
+
 function pinPagination(pag) {
     pag.classList.add('hero-pagination', 'swiper-pagination-vertical');
     pag.classList.remove('swiper-pagination-horizontal');
     pag.style.setProperty('position', 'fixed', 'important');
-    pag.style.setProperty('right', '28px', 'important');
+    pag.style.setProperty('right', paginationInset(), 'important');
     pag.style.setProperty('left', 'auto', 'important');
 }
 
@@ -198,13 +202,8 @@ export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide) {
         if (!swiper) return;
         const nav = document.querySelector('.second-nav');
         window.setTimeout(() => {
-            if (nav) {
-                if (swiper.activeIndex === 0) {
-                    nav.classList.add('bg-remove');
-                } else {
-                    nav.classList.remove('bg-remove');
-                }
-            }
+            // Keep About Us header transparent on every slide (no dark bar after hero).
+            if (nav) nav.classList.add('bg-remove');
         }, reduced ? 0 : SLIDE_SPEED);
     }
 
@@ -280,6 +279,7 @@ export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide) {
             });
             syncDirection(swiper);
             markLastSlidePagination(swiper);
+            bgNavbar(swiper);
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => layoutPagination(swiper));
             });

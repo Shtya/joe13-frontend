@@ -24,7 +24,7 @@ export default function Section5({ data, loading }) {
       id='marketing'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-marketing-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -38,7 +38,7 @@ export default function Section5({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center px-5 py-[12%] pointer-events-auto max-[390px]:px-5 md:px-[6%] xl:px-[7.25%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center px-5 py-[12%] pointer-events-auto max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[6%] xl:px-[7.25%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -63,7 +63,7 @@ export default function Section5({ data, loading }) {
             {title ? (
               <h2
                 id='home-marketing-heading'
-                className={`${bodyFont} ${TITLE_ACCENT} m-0 overflow-visible py-[0.12em] text-[clamp(52px,14vw,82px)] font-bold leading-[1.12] tracking-[-2.4px] max-[390px]:text-[48px] md:text-[clamp(72px,6.4vw,100px)] md:leading-[1.14] md:tracking-[-3.4px] min-[1600px]:text-[104px]`}
+                className={`${bodyFont} ${TITLE_ACCENT} m-0 overflow-visible py-[0.08em] text-[clamp(32px,9vw,42px)] font-bold leading-[1.12] tracking-[-1.4px] md:text-[clamp(72px,6.4vw,100px)] md:leading-[1.14] md:tracking-[-3.4px] min-[1600px]:text-[104px]`}
               >
                 {title}
               </h2>

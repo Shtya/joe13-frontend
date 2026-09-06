@@ -38,7 +38,7 @@ export default function Section8({ data, loading }) {
       id='telecoms'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-telecoms-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -52,7 +52,7 @@ export default function Section8({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-[390px]:px-[19px] md:px-[5%] md:pt-[12%] xl:px-[6.8%] xl:pt-[12.6%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[5%] md:pt-[12%] xl:px-[6.8%] xl:pt-[12.6%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -114,7 +114,7 @@ export default function Section8({ data, loading }) {
 }
 
 function TelecomsTitle({ id, title, locale, className }) {
-  const titleClass = `${className} m-0 text-[clamp(49px,14vw,72px)] font-bold leading-[0.91] tracking-[-3px] text-[#f8fafc] [text-shadow:0_3px_15px_rgba(0,0,0,0.25)] max-[390px]:text-[47px] max-[390px]:tracking-[-2.4px] max-[1100px]:md:text-[68px] max-[850px]:md:text-[62px] md:text-[clamp(70px,6.3vw,91px)] md:leading-[0.9] md:tracking-[-4.5px] min-[1600px]:text-[91px] ${
+  const titleClass = `${className} m-0 text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.02] tracking-[-1.4px] text-[#f8fafc] [text-shadow:0_3px_15px_rgba(0,0,0,0.25)] max-[1100px]:md:text-[68px] max-[850px]:md:text-[62px] md:text-[clamp(70px,6.3vw,91px)] md:leading-[0.9] md:tracking-[-4.5px] min-[1600px]:text-[91px] ${
     locale === 'ar' ? '' : 'md:whitespace-nowrap'
   }`;
   const accentClass = `${TITLE_ACCENT} font-bold`;

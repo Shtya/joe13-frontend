@@ -68,7 +68,11 @@ export default function Navbar({ isclick, handleClick }) {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   useEffect(() => {
-    setaddBg(pathname == '/about-us' || pathname == '/contact-us');
+    // Listing pages stay transparent at top; bg only after scroll (see scrolled).
+    setaddBg(
+      pathname?.startsWith('/blogs/') ||
+        (pathname?.startsWith('/projects/') && pathname !== '/projects')
+    );
   }, [pathname]);
 
   useEffect(() => {
@@ -81,8 +85,7 @@ export default function Navbar({ isclick, handleClick }) {
       requestAnimationFrame(() => {
         if (
           window.scrollY > 50 &&
-          (pathname === '/join-us' ||
-            pathname?.startsWith('/services') ||
+          (pathname?.startsWith('/services') ||
             pathname?.startsWith('/projects') ||
             pathname?.startsWith('/blogs'))
         ) {

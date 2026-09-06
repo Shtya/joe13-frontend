@@ -49,7 +49,7 @@ export default function Section4({ data, loading, units = [] }) {
       id='business-units'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-units-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -72,14 +72,14 @@ export default function Section4({ data, loading, units = [] }) {
         className='pointer-events-none absolute -bottom-[650px] -start-[345px] z-[3] size-[960px] -rotate-[25deg] rounded-full border border-[rgba(32,143,223,0.3)] border-b-transparent border-s-transparent opacity-30 max-md:-bottom-[390px] max-md:-start-[250px] max-md:size-[600px]'
       />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col justify-center px-5 py-[90px] pointer-events-auto max-[390px]:px-5 md:px-[7%] xl:px-[9.45%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col justify-center px-5 py-[90px] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[7%] xl:px-[9.45%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
             <UnitsSkeleton />
           </>
         ) : (
-          <div className='hero-stage flex w-full items-center justify-between gap-10 max-lg:flex-col max-lg:items-start max-lg:gap-8'>
+          <div className='hero-stage flex w-full items-center justify-between gap-10 max-lg:flex-col max-lg:items-start max-lg:gap-8 max-md:gap-5'>
             <div className='w-full max-w-[600px] text-start min-[1600px]:max-w-[650px]'>
               <div className='mb-[31px] flex items-center gap-[25px] max-md:mb-6 max-md:gap-[15px] max-[390px]:gap-3'>
                 <span
@@ -107,14 +107,14 @@ export default function Section4({ data, loading, units = [] }) {
               <GlowCtaButton
                 href='/projects'
                 onClick={goToUnits}
-                className={`${bodyFont} mt-9 !h-[67px] !w-[350px] !text-[17px] font-semibold max-md:mt-[27px] max-md:!h-14 max-md:!w-[285px] max-md:!text-sm max-[1100px]:!h-[62px] max-[1100px]:!w-[320px] max-[390px]:!h-[53px] max-[390px]:!w-[265px] max-[390px]:!text-[13px]`}
+                className={`${bodyFont} mt-9 max-md:mt-6`}
               >
                 {pickUi(data, locale, 'cta', t('Hero.exploreUnits'))}
               </GlowCtaButton>
             </div>
 
             {visibleUnits.length ? (
-              <ul className='m-0 flex w-full max-w-[360px] list-none flex-col gap-2.5 p-0 max-lg:max-w-full min-[1600px]:max-w-[400px]'>
+              <ul className='m-0 hidden w-full max-w-[360px] list-none flex-col gap-2.5 p-0 md:flex max-lg:max-w-full min-[1600px]:max-w-[400px]'>
                 {visibleUnits.map(unit => {
                   const unitTitle = unit.data.title?.[locale] || unit.data.title?.en;
                   return (
@@ -122,7 +122,7 @@ export default function Section4({ data, loading, units = [] }) {
                       <button
                         type='button'
                         onClick={() => goToSlide(unit.slideIndex)}
-                        className={`${bodyFont} ${unitCardShadow} ${unitCardShadowHover} ${focusRing} group relative flex w-full items-center justify-between gap-4 rounded-[14px] border border-[rgba(70,160,220,0.45)] bg-[linear-gradient(145deg,rgba(12,48,82,0.72),rgba(6,24,45,0.7))] px-4 py-3.5 text-start backdrop-blur-[4px] transition duration-300 hover:-translate-y-0.5 hover:border-[rgba(46,173,247,0.85)] motion-reduce:transition-none motion-reduce:hover:translate-y-0`}
+                        className={`${bodyFont} ${unitCardShadow} ${unitCardShadowHover} ${focusRing} group relative flex w-full items-center justify-between gap-3 rounded-[14px] border border-[rgba(70,160,220,0.45)] bg-[linear-gradient(145deg,rgba(12,48,82,0.72),rgba(6,24,45,0.7))] px-4 py-3.5 text-start backdrop-blur-[4px] transition duration-300 hover:-translate-y-0.5 hover:border-[rgba(46,173,247,0.85)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-md:gap-2.5 max-md:rounded-[12px] max-md:px-3 max-md:py-2.5`}
                       >
                         <span className='line-clamp-2 text-[15px] font-medium leading-[1.3] tracking-[-0.2px] text-[#f3f7fb] max-md:text-sm'>
                           {unitTitle}
@@ -150,7 +150,7 @@ export default function Section4({ data, loading, units = [] }) {
 
 function UnitsTitle({ id, title, locale, className }) {
   const accent = locale === 'ar' ? 'وحدات أعمالنا' : 'Business Units';
-  const titleClass = `${className} m-0 text-[clamp(35px,9.5vw,50px)] font-bold leading-[1.08] tracking-[-1.7px] text-[#f5f7fa] [text-shadow:0_3px_15px_rgba(0,0,0,0.24)] max-[390px]:text-[34px] max-[390px]:tracking-[-1.4px] max-[1100px]:text-[49px] md:text-[clamp(52px,4.15vw,67px)] md:leading-[1.04] md:tracking-[-2.7px] min-[1600px]:text-[67px]`;
+  const titleClass = `${className} m-0 text-[clamp(26px,8vw,36px)] font-bold leading-[1.12] tracking-[-1.2px] text-[#f5f7fa] [text-shadow:0_3px_15px_rgba(0,0,0,0.24)] md:text-[clamp(52px,4.15vw,67px)] md:leading-[1.04] md:tracking-[-2.7px] max-[1100px]:md:text-[49px] min-[1600px]:text-[67px]`;
   const accentClass = TITLE_ACCENT;
 
   const start = title.indexOf(accent);

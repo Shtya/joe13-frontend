@@ -37,7 +37,7 @@ export default function Section6({ data, loading }) {
       id='software-ai'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-software-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -51,7 +51,7 @@ export default function Section6({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col justify-center px-5 py-[12%] pointer-events-auto max-[390px]:px-5 md:px-[5%] xl:px-[6.72%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col justify-center px-5 py-[12%] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[5%] xl:px-[6.72%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -80,7 +80,7 @@ export default function Section6({ data, loading }) {
               </p>
             ) : null}
 
-            <GlowFeatureGrid className='mt-9 max-md:mt-[25px] min-[1600px]:max-w-[740px]'>
+            <GlowFeatureGrid className='mt-9 max-md:mt-4 min-[1600px]:max-w-[740px]'>
               {featureItems.map(({ key, src, label }) => (
                 <GlowFeatureCard key={key} src={src} className={bodyFont}>
                   {label || t(key)}
@@ -108,7 +108,7 @@ export default function Section6({ data, loading }) {
 
 function SoftwareTitle({ id, title, locale, className }) {
   const accent = locale === 'ar' ? 'الذكاء الاصطناعي' : 'AI';
-  const titleClass = `${className} m-0 overflow-visible py-[0.08em] text-[clamp(48px,14vw,72px)] font-bold leading-[1.08] tracking-[-2.6px] text-[#f7f9fc] [text-shadow:0_3px_14px_rgba(0,0,0,0.18)] max-[390px]:text-[47px] max-[390px]:tracking-[-2.4px] md:text-[clamp(64px,5.6vw,88px)] md:tracking-[-3.6px] min-[1600px]:text-[88px] ${
+  const titleClass = `${className} m-0 overflow-visible py-[0.08em] text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.1] tracking-[-1.2px] text-[#f7f9fc] [text-shadow:0_3px_14px_rgba(0,0,0,0.18)] md:text-[clamp(64px,5.6vw,88px)] md:tracking-[-3.6px] min-[1600px]:text-[88px] ${
     locale === 'ar' ? '' : 'md:whitespace-nowrap'
   }`;
   const accentClass = TITLE_ACCENT;

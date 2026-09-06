@@ -23,6 +23,10 @@ import { useSearchParams } from 'next/navigation';
 import Footer from '@/components/molecules/Footer';
 import { usePages } from '@/hooks/usePages';
 
+const SCROLLABLE_PANEL =
+    'relative z-[100] flex h-full min-h-[100svh] max-h-screen w-full flex-col overflow-x-hidden overflow-y-auto [scrollbar-gutter:stable_both-edges]';
+const SCROLLABLE_STYLE = { touchAction: 'pan-y', willChange: 'scroll-position' };
+
 export default function ClientPage({ initialData }) {
     const {loading , data} = usePages({page_name : "home-page", initialData})
 
@@ -71,37 +75,59 @@ export default function ClientPage({ initialData }) {
                 <SwiperSlide> <Section1 data={section1} loading={loading} /> </SwiperSlide>
 
                 <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position', }} className='z-[100] max-h-screen w-full overflow-x-hidden overflow-y-auto [scrollbar-gutter:stable_both-edges]'>
-                        <Section2  data={section2} loading={loading} />
-                    </div> 
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section2 data={section2} loading={loading} />
+                    </div>
                 </SwiperSlide>
 
 
                 <SwiperSlide> <Section3 data={section3} loading={loading} /> </SwiperSlide>
-                <SwiperSlide>
-                    <Section4
-                        data={section4}
-                        loading={loading}
-                        units={[
-                            { data: section5, slideIndex: 4 },
-                            { data: section6, slideIndex: 5 },
-                            { data: section8, slideIndex: 6 },
-                            { data: section9, slideIndex: 7 },
-                            { data: section10, slideIndex: 8 },
-                            { data: section11, slideIndex: 9 },
-                        ]}
-                    />
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section4
+                            data={section4}
+                            loading={loading}
+                            units={[
+                                { data: section5, slideIndex: 4 },
+                                { data: section6, slideIndex: 5 },
+                                { data: section8, slideIndex: 6 },
+                                { data: section9, slideIndex: 7 },
+                                { data: section10, slideIndex: 8 },
+                                { data: section11, slideIndex: 9 },
+                            ]}
+                        />
+                    </div>
                 </SwiperSlide>
 
                 <SwiperSlide> <Section5 data={section5} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section6 data={section6} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section8 data={section8} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section9 data={section9} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section10 data={section10} loading={loading} /> </SwiperSlide>
-                <SwiperSlide> <Section11 data={section11} loading={loading} /> </SwiperSlide>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section6 data={section6} loading={loading} />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section8 data={section8} loading={loading} />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section9 data={section9} loading={loading} />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section10 data={section10} loading={loading} />
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide className='flex items-start justify-center overflow-x-hidden'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={SCROLLABLE_PANEL}>
+                        <Section11 data={section11} loading={loading} />
+                    </div>
+                </SwiperSlide>
                 
                 <SwiperSlide className='footer-slide overflow-auto !flex flex-col'>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position' }} className='z-[100] max-h-screen w-full overflow-auto'>
+                    <div data-scrollable style={SCROLLABLE_STYLE} className={`${SCROLLABLE_PANEL} overflow-auto`}>
                          <Footer id={'footer2'} /> 
                     </div> 
                 </SwiperSlide>

@@ -42,7 +42,7 @@ export default function Section9({ data, loading }) {
       id='manpower-hr'
       aria-busy={loading || undefined}
       aria-labelledby={title ? 'home-hr-heading' : undefined}
-      className='relative isolate flex min-h-screen flex-col overflow-hidden text-white'
+      className='relative isolate flex h-full min-h-screen flex-col overflow-hidden text-white'
     >
       <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
         <Image
@@ -56,7 +56,7 @@ export default function Section9({ data, loading }) {
       </div>
       <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
 
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-[390px]:px-[19px] md:px-[5%] md:pt-[12%] xl:px-[6.7%] xl:pt-[13.1%]'>
+      <div className='relative z-10 flex min-h-screen flex-1 flex-col px-6 pb-[10vh] pt-[11%] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-[5%] md:pt-[12%] xl:px-[6.7%] xl:pt-[13.1%]'>
         {loading ? (
           <>
             <p className='sr-only'>{t('loading')}</p>
@@ -112,7 +112,7 @@ export default function Section9({ data, loading }) {
 }
 
 function HrTitle({ id, title, locale, className }) {
-  const titleClass = `${className} m-0 flex w-full max-w-[590px] flex-wrap text-[clamp(45px,13.2vw,68px)] font-bold leading-[0.95] tracking-[-2.6px] text-[#f7f9fc] [text-shadow:0_3px_14px_rgba(0,0,0,0.2)] max-[390px]:text-[45px] max-[390px]:tracking-[-2.3px] max-[1100px]:max-w-[520px] max-[1100px]:md:text-[67px] max-[1100px]:md:tracking-[-3px] max-[850px]:max-w-[470px] max-[850px]:md:text-[59px] md:text-[82px] md:leading-[0.96] md:tracking-[-4px] min-[1600px]:text-[86px]`;
+  const titleClass = `${className} m-0 flex w-full max-w-[590px] flex-wrap text-[clamp(26px,8vw,38px)] font-bold leading-[1.08] tracking-[-1.2px] text-[#f7f9fc] [text-shadow:0_3px_14px_rgba(0,0,0,0.2)] max-[1100px]:max-w-[520px] max-[1100px]:md:text-[67px] max-[1100px]:md:tracking-[-3px] max-[850px]:max-w-[470px] max-[850px]:md:text-[59px] md:text-[82px] md:leading-[0.96] md:tracking-[-4px] min-[1600px]:text-[86px]`;
   const accentClass = `me-[18px] inline ${TITLE_ACCENT} font-bold leading-[0.98] max-md:me-3`;
 
   if (locale !== 'ar') {
