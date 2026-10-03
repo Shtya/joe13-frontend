@@ -1,3 +1,5 @@
+'use client';
+
 import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
 

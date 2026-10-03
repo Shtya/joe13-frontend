@@ -38,8 +38,8 @@ function linkedinUrl(member) {
   return typeof value === 'string' && /^https?:\/\//i.test(value.trim()) ? value.trim() : '';
 }
 
-export default function Board() {
-  const { data, loading } = useTeamMemeberData();
+export default function Board({ initialTeam }) {
+  const { data, loading } = useTeamMemeberData(initialTeam);
   const locale = useLocale();
   const isAr = locale === 'ar';
   const t = useTranslations();

@@ -1,11 +1,11 @@
 'use client';
 
 import WhyChooseUs from '@/components/pages/join-us/WhyChooseUs';
-import { pickUi } from '@/helpers/cms';
+import { pickList, pickUi } from '@/helpers/cms';
 import { hookJoinUs } from '@/hooks/hookJoinUs';
 import { usePages } from '@/hooks/usePages';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useState } from 'react';
 
 const BG = '/landing/join-us-bg.png';
@@ -111,7 +111,7 @@ export default function page({ initialData }) {
   const eyebrow = pickUi(section1, locale, 'eyebrow', t('eyebrow'));
   const watermark = pickUi(section1, locale, 'watermark', t('watermark'));
   const caption = pickUi(section1, locale, 'caption') || t.raw('caption');
-  const benefits = normalizePairs(pickUi(section1, locale, 'benefits'), t.raw('benefits'));
+  const benefits = normalizePairs(pickList(section1, locale, 'benefits'), t.raw('benefits'));
 
   useEffect(() => {
     if (!panelMounted) return undefined;
@@ -164,10 +164,10 @@ export default function page({ initialData }) {
         className={`relative isolate h-full min-h-screen w-full overflow-hidden bg-[#020914] text-white max-[1200px]:min-h-[680px] max-[850px]:h-auto max-[850px]:min-h-[760px] max-[600px]:min-h-[750px] ${bodyFont}`}
       >
         <div className='pointer-events-none absolute inset-0 -z-[10]'>
-          <Image
-            src={BG}
+          <CmsFillImage
+            url={section1?.image?.url}
+            fallback={BG}
             alt={section1?.image?.alt || ''}
-            fill
             priority
             sizes='100vw'
             className='object-cover object-center max-[600px]:object-[62%_center]'
@@ -199,10 +199,10 @@ export default function page({ initialData }) {
             </div>
 
             {title ? (
-              <h2 className='m-0 text-[clamp(68px,5.4vw,103px)] font-bold leading-[0.9] tracking-[-4px] text-[#f8faff] [text-shadow:0_4px_15px_rgba(0,0,0,0.35)] max-[600px]:text-[51px] max-[600px]:tracking-[-2px] max-[390px]:text-[45px]'>
+              <h1 className='m-0 text-[clamp(68px,5.4vw,103px)] font-bold leading-[0.9] tracking-[-4px] text-[#f8faff] [text-shadow:0_4px_15px_rgba(0,0,0,0.35)] max-[600px]:text-[51px] max-[600px]:tracking-[-2px] max-[390px]:text-[45px]'>
                 {lead ? `${lead} ` : ''}
                 {accent ? <strong className={TITLE_ACCENT}>{accent}</strong> : null}
-              </h2>
+              </h1>
             ) : null}
 
             <div className='mt-[25px] w-full max-w-[690px] min-[1600px]:max-w-[720px] max-[850px]:max-w-[650px] max-[600px]:mt-5'>

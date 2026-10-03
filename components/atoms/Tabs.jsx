@@ -326,6 +326,8 @@ function ProjectCard({ project }) {
             <img
               src={baseImage(mainImage.url)}
               alt={mainImage.alt || project.name?.[locale] || ''}
+              loading='lazy'
+              decoding='async'
               onError={e => {
                 e.currentTarget.src = '/not-image.jpg';
               }}
@@ -340,12 +342,15 @@ function ProjectCard({ project }) {
           <button
             type='button'
             onClick={() => miniImage && setMainImage(miniImage)}
+            aria-label={miniImage?.alt || project.name?.[locale] || 'image'}
             className={`${FOCUS} absolute end-0 top-[3px] flex size-[100px] items-center justify-center overflow-hidden rounded-[14px] border-2 border-[#078de9] bg-[#070b0f] shadow-[0_0_10px_rgba(0,126,255,0.38),inset_0_0_8px_rgba(0,126,255,0.18)] max-[1300px]:size-[78px] max-[768px]:size-[76px] max-[480px]:size-[68px]`}
           >
             {miniImage?.url ? (
               <img
                 src={baseImage(miniImage.url)}
                 alt=''
+                loading='lazy'
+                decoding='async'
                 onError={e => {
                   e.currentTarget.src = '/not-image.jpg';
                 }}

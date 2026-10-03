@@ -8,7 +8,7 @@ import { useBlogs } from '@/hooks/useblogs';
 import { usePages } from '@/hooks/usePages';
 import { Link } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useRef, useState } from 'react';
 
 const BG = '/landing/hero-blogs.png';
@@ -42,14 +42,14 @@ function formatDate(value, locale) {
   });
 }
 
-export default function ClientPage({ initialData }) {
+export default function ClientPage({ initialData, initialBlogs }) {
   const tb = useTranslations('Blogs');
   const tNav = useTranslations('Navbar');
   const locale = useLocale();
   const isAr = locale === 'ar';
   const bodyFont = isAr ? 'font-cairo' : 'font-inter';
 
-  const { loading: loadingBlogs, blogs } = useBlogs();
+  const { loading: loadingBlogs, blogs } = useBlogs(initialBlogs);
   const { loading, data } = usePages({ page_name: 'blogs', initialData });
   const section1 = data?.sections?.find(e => e.id == 'sec1');
 
@@ -91,7 +91,14 @@ export default function ClientPage({ initialData }) {
         className='relative isolate h-screen min-h-screen overflow-hidden bg-[#020b15] max-[1100px]:h-auto'
       >
         <div className='pointer-events-none absolute inset-0 -z-[4]'>
-          <Image src={BG} alt='' fill priority sizes='100vw' className='object-cover object-center' />
+          <CmsFillImage
+            url={section1?.image?.url}
+            fallback={BG}
+            alt={section1?.image?.alt || ''}
+            priority
+            sizes='100vw'
+            className='object-cover object-center'
+          />
         </div>
         <div
           aria-hidden='true'

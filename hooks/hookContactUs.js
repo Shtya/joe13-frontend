@@ -1,3 +1,5 @@
+'use client';
+
 import { api } from '@/helpers/axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';

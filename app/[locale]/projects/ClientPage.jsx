@@ -8,7 +8,7 @@ import { usePages } from '@/hooks/usePages';
 import { useProjects } from '@/hooks/useProjects';
 import { Link } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 const BG = '/landing/bg-project-page.png';
@@ -39,14 +39,14 @@ function productAlt(item) {
   return item?.image_alt || item?.images?.[0]?.alt || '';
 }
 
-export default function ClientPage({ initialData }) {
+export default function ClientPage({ initialData, initialProjects }) {
   const t = useTranslations();
   const tp = useTranslations('projects');
   const locale = useLocale();
   const isAr = locale === 'ar';
   const bodyFont = isAr ? 'font-cairo' : 'font-inter';
 
-  const { loading: loadingProjects, projects } = useProjects();
+  const { loading: loadingProjects, projects } = useProjects(initialProjects);
   const { loading, data } = usePages({ page_name: 'projects', initialData });
   const section1 = data?.sections?.find(e => e.id == 'sec1');
 
@@ -119,7 +119,14 @@ export default function ClientPage({ initialData }) {
         className='relative isolate h-screen min-h-screen overflow-hidden bg-[#020b15] max-[1100px]:h-auto'
       >
         <div className='pointer-events-none absolute inset-0 -z-[4]'>
-          <Image src={BG} alt='' fill priority sizes='100vw' className='object-cover object-center' />
+          <CmsFillImage
+            url={section1?.image?.url}
+            fallback={BG}
+            alt={section1?.image?.alt || ''}
+            priority
+            sizes='100vw'
+            className='object-cover object-center'
+          />
         </div>
         <div
           aria-hidden='true'

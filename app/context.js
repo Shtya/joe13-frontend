@@ -1,5 +1,3 @@
-import { useProjects } from "@/hooks/useProjects";
-import { useServices } from "@/hooks/useServices";
 import { useSetting } from "@/hooks/useSettings";
 import React, { createContext, useContext, useState } from "react";
 
@@ -7,9 +5,10 @@ import React, { createContext, useContext, useState } from "react";
 
 const ModalContext = createContext(undefined);
 
-export const Context = ({ children, initialSettings }) => {
-  const {projects , loading} = useProjects()
-  const {services } = useServices()
+export const Context = ({ children, initialSettings, initialNav }) => {
+  const projects = initialNav?.projects || null;
+  const services = initialNav?.services || null;
+  const loading = false;
   const {settings} = useSetting(initialSettings)
 
   const [isModalOpen, setModalOpen] = useState(true);

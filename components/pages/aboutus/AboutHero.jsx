@@ -2,7 +2,7 @@
 
 import { pickUi } from '@/helpers/cms';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 
 const BG = '/landing/about-us-bg-1.png';
 
@@ -32,10 +32,10 @@ export default function AboutHero({ data, loading }) {
       className={`relative isolate flex h-full min-h-[793px] w-full items-center justify-center overflow-hidden text-white max-[1200px]:min-h-[700px] max-[768px]:min-h-[680px] max-[480px]:min-h-[620px] ${bodyFont}`}
     >
       <div className='pointer-events-none absolute inset-0 -z-[5]'>
-        <Image
-          src={BG}
+        <CmsFillImage
+          url={data?.image?.url}
+          fallback={BG}
           alt={data?.image?.alt || ''}
-          fill
           priority
           sizes='100vw'
           className='object-cover object-center'
@@ -80,14 +80,15 @@ export default function AboutHero({ data, loading }) {
             </div>
 
             {title ? (
-              <h2 className='m-0 text-[clamp(64px,5.5vw,94px)] font-bold leading-[0.98] tracking-[-4px] text-[#f5f8fc] [text-shadow:0_4px_25px_rgba(0,0,0,0.2)] max-[768px]:text-[55px] max-[768px]:tracking-[-2.5px] max-[480px]:text-[43px] max-[480px]:tracking-[-2px]'>
+              <h1 className='m-0 text-[clamp(64px,5.5vw,94px)] font-bold leading-[0.98] tracking-[-4px] text-[#f5f8fc] [text-shadow:0_4px_25px_rgba(0,0,0,0.2)] max-[768px]:text-[55px] max-[768px]:tracking-[-2.5px] max-[480px]:text-[43px] max-[480px]:tracking-[-2px]'>
                 {lead ? lead : ''}
+                {lead && accent ? ' ' : null}
                 {accent ? (
-                  <span className='inline-block bg-[linear-gradient(180deg,#8cdbff_0%,#16b9ff_35%,#0876ed_100%)] bg-clip-text text-transparent [filter:drop-shadow(0_0_18px_rgba(0,126,255,0.12))] ms-[18px] max-[768px]:ms-[7px] max-[480px]:ms-1'>
+                  <span className='inline-block bg-[linear-gradient(180deg,#8cdbff_0%,#16b9ff_35%,#0876ed_100%)] bg-clip-text text-transparent [filter:drop-shadow(0_0_18px_rgba(0,126,255,0.12))]'>
                     {accent}
                   </span>
                 ) : null}
-              </h2>
+              </h1>
             ) : null}
 
             {description ? (

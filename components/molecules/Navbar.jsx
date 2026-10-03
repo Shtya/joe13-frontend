@@ -3,7 +3,7 @@
 import { Link, usePathname } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useId, useState } from 'react';
 import SwitchLang from '../atoms/SwitchLang';
 import { useValues } from '@/app/context';
@@ -182,11 +182,12 @@ export default function Navbar({ isclick, handleClick }) {
                 scrolled ? 'scale-[1.3] ltr:-translate-x-5 rtl:translate-x-5' : 'scale-100'
               }`}
             >
-              <Image
+              <CmsFillImage
                 className='object-contain'
-                src='/assets/svg/logo-white.svg'
-                alt='Joe13'
-                fill
+                url='/assets/svg/logo-white.svg'
+                fallback='/assets/svg/logo-white.svg'
+                alt={settings?.site_logo?.alt || 'Joe13'}
+                priority
                 sizes='(max-width: 768px) 100px, 160px'
               />
             </div>

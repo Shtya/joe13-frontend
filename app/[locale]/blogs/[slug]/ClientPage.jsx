@@ -202,7 +202,8 @@ export default function ProjectDetails({ initialData }) {
 
             {title ? (
               <h1 className='m-0 max-w-[620px] text-[clamp(36px,3.6vw,54px)] font-extrabold leading-[1.12] tracking-[-1.2px] max-[1150px]:max-w-[520px] max-[1150px]:text-[clamp(32px,4vw,44px)] max-[760px]:text-[clamp(28px,8vw,38px)] max-[760px]:tracking-[-0.8px]'>
-                {lead ? <span className='me-[0.35em]'>{lead}</span> : null}
+                {lead ? <span>{lead}</span> : null}
+                {lead && accent ? ' ' : null}
                 {accent ? <strong className={TITLE_ACCENT}>{accent}</strong> : null}
               </h1>
             ) : null}
@@ -288,7 +289,7 @@ export default function ProjectDetails({ initialData }) {
             </div>
           </div>
 
-          <div className='relative h-[720px] -ms-[30px] max-[1150px]:origin-end max-[1150px]:scale-[0.88] max-[760px]:mx-[-15px] max-[760px]:mt-5 max-[760px]:h-[550px] max-[760px]:origin-top max-[760px]:scale-[0.72]'>
+          <div className='relative h-[720px] -ms-[30px] max-[1150px]:w-[620px] max-[1150px]:origin-top-left max-[1150px]:scale-[0.8] max-[1024px]:scale-[0.68] max-[900px]:scale-[0.56] rtl:max-[1150px]:origin-top-right max-[760px]:ms-0 max-[760px]:mt-5 max-[760px]:h-[430px] max-[760px]:self-center max-[760px]:!origin-top max-[400px]:scale-[0.5]'>
             <div className={`absolute start-[180px] top-[45px] z-[6] -rotate-[10deg] text-center text-[31px] leading-[1.05] text-[#f0f4f8] ${isAr ? '' : "font-['Brush_Script_MT','Segoe_Script',cursive]"}`}>
               {scriptLines.map(line => (
                 <span key={line} className='block'>
@@ -382,6 +383,8 @@ export default function ProjectDetails({ initialData }) {
                 <img
                   src={baseImage(blog.image_url)}
                   alt={blog.image_alt || title || ''}
+                  loading='lazy'
+                  decoding='async'
                   onError={e => {
                     e.currentTarget.src = '/not-image.jpg';
                   }}

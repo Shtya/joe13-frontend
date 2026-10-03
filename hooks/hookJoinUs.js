@@ -1,3 +1,5 @@
+'use client';
+
 import { SchemaJoinUs } from "../schema/JoinUsSchema";
 import { api } from "@/helpers/axios";
 import { yupResolver } from "@hookform/resolvers/yup";

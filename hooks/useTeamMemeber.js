@@ -1,15 +1,19 @@
+'use client';
+
+import { TEAM_QUERY } from '@/hooks/queries';
 import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
 
-export function useTeamMemeberData() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function useTeamMemeberData(initialTeam) {
+  const [data, setData] = useState(initialTeam ?? null);
+  const [loading, setLoading] = useState(!initialTeam);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (initialTeam) return;
     async function fetchData() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/team-members?limit=30&sortBy=order&sortOrder=ASC`);
+        const res = await fetch(`${baseUrl}/api/v1/${TEAM_QUERY}`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
@@ -25,7 +29,7 @@ export function useTeamMemeberData() {
     }
 
     fetchData();
-  }, []);
+  }, [initialTeam]);
 
   return { data, loading, error };
 }

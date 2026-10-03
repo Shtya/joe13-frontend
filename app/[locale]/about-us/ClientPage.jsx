@@ -18,7 +18,7 @@ import { usePages } from '@/hooks/usePages';
 import Board from '@/components/pages/aboutus/Board';
 
 
-export default function Page({ initialData }) {
+export default function Page({ initialData, initialTeam }) {
     const { loading , data } = usePages({ page_name: 'about-us', initialData });
     const section1 = data?.sections?.find(e => e.id == 'sec1');
     const section2 = data?.sections?.find(e => e.id == 'sec2');
@@ -47,7 +47,7 @@ export default function Page({ initialData }) {
 
                 <SwiperSlide className='!flex h-full items-stretch overflow-hidden'>
                     <div className='z-[100] h-full max-h-screen w-full overflow-hidden'>
-                        <Board />
+                        <Board initialTeam={initialTeam} />
                     </div>
                 </SwiperSlide>
 

@@ -2,10 +2,11 @@
 
 import { useValues } from '@/app/context';
 import LandingIcon from '@/components/atoms/LandingIcon';
+import { pickList, pickUi } from '@/helpers/cms';
 import { hookContactUs } from '@/hooks/hookContactUs';
 import { usePages } from '@/hooks/usePages';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 
 const CONTACT_BG = '/landing/contact-us.png';
 
@@ -54,6 +55,15 @@ export default function page({ initialData }) {
   const address = settings?.contact_us?.address?.[locale];
   const email = settings?.contact_us?.email;
   const phone = settings?.contact_us?.phone;
+  const cmsFeatures = pickList(section1, locale, 'features');
+  const featureCards = [
+    { src: '/landing/contact-us-icon-1.png', title: t('trustedSupport'), copy: t('trustedSupportDesc') },
+    { src: '/landing/contact-us-icon-2.png', title: t('quickResponse'), copy: t('quickResponseDesc') },
+    { src: '/landing/icon-10-3.png', title: t('expertTeam'), copy: t('expertTeamDesc') },
+  ].map((item, index) => ({
+    ...item,
+    title: String(cmsFeatures?.[index] || item.title),
+  }));
 
   return (
     <section
@@ -61,10 +71,10 @@ export default function page({ initialData }) {
       className={`relative isolate flex min-h-screen w-full items-center overflow-x-hidden bg-[#010812] text-white max-[1050px]:items-start max-[1050px]:overflow-y-visible ${bodyFont}`}
     >
       <div className='pointer-events-none absolute inset-0 -z-[3]'>
-        <Image
-          src={CONTACT_BG}
-          alt=''
-          fill
+        <CmsFillImage
+          url={section1?.image?.url}
+          fallback={CONTACT_BG}
+          alt={section1?.image?.alt || ''}
           priority
           sizes='100vw'
           className='object-cover object-center'
@@ -79,21 +89,21 @@ export default function page({ initialData }) {
       <div className='relative mx-auto grid w-[min(1370px,calc(100%-120px))] grid-cols-[minmax(0,1fr)_390px] items-center gap-x-[115px] py-[calc(100px+24px)] max-[1450px]:w-[calc(100%-110px)] max-[1450px]:gap-x-20 max-[1400px]:grid-cols-[minmax(0,1fr)_350px] max-[1400px]:gap-x-[55px] max-[1400px]:py-[calc(85px+24px)] max-[1200px]:w-[calc(100%-60px)] max-[1050px]:block max-[1050px]:pb-[max(88px,env(safe-area-inset-bottom))] max-[1050px]:pt-[94px] max-[900px]:w-[calc(100%-42px)] max-[767px]:pb-[max(96px,calc(env(safe-area-inset-bottom)+72px))] max-[767px]:pt-[84px] max-[640px]:w-[calc(100%-36px)] max-[400px]:pt-[76px] max-[390px]:w-[calc(100%-28px)]'>
         <div className='relative w-full max-w-[825px] max-[1050px]:max-w-none'>
           <div className='flex h-[23px] items-center gap-6 whitespace-nowrap text-[17px] font-medium leading-none tracking-[5.8px] text-[#0ca1f3] rtl:flex-row-reverse rtl:justify-end max-[767px]:gap-[13px] max-[767px]:text-[11px] max-[767px]:tracking-[3.7px]'>
-            <span>{t('letsConnect')}</span>
+            <span>{pickUi(section1, locale, 'eyebrow', t('letsConnect'))}</span>
             <i className='block h-px w-[128px] bg-[linear-gradient(90deg,#1bb7ff,rgba(25,148,233,0.25))] shadow-[0_0_5px_rgba(0,143,239,0.35)] max-[767px]:w-[70px] rtl:bg-[linear-gradient(270deg,#1bb7ff,rgba(25,148,233,0.25))]' />
           </div>
 
           {loadingSection ? (
             <div className='mt-7 h-[70px] w-[min(100%,420px)] rounded-lg skeleton-box' />
           ) : (
-            <h2 className='mb-2 mt-7 break-words font-bold leading-[0.98] tracking-[-3.8px] text-[#f8fafc] text-[clamp(64px,5vw,88px)] max-[1400px]:text-[68px] max-[767px]:mt-[22px] max-[767px]:text-[clamp(40px,12vw,58px)] max-[767px]:tracking-[-2.5px] max-[400px]:text-[38px]'>
+            <h1 className='mb-2 mt-7 break-words font-bold leading-[0.98] tracking-[-3.8px] text-[#f8fafc] text-[clamp(64px,5vw,88px)] max-[1400px]:text-[68px] max-[767px]:mt-[22px] max-[767px]:text-[clamp(40px,12vw,58px)] max-[767px]:tracking-[-2.5px] max-[400px]:text-[38px]'>
               {lead ? `${lead} ` : ''}
               {accent ? (
                 <strong className='bg-[linear-gradient(100deg,#0870ed_0%,#168fff_55%,#02a8ff_100%)] bg-clip-text font-bold text-transparent'>
                   {accent}
                 </strong>
               ) : null}
-            </h2>
+            </h1>
           )}
 
           {loadingSection ? (
@@ -196,23 +206,14 @@ export default function page({ initialData }) {
           </form>
 
           <div className='mt-10 flex w-full items-center max-[1050px]:flex-wrap max-[1050px]:gap-y-6 max-[767px]:mt-[34px] max-[767px]:flex-col max-[767px]:items-stretch max-[767px]:gap-5'>
-            <Feature
-              src='/landing/contact-us-icon-1.png'
-              title={t('trustedSupport')}
-              copy={t('trustedSupportDesc')}
-            />
-            <span className='mx-[27px] h-[82px] w-px shrink-0 bg-[linear-gradient(180deg,transparent,rgba(73,105,133,0.65),transparent)] max-[1400px]:mx-[18px] max-[1050px]:hidden' />
-            <Feature
-              src='/landing/contact-us-icon-2.png'
-              title={t('quickResponse')}
-              copy={t('quickResponseDesc')}
-            />
-            <span className='mx-[27px] h-[82px] w-px shrink-0 bg-[linear-gradient(180deg,transparent,rgba(73,105,133,0.65),transparent)] max-[1400px]:mx-[18px] max-[1050px]:hidden' />
-            <Feature
-              src='/landing/icon-10-3.png'
-              title={t('expertTeam')}
-              copy={t('expertTeamDesc')}
-            />
+            {featureCards.map((item, index) => (
+              <div key={item.src} className='contents'>
+                {index > 0 ? (
+                  <span className='mx-[27px] h-[82px] w-px shrink-0 bg-[linear-gradient(180deg,transparent,rgba(73,105,133,0.65),transparent)] max-[1400px]:mx-[18px] max-[1050px]:hidden' />
+                ) : null}
+                <Feature src={item.src} title={item.title} copy={item.copy} />
+              </div>
+            ))}
           </div>
         </div>
 

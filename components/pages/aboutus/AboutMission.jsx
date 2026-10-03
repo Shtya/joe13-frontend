@@ -1,8 +1,8 @@
 'use client';
 
-import { pickUi } from '@/helpers/cms';
+import { pickList, pickUi } from '@/helpers/cms';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 
 const BG = '/landing/about-us-bg-4.png';
 const TITLE_ACCENT =
@@ -87,7 +87,7 @@ export default function AboutMission({ data, loading }) {
   const eyebrow = pickUi(data, locale, 'eyebrow', ta('missionEyebrow'));
   const caption = pickUi(data, locale, 'slogan', ta('missionCaption'));
   const watermark = pickUi(data, locale, 'watermark', ta('missionWord'));
-  const features = normalizeFeatures(pickUi(data, locale, 'features'), ta.raw('missionFeatures'));
+  const features = normalizeFeatures(pickList(data, locale, 'features'), ta.raw('missionFeatures'));
   const sideLeft = normalizeLines(pickUi(data, locale, 'sideLeft'), ta.raw('missionSideLeft'));
   const sideRight = normalizeLines(pickUi(data, locale, 'sideRight'), ta.raw('missionSideRight'));
 
@@ -99,7 +99,7 @@ export default function AboutMission({ data, loading }) {
       className={`relative isolate h-full min-h-screen w-full overflow-hidden bg-[#020914] text-white max-[1200px]:min-h-[680px] max-[850px]:h-auto max-[850px]:min-h-[760px] max-[600px]:min-h-[700px] ${bodyFont}`}
     >
       <div className='pointer-events-none absolute inset-0 -z-[10]'>
-        <Image src={BG} alt={data?.image?.alt || ''} fill sizes='100vw' className='object-cover object-center' />
+        <CmsFillImage url={data?.image?.url} fallback={BG} alt={data?.image?.alt || ''} sizes='100vw' className='object-cover object-center' />
       </div>
       <div
         aria-hidden='true'

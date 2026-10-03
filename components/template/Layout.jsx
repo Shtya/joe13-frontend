@@ -12,7 +12,7 @@ import { Context } from "@/app/context";
 const MENU_OFFSET =
   "ltr:left-[320px] rtl:right-[320px] max-[360px]:ltr:left-[280px] max-[360px]:rtl:right-[280px]";
 
-export default function Layout({ children, initialSettings }) {
+export default function Layout({ children, initialSettings, initialNav }) {
   const [isclick, setisclick] = useState(false);
   const handleClick = () => {
     setisclick(!isclick);
@@ -43,7 +43,7 @@ export default function Layout({ children, initialSettings }) {
   const shift = isclick ? MENU_OFFSET : "ltr:left-0 rtl:right-0";
 
   return (
-    <Context initialSettings={initialSettings}>
+    <Context initialSettings={initialSettings} initialNav={initialNav}>
       <main className="overflow-x-hidden">
         <Navbar isclick={isclick} handleClick={handleClick} />
         <WhatsApp />

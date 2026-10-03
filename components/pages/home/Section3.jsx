@@ -61,7 +61,7 @@ export default function Section3({ data, loading }) {
                 <span className='h-px w-[72px] bg-[linear-gradient(90deg,rgba(53,185,247,0.95),transparent)] max-md:w-[35px]' />
               </div>
 
-              {title ? <PartnersTitle id='home-partners-heading' title={title} locale={locale} className={bodyFont} /> : null}
+              {title ? <PartnersTitle id='home-partners-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} /> : null}
 
               {description ? (
                 <p className={`${bodyFont} mt-[13px] text-[clamp(13px,1.45vw,23px)] font-normal leading-[1.25] tracking-[-0.25px] text-[rgba(221,231,243,0.78)] max-md:mt-[11px] max-md:leading-[1.35]`}>
@@ -96,8 +96,8 @@ export default function Section3({ data, loading }) {
   );
 }
 
-function PartnersTitle({ id, title, locale, className }) {
-  const accent = locale === 'ar' ? 'شركاؤنا' : 'Partners';
+function PartnersTitle({ id, title, locale, className, accent: accentOverride }) {
+  const accent = accentOverride || (locale === 'ar' ? 'شركاؤنا' : 'Partners');
   const titleClass = `${className} m-0 text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.05] tracking-[-1.2px] text-[#f8f9fc] [text-shadow:0_3px_18px_rgba(0,0,0,0.22)] md:text-[clamp(70px,6.15vw,96px)] md:leading-[0.95] md:tracking-[-4px]`;
   const accentClass = `${TITLE_ACCENT} font-bold`;
 

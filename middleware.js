@@ -21,6 +21,7 @@ const intlMiddleware = createMiddleware({
   locales,
   localePrefix,
   defaultLocale: 'ar',
+  localeDetection: false,
 });
 
 export function middleware(request) {

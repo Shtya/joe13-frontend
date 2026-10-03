@@ -1,6 +1,6 @@
 import React from "react";
 import { baseUrl } from "@/helpers/baseUrl";
-import { getAlternates } from "@/helpers/seo";
+import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from "@/helpers/seo";
 import ClientPage from "./ClientPage";
 import { notFound } from "next/navigation";
 
@@ -14,29 +14,24 @@ async function fetchProjectBySlug(slug) {
   return res.json();
 }
 
+const projectText = (project, locale) => ({
+  title: metaText(project.meta_title, locale, project.name?.[locale] || project.name?.en),
+  description: metaText(project.meta_description, locale, project.description?.[locale] || project.description?.en),
+});
+
 export async function generateMetadata({ params }) {
   const project = await fetchProjectBySlug(params.slug);
+  if (!project) return buildMetadata({ locale: params.locale, noIndex: true });
 
-  if (!project) return null;
-
-  return {
-    title: project.meta_title,
-    description: project.meta_description,
-    keywords: project.meta_keywords?.join(", "),
-    openGraph: {
-      title: project.meta_title,
-      description: project.meta_description,
-      images: [
-        {
-          url: project.images?.[0]?.url,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-    },
-    alternates: getAlternates(params.locale, `projects/${params.slug}`),
-  };
+  const { title, description } = projectText(project, params.locale);
+  return buildMetadata({
+    locale: params.locale,
+    path: `projects/${params.slug}`,
+    title,
+    description,
+    keywords: project.meta_keywords,
+    image: project.images?.[0]?.url,
+  });
 }
 
 export default async function Page({ params }) {
@@ -44,5 +39,23 @@ export default async function Page({ params }) {
 
   if (!project) notFound();
 
-  return <ClientPage project={project} />;
+  const { title, description } = projectText(project, params.locale);
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: title,
+          description,
+          url: pageUrl(params.locale, `projects/${params.slug}`),
+          image: (project.images || []).map((img) => absoluteUrl(img?.url)).filter(Boolean),
+          inLanguage: params.locale,
+          creator: { "@type": "Organization", name: SITE_NAME },
+        }}
+      />
+      <ClientPage project={project} />
+    </>
+  );
 }

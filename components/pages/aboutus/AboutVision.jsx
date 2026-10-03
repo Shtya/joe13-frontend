@@ -1,8 +1,8 @@
 'use client';
 
-import { pickUi } from '@/helpers/cms';
+import { pickList, pickUi } from '@/helpers/cms';
 import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
+import CmsFillImage from '@/components/atoms/CmsFillImage';
 
 const BG = '/landing/about-us-bg-3.png';
 const TITLE_ACCENT =
@@ -71,7 +71,7 @@ export default function AboutVision({ data, loading }) {
   const { lead, accent } = splitTitle(title);
   const description = data?.content?.[locale] || ta('ourVision');
   const eyebrow = pickUi(data, locale, 'eyebrow', ta('visionEyebrow'));
-  const features = normalizeFeatures(pickUi(data, locale, 'features'), ta.raw('visionFeatures'));
+  const features = normalizeFeatures(pickList(data, locale, 'features'), ta.raw('visionFeatures'));
 
   return (
     <section
@@ -81,10 +81,10 @@ export default function AboutVision({ data, loading }) {
       className={`relative isolate h-full min-h-screen w-full overflow-hidden bg-[#020914] text-white max-[1200px]:min-h-[700px] max-[850px]:h-auto max-[850px]:min-h-[760px] max-[600px]:min-h-[700px] ${bodyFont}`}
     >
       <div className='pointer-events-none absolute inset-0 -z-[10]'>
-        <Image
-          src={BG}
+        <CmsFillImage
+          url={data?.image?.url}
+          fallback={BG}
           alt={data?.image?.alt || ''}
-          fill
           sizes='100vw'
           className='object-cover object-center max-[600px]:object-[63%_center]'
         />

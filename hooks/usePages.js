@@ -1,5 +1,7 @@
+'use client';
+
+import { baseUrl } from '@/helpers/baseUrl';
 import { useEffect, useState } from 'react';
-import { getPageData } from './getPageData';
 
 export function usePages({ page_name, initialData }) {
   const [data, setData] = useState(initialData ?? null);
@@ -11,9 +13,9 @@ export function usePages({ page_name, initialData }) {
 
     async function fetchData() {
       try {
-        const json = await getPageData(page_name);
-        if (!json) throw new Error('Error fetching page data');
-        setData(json);
+        const res = await fetch(`${baseUrl}/api/v1/pages/${page_name}`);
+        if (!res.ok) throw new Error('Error fetching page data');
+        setData(await res.json());
       } catch (err) {
         setError(err.message);
       } finally {

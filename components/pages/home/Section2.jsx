@@ -27,6 +27,7 @@ export default function Section2({ data, loading }) {
   const stats = data?.objectData?.[locale]
     ? Object.entries(data.objectData[locale]).filter(([key]) => !String(key).startsWith('_'))
     : [];
+  const captions = pickUi(data, locale, 'statCaptions');
 
   const downloadPDF = () => {
     const link = document.createElement('a');
@@ -76,7 +77,7 @@ export default function Section2({ data, loading }) {
               </div>
 
               {title ? (
-                <SuccessTitle id='home-success-heading' title={title} locale={locale} className={bodyFont} />
+                <SuccessTitle id='home-success-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} />
               ) : null}
 
               {description ? (
@@ -99,7 +100,7 @@ export default function Section2({ data, loading }) {
                   rawValue={rawValue}
                   inView={inView}
                   iconIndex={i}
-                  caption={statCaption(name, t)}
+                  caption={(Array.isArray(captions) && captions[i]) || statCaption(name, t)}
                   bodyFont={bodyFont}
                 />
               ))}
@@ -115,8 +116,8 @@ export default function Section2({ data, loading }) {
   );
 }
 
-function SuccessTitle({ id, title, locale, className }) {
-  const accent = locale === 'ar' ? 'عبر مختلف الصناعات' : 'Across Industries';
+function SuccessTitle({ id, title, locale, className, accent: accentOverride }) {
+  const accent = accentOverride || (locale === 'ar' ? 'عبر مختلف الصناعات' : 'Across Industries');
   const titleClass = `${className} m-0 mx-auto w-full min-w-0 max-w-[16.5em] whitespace-normal text-balance text-[clamp(22px,6.2vw,30px)] font-bold leading-[1.18] tracking-[-0.6px] text-[#f5f7fb] [text-shadow:0_2px_12px_rgba(0,0,0,0.2)] max-md:px-1 lg:text-[clamp(36px,3.45vw,54px)] lg:leading-[1.12] lg:tracking-[-1.8px]`;
   const accentClass = TITLE_ACCENT;
 

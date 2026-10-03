@@ -1,4 +1,8 @@
 export default {
+  "our-department": "أقسامنا",
+  search: "بحث...",
+  results: "نتيجة",
+  noResults: "لا توجد نتائج",
   "MEET OUR TEAM": "قابل فريقنا",
   "not-found-page-1": "عذرًا! الصفحة غير موجودة",
   "not-found-page-2":

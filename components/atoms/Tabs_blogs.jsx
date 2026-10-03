@@ -185,7 +185,7 @@ export default function Tabs_blogs({ loading, projects }) {
             {tabsOverflow && canScrollPrev ? (
               <button
                 type='button'
-                aria-label='Previous category'
+                aria-label={t('projects.prevCategory')}
                 className={`${CAT_ARROW} start-0 -translate-x-1/2 rtl:translate-x-1/2`}
                 onClick={() => scrollCats(-1)}
               >
@@ -225,7 +225,7 @@ export default function Tabs_blogs({ loading, projects }) {
             {tabsOverflow && canScrollNext ? (
               <button
                 type='button'
-                aria-label='Next category'
+                aria-label={t('projects.nextCategory')}
                 className={`${CAT_ARROW} end-0 translate-x-1/2 rtl:-translate-x-1/2`}
                 onClick={() => scrollCats(1)}
               >
@@ -291,7 +291,7 @@ export default function Tabs_blogs({ loading, projects }) {
             <button
               key={i}
               type='button'
-              aria-label={`Page ${i + 1}`}
+              aria-label={`${t('projects.nextProducts')} ${i + 1}`}
               aria-current={i === activePage ? 'true' : undefined}
               onClick={() => goPage(i)}
               className={`${FOCUS} rounded-full border-0 p-0 transition duration-300 ${
@@ -320,6 +320,8 @@ function BlogCard({ project }) {
             <img
               src={baseImage(project.image_url)}
               alt={project.image_alt || project.title?.[locale] || ''}
+              loading='lazy'
+              decoding='async'
               onError={e => {
                 e.currentTarget.src = '/not-image.jpg';
               }}

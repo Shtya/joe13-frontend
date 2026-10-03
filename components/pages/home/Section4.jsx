@@ -95,7 +95,7 @@ export default function Section4({ data, loading, units = [] }) {
               </div>
 
               {title ? (
-                <UnitsTitle id='home-units-heading' title={title} locale={locale} className={bodyFont} />
+                <UnitsTitle id='home-units-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} />
               ) : null}
 
               {description ? (
@@ -148,8 +148,8 @@ export default function Section4({ data, loading, units = [] }) {
   );
 }
 
-function UnitsTitle({ id, title, locale, className }) {
-  const accent = locale === 'ar' ? 'وحدات أعمالنا' : 'Business Units';
+function UnitsTitle({ id, title, locale, className, accent: accentOverride }) {
+  const accent = accentOverride || (locale === 'ar' ? 'وحدات أعمالنا' : 'Business Units');
   const titleClass = `${className} m-0 text-[clamp(26px,8vw,36px)] font-bold leading-[1.12] tracking-[-1.2px] text-[#f5f7fa] [text-shadow:0_3px_15px_rgba(0,0,0,0.24)] md:text-[clamp(52px,4.15vw,67px)] md:leading-[1.04] md:tracking-[-2.7px] max-[1100px]:md:text-[49px] min-[1600px]:text-[67px]`;
   const accentClass = TITLE_ACCENT;
 

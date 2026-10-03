@@ -72,7 +72,7 @@ export default function Section6({ data, loading }) {
               <i className='block h-px w-[83px] bg-[linear-gradient(90deg,rgba(82,194,247,0.95),rgba(41,160,222,0.2))] max-md:w-[45px] max-[390px]:w-9 rtl:bg-[linear-gradient(90deg,rgba(41,160,222,0.2),rgba(82,194,247,0.95))]' />
             </div>
 
-            {title ? <SoftwareTitle id='home-software-heading' title={title} locale={locale} className={bodyFont} /> : null}
+            {title ? <SoftwareTitle id='home-software-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} /> : null}
 
             {description ? (
               <p className={`${bodyFont} mt-5 max-w-[640px] text-[21px] font-normal leading-[1.55] tracking-[-0.35px] text-[rgba(227,235,245,0.9)] [text-shadow:0_2px_9px_rgba(0,0,0,0.28)] max-md:mt-[17px] max-md:max-w-none max-md:text-sm max-md:leading-[1.45] max-[1100px]:max-w-[540px] max-[1100px]:text-[17px] max-[390px]:text-[13px] min-[1600px]:max-w-[660px]`}>
@@ -106,8 +106,8 @@ export default function Section6({ data, loading }) {
   );
 }
 
-function SoftwareTitle({ id, title, locale, className }) {
-  const accent = locale === 'ar' ? 'الذكاء الاصطناعي' : 'AI';
+function SoftwareTitle({ id, title, locale, className, accent: accentOverride }) {
+  const accent = accentOverride || (locale === 'ar' ? 'الذكاء الاصطناعي' : 'AI');
   const titleClass = `${className} m-0 overflow-visible py-[0.08em] text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.1] tracking-[-1.2px] text-[#f7f9fc] [text-shadow:0_3px_14px_rgba(0,0,0,0.18)] md:text-[clamp(64px,5.6vw,88px)] md:tracking-[-3.6px] min-[1600px]:text-[88px] ${
     locale === 'ar' ? '' : 'md:whitespace-nowrap'
   }`;

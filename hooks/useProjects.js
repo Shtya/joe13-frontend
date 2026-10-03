@@ -1,15 +1,19 @@
+'use client';
+
 import { baseUrl } from '@/helpers/baseUrl';
+import { PROJECTS_QUERY } from '@/hooks/queries';
 import { useEffect, useState } from 'react';
 
-export function useProjects() {
-  const [projects, setprojects] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function useProjects(initialProjects) {
+  const [projects, setprojects] = useState(initialProjects ?? null);
+  const [loading, setLoading] = useState(!initialProjects);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (initialProjects) return;
     async function fetchprojects() {
       try {
-        const res = await fetch(`${baseUrl}/api/v1/projects?limit=10000`);
+        const res = await fetch(`${baseUrl}/api/v1/${PROJECTS_QUERY}`);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
@@ -25,7 +29,7 @@ export function useProjects() {
     }
 
     fetchprojects();
-  }, []);
+  }, [initialProjects]);
 
   return { projects, loading, error };
 }

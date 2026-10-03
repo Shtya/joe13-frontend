@@ -15,6 +15,14 @@ export function pickUi(data, locale, key, fallback) {
   return value;
 }
 
+export function pickList(data, locale, key, fallback) {
+  const fromUi = key ? pickUi(data, locale, key) : null;
+  if (Array.isArray(fromUi) && fromUi.length) return fromUi;
+  const list = data?.list?.[locale] ?? data?.list?.en;
+  if (Array.isArray(list) && list.length) return list;
+  return fallback;
+}
+
 export function cmsImage(url, fallback) {
   const src = (url && String(url).trim()) || fallback || '';
   if (!src) return fallback || '';

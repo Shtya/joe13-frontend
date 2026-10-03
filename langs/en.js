@@ -5,6 +5,9 @@ export default {
   "not-found-page-3": "Go back to homepage",
   "MEET OUR TEAM": "MEET OUR TEAM",
   "our-department": "Our Departments",
+  search: "Search...",
+  results: "results",
+  noResults: "No results found",
 
   "contact-us-now": "Consult Us Now",
   all: "All",
