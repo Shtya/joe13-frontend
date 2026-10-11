@@ -3,6 +3,7 @@ import { baseUrl } from "@/helpers/baseUrl";
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from "@/helpers/seo";
 import ClientPage from "./ClientPage";
 import { notFound } from "next/navigation";
+import { PROJECTS_QUERY, getCollection } from "@/hooks/getPageData";
 
 async function fetchProjectBySlug(slug) {
   const res = await fetch(`${baseUrl}/api/v1/projects/slug/${slug}`, {
@@ -34,8 +35,25 @@ export async function generateMetadata({ params }) {
   });
 }
 
+/** Up to three projects from the same department (topped up from others). */
+function pickRelated(all, project) {
+  const others = (all || []).filter((p) => p.slug !== project.slug);
+  const same = others.filter((p) => p.department?.id === project.department?.id);
+  const rest = others.filter((p) => p.department?.id !== project.department?.id);
+  return [...same, ...rest].slice(0, 3).map(({ id, slug, name, description, images, image_url, image_alt, department }) => ({
+    id,
+    slug,
+    name,
+    description,
+    images,
+    image_url,
+    image_alt,
+    department: department ? { id: department.id, name: department.name } : null,
+  }));
+}
+
 export default async function Page({ params }) {
-  const project = await fetchProjectBySlug(params.slug);
+  const [project, collection] = await Promise.all([fetchProjectBySlug(params.slug), getCollection(PROJECTS_QUERY)]);
 
   if (!project) notFound();
 
@@ -55,7 +73,7 @@ export default async function Page({ params }) {
           creator: { "@type": "Organization", name: SITE_NAME },
         }}
       />
-      <ClientPage project={project} />
+      <ClientPage project={project} related={pickRelated(collection?.data, project)} />
     </>
   );
 }

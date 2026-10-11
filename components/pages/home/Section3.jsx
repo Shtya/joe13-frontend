@@ -1,168 +1,129 @@
 'use client';
 
-import { TITLE_ACCENT } from '@/components/atoms/titleAccent';
+import { JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
+import { useSceneMotion } from '@/components/jx/motion';
+import gsap from 'gsap';
 import { cmsImage, pickUi } from '@/helpers/cms';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React from 'react';
 
-const cardShadow =
-  'shadow-[inset_0_1px_1px_rgba(210,235,255,0.16),inset_0_0_25px_rgba(0,117,205,0.08),0_8px_20px_rgba(0,0,0,0.16)]';
+/*
+ * Slide 3 — "Runway".
+ * Partner marks travel on a ledger plane that tilts away into depth, two
+ * lanes in opposite directions. Marks rest in monochrome and take their
+ * own colour when pointed at; the lane pauses under the pointer.
+ */
 
-const cardShadowHover =
-  'hover:shadow-[inset_0_1px_1px_rgba(210,235,255,0.2),inset_0_0_25px_rgba(0,137,228,0.13),0_0_20px_rgba(0,132,228,0.15),0_10px_25px_rgba(0,0,0,0.2)]';
+export default function Section3({ data, loading, active = false }) {
+    const t = useTranslations();
+    const locale = useLocale();
+    const isAr = locale === 'ar';
+    const title = data?.title?.[locale] || t('Our Partners');
+    const description = data?.content?.[locale] || t('Hero.partnersSubtitle');
+    const logos = data?.list?.length ? data.list : [];
+    const half = Math.ceil(logos.length / 2);
+    const lanes = logos.length > 5 ? [logos.slice(0, half), [...logos.slice(half), ...logos.slice(0, half - (logos.length - half))]] : [logos, logos];
+    const titleParts = splitTitle(title);
+    const lines = titleParts.map((text, i) => ({ text, tone: i === titleParts.length - 1 ? 'accent' : 'thin' }));
 
-export default function Section3({ data, loading }) {
-  const t = useTranslations();
-  const locale = useLocale();
-  const isAr = locale === 'ar';
-  const bodyFont = isAr ? 'font-cairo' : 'font-inter';
-  const title = data?.title?.[locale] || t('Our Partners');
-  const description = data?.content?.[locale] || t('Hero.partnersSubtitle');
-  const logos = fillLogoSet(data?.list);
+    const ref = useSceneMotion(active, { deps: [loading, locale, logos.length], extend: landRunway });
 
-  return (
-    <section
-      id='ourPartners'
-      aria-busy={loading || undefined}
-      aria-labelledby={title ? 'home-partners-heading' : undefined}
-      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white'
-    >
-      <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
-        <Image
-          src={cmsImage(data?.image?.url, '/landing/bg-3-section.png')}
-          alt={data?.image?.alt || ''}
-          fill
-          sizes='100vw'
-          className='img-overlay object-cover object-center'
-        />
-        <div aria-hidden='true' className='bg-overlay' />
-      </div>
-      <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
-
-      <div className='relative z-10 flex min-h-screen flex-1 flex-col items-center justify-center gap-8 py-[85px] pointer-events-auto max-md:gap-5 max-md:px-2 max-md:py-[88px]'>
-        {loading ? (
-          <>
-            <p className='sr-only'>{t('loading')}</p>
-            <PartnersSkeleton />
-          </>
-        ) : (
-          <div className='hero-stage flex w-full flex-1 flex-col items-center justify-center gap-12 md:gap-16'>
-            <div className='w-full max-w-[900px] px-4 text-center md:px-8'>
-              <div className='mb-[17px] flex items-center justify-center gap-5 max-md:mb-[19px] max-md:gap-2.5'>
-                <span className='h-px w-[72px] bg-[linear-gradient(90deg,transparent,rgba(53,185,247,0.95))] max-md:w-[35px]' />
-                <div
-                  className={`flex h-8 min-w-[165px] items-center justify-center rounded-[22px] border border-[rgba(0,159,241,0.72)] bg-[linear-gradient(180deg,rgba(4,52,84,0.28),rgba(1,18,32,0.14))] px-4 text-[#25b2f2] shadow-[0_0_10px_rgba(0,135,230,0.08),inset_0_0_12px_rgba(0,125,220,0.06)] max-md:text-[7px] max-md:tracking-[2.5px] md:h-10 md:min-w-[229px] ${
-                    isAr ? 'font-cairo text-[10px] font-medium tracking-[2px]' : 'font-orbitron text-[11px] font-medium tracking-[4px]'
-                  }`}
-                >
-                  {pickUi(data, locale, 'eyebrow', t('Hero.trusted'))}
-                </div>
-                <span className='h-px w-[72px] bg-[linear-gradient(90deg,rgba(53,185,247,0.95),transparent)] max-md:w-[35px]' />
-              </div>
-
-              {title ? <PartnersTitle id='home-partners-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} /> : null}
-
-              {description ? (
-                <p className={`${bodyFont} mt-[13px] text-[clamp(13px,1.45vw,23px)] font-normal leading-[1.25] tracking-[-0.25px] text-[rgba(221,231,243,0.78)] max-md:mt-[11px] max-md:leading-[1.35]`}>
-                  {description}
-                </p>
-              ) : null}
-            </div>
-
-            <div className='w-full min-w-0'>
-              {logos.length ? (
-                <div
-                  dir='ltr'
-                  className='min-w-0 w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent_0%,#000_4%,#000_96%,transparent_100%)]'
-                >
-                  <div
-                    className={`flex w-max will-change-transform has-[article:hover]:[animation-play-state:paused] motion-reduce:[animation-play-state:paused] ${
-                      isAr
-                        ? 'animate-partners-marquee-rtl max-md:animate-partners-marquee-rtl-fast'
-                        : 'animate-partners-marquee-ltr max-md:animate-partners-marquee-ltr-fast'
-                    }`}
-                  >
-                    <LogoSet logos={logos} />
-                    <LogoSet logos={logos} hidden />
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-function PartnersTitle({ id, title, locale, className, accent: accentOverride }) {
-  const accent = accentOverride || (locale === 'ar' ? 'شركاؤنا' : 'Partners');
-  const titleClass = `${className} m-0 text-[clamp(28px,8.5vw,40px)] font-bold leading-[1.05] tracking-[-1.2px] text-[#f8f9fc] [text-shadow:0_3px_18px_rgba(0,0,0,0.22)] md:text-[clamp(70px,6.15vw,96px)] md:leading-[0.95] md:tracking-[-4px]`;
-  const accentClass = `${TITLE_ACCENT} font-bold`;
-
-  const start = title.indexOf(accent);
-  if (start < 0) {
     return (
-      <h2 id={id} className={titleClass}>
-        {title}
-      </h2>
-    );
-  }
-
-  return (
-    <h2 id={id} className={titleClass}>
-      {title.slice(0, start)}
-      <strong className={accentClass}>{accent}</strong>
-      {title.slice(start + accent.length)}
-    </h2>
-  );
-}
-
-function LogoSet({ logos, hidden }) {
-  return (
-    <div
-      aria-hidden={hidden || undefined}
-      className='grid shrink-0 grid-flow-col auto-cols-[108px] gap-2 pe-2 [grid-template-rows:repeat(2,68px)] md:auto-cols-[185px] md:gap-[11px] md:pe-[11px] md:[grid-template-rows:repeat(2,108px)] xl:auto-cols-[224px] xl:gap-3.5 xl:pe-3.5 xl:[grid-template-rows:repeat(2,126px)]'
-    >
-      {logos.map((logo, i) => (
-        <article
-          key={`${logo.url}-${i}`}
-          className={`relative flex h-[68px] w-[108px] items-center justify-center overflow-x-clip rounded-[10px] border border-[rgba(94,154,202,0.52)] bg-[linear-gradient(145deg,rgba(27,63,96,0.7)_0%,rgba(11,32,54,0.78)_48%,rgba(8,24,42,0.72)_100%)] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(125deg,rgba(91,188,249,0.11),transparent_31%,transparent_70%,rgba(42,137,212,0.05))] after:pointer-events-none after:absolute after:-start-[45px] after:-top-[45px] after:h-[100px] after:w-[130px] after:rounded-full after:bg-[rgba(0,130,230,0.08)] after:blur-[25px] transition-[border-color,box-shadow,transform] duration-[350ms] hover:-translate-y-[3px] hover:border-[rgba(46,173,247,0.82)] motion-reduce:transition-none md:h-[108px] md:w-[185px] md:rounded-[14px] xl:h-[126px] xl:w-[224px] ${cardShadow} ${cardShadowHover}`}
+        <JxScene
+            ref={ref}
+            id='ourPartners'
+            labelledBy='home-partners-heading'
+            busy={loading}
+            image={cmsImage(data?.image?.url, '/landing/bg-3-section.png')}
+            shade='center'
+            bodyClassName='items-center text-center !px-0'
         >
-          <Image
-            src={cmsImage(logo.url, logo.url)}
-            alt={hidden ? '' : logo.alt || ''}
-            width={160}
-            height={80}
-            className='relative z-[2] h-auto max-h-[70%] w-auto max-w-[78%] object-contain'
-          />
-        </article>
-      ))}
-    </div>
-  );
+            {loading ? (
+                <p className='sr-only'>{t('loading')}</p>
+            ) : (
+                <div className='flex w-full flex-col items-center'>
+                    <div className='flex flex-col items-center px-[var(--jx-gutter)]'>
+                        <JxTag>{pickUi(data, locale, 'eyebrow', t('Hero.trusted'))}</JxTag>
+                        <JxHeading
+                            id='home-partners-heading'
+                            lines={lines}
+                            className='mt-4 text-[length:var(--jx-fs-5xl)] leading-[1.02] tracking-[-0.03em]'
+                        />
+                        {description ? (
+                            <p data-jx='rise' className='mt-5 max-w-[34rem] text-[length:var(--jx-fs-lg)] font-[400] leading-[1.6] text-[var(--jx-text-2)]'>
+                                {description}
+                            </p>
+                        ) : null}
+                    </div>
+
+                    {logos.length ? (
+                        <div data-jx='fade' className='relative mt-[clamp(36px,7vh,80px)] w-full [perspective:1100px]'>
+                            <div
+                                dir='ltr'
+                                data-runway className='flex flex-col [transform:rotateX(24deg)] [transform-origin:50%_0%] [mask-image:linear-gradient(90deg,transparent,#000_14%,#000_86%,transparent)] max-md:[transform:rotateX(14deg)]'
+                            >
+                                {lanes.map((lane, li) => (
+                                    <Lane key={li} logos={lane} reverse={(li === 1) !== isAr} slow={li === 1} />
+                                ))}
+                            </div>
+                            <div aria-hidden='true' className='pointer-events-none absolute inset-x-0 -bottom-6 h-16 bg-[radial-gradient(50%_100%_at_50%_0%,rgba(255,255,255,0.12),transparent)] blur-md' />
+                        </div>
+                    ) : null}
+                </div>
+            )}
+        </JxScene>
+    );
 }
 
-function fillLogoSet(list) {
-  if (!list?.length) return [];
-  const out = [...list];
-  while (out.length < 16) out.push(...list);
-  return out.slice(0, Math.max(16, list.length));
+function Lane({ logos, reverse, slow }) {
+    const set = fill(logos, 10);
+    const anim = reverse ? 'animate-partners-marquee-rtl' : 'animate-partners-marquee-ltr';
+    return (
+        <div data-lane className='group/lane overflow-hidden border-t border-[var(--jx-line)] last:border-b'>
+            <ul
+                className={`m-0 flex w-max list-none p-0 will-change-transform group-hover/lane:![animation-play-state:paused] motion-reduce:[animation:none] ${anim} jx-loop ${slow ? '[animation-duration:46s]' : ''}`}
+            >
+                {[...set, ...set].map((logo, i) => (
+                    <li
+                        key={`${logo.url}-${i}`}
+                        aria-hidden={i >= set.length || undefined}
+                        className='group relative flex h-[96px] w-[176px] shrink-0 items-center justify-center border-e border-[var(--jx-line)] md:h-[132px] md:w-[260px] xl:h-[150px] xl:w-[300px]'
+                    >
+                        <Image
+                            src={cmsImage(logo.url, logo.url)}
+                            alt={i >= set.length ? '' : logo.alt || ''}
+                            width={220}
+                            height={110}
+                            sizes='220px'
+                            className='h-auto max-h-[58%] w-auto max-w-[72%] object-contain opacity-75 [filter:grayscale(1)_brightness(2.2)_contrast(0.9)] transition-[filter,opacity,transform] duration-500 group-hover:scale-110 group-hover:opacity-100 group-hover:[filter:grayscale(1)_brightness(3)_drop-shadow(0_0_12px_rgba(255,255,255,0.45))]'
+                        />
+                        <span aria-hidden='true' className='absolute inset-x-6 bottom-0 h-px scale-x-0 bg-[var(--jx-silver)] shadow-[0_0_10px_var(--jx-silver)] transition-transform duration-500 group-hover:scale-x-100' />
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
-function PartnersSkeleton() {
-  return (
-    <div className='flex w-full flex-1 flex-col items-center justify-between gap-8'>
-      <div className='flex flex-col items-center'>
-        <div className='h-10 w-56 rounded-full skeleton-box bg-white/20' />
-        <div className='mt-4 h-16 w-[min(70vw,420px)] rounded skeleton-box bg-white/20' />
-        <div className='mt-3 h-5 w-64 rounded skeleton-box bg-white/20' />
-      </div>
-      <div className='grid w-full grid-cols-3 gap-2 md:grid-cols-6'>
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className='h-[88px] rounded-[14px] skeleton-box bg-white/15 md:h-[108px]' />
-        ))}
-      </div>
-    </div>
-  );
+/** Repeat a lane until one copy is wider than the widest screens. */
+function fill(list, min) {
+    if (!list.length) return list;
+    const out = [...list];
+    while (out.length < min) out.push(...list);
+    return out;
+}
+
+/* The ledger plane swings down from vertical; lanes slide in from opposite sides. */
+function landRunway(tl, root) {
+    const plane = root.querySelector('[data-runway]');
+    const lanes = [...root.querySelectorAll('[data-lane]')];
+    if (!plane) return;
+    const tilt = window.matchMedia('(max-width: 767px)').matches ? 14 : 24;
+    gsap.set(plane, { rotationX: 78, opacity: 0 });
+    tl.fromTo(plane, { rotationX: 78, opacity: 0 }, { rotationX: tilt, opacity: 1, duration: 1.6, ease: 'expo.out', immediateRender: false }, 0.5);
+    lanes.forEach((lane, i) => {
+        const from = { xPercent: i % 2 ? 18 : -18, opacity: 0 };
+        gsap.set(lane, from);
+        tl.fromTo(lane, from, { xPercent: 0, opacity: 1, duration: 1.4, ease: 'expo.out', immediateRender: false }, 0.65 + i * 0.12);
+    });
 }

@@ -1,7 +1,8 @@
 import { useMessages } from 'next-intl';
 import { NextIntlClientProvider } from 'next-intl';
-import { Montserrat, Cairo, Orbitron, Inter } from 'next/font/google';
+import { Montserrat, Cairo, Orbitron, Inter, Alexandria, Almarai } from 'next/font/google';
 import '@/style/tailwind.css';
+import '@/style/joe-system.css';
 import Layout from '@/components/template/Layout';
 import { baseUrl } from '@/helpers/baseUrl';
 import { JsonLd, SITE_NAME, SITE_URL, absoluteUrl } from '@/helpers/seo';
@@ -25,6 +26,21 @@ const orbitron = Orbitron({
     weight: ['400', '500', '600', '700', '800'],
     display: 'swap',
     variable: '--font-orbitron',
+});
+
+// JOE13 Black & Silver system — Arabic: Almarai (display + text);
+// Latin: Alexandria (display) + Inter (text).
+const alexandria = Alexandria({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-alexandria',
+});
+
+const almarai = Almarai({
+    subsets: ['arabic'],
+    weight: ['300', '400', '700', '800'],
+    display: 'swap',
+    variable: '--font-almarai',
 });
 
 const inter = Inter({
@@ -124,7 +140,7 @@ export default function RootLayout({ children, params: { locale } }) {
     const messages = useMessages();
 
     return (
-        <html lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'} className={`${montserrat.variable} ${cairo.variable} ${orbitron.variable} ${inter.variable}`}>
+        <html suppressHydrationWarning lang={locale} dir={locale == 'en' ? 'ltr' : 'rtl'} className={`${montserrat.variable} ${cairo.variable} ${orbitron.variable} ${inter.variable} ${alexandria.variable} ${almarai.variable}`}>
             <head>
                 <meta name='google-site-verification' content='zJyIE3QZ-5AyKid90sn0qSevc_ChsFUc0aG_8hbOYj4' />
                 <link rel='preconnect' href={baseUrl} crossOrigin='anonymous' />

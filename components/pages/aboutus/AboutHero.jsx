@@ -1,116 +1,151 @@
 'use client';
 
-import { pickUi } from '@/helpers/cms';
+import { JxButton, JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
+import { useSceneMotion, weightMorph } from '@/components/jx/motion';
+import { cmsImage, pickUi } from '@/helpers/cms';
+import gsap from 'gsap';
 import { useLocale, useTranslations } from 'next-intl';
-import CmsFillImage from '@/components/atoms/CmsFillImage';
 
-const BG = '/landing/about-us-bg-1.png';
+/*
+ * About 1 — "Origin".
+ * A chrome title over the company's story, and the signature: a timeline
+ * from the founding year to today. The rail draws itself, each year's tick
+ * lights in turn, a glint travels the journey and settles on "today" while
+ * the year counts up to the present.
+ */
+const FALLBACK_FOUNDED = 2013;
 
-function splitTitle(raw) {
-  const text = (raw || '').trim();
-  if (!text) return { lead: '', accent: '' };
-  const parts = text.split(/\s+/);
-  if (parts.length === 1) return { lead: '', accent: parts[0] };
-  return { lead: parts[0], accent: parts.slice(1).join(' ') };
+export default function AboutHero({ data, loading, active = true }) {
+    const t = useTranslations();
+    const tj = useTranslations('Jx');
+    const locale = useLocale();
+
+    const title = data?.title?.[locale] || t('aboutUs.aboutUsTitle');
+    const description = data?.content?.[locale] || t('aboutUs.aboutUs');
+    const eyebrow = pickUi(data, locale, 'eyebrow', t('Hero.aboutEyebrow'));
+    const slogan = pickUi(data, locale, 'slogan', t('Hero.tagline'));
+    const founded = foundingYear(`${data?.content?.en || ''} ${description}`);
+    const now = new Date().getFullYear();
+    const years = Array.from({ length: Math.max(1, now - founded + 1) }, (_, i) => founded + i);
+
+    const parts = splitTitle(title);
+    const lines = parts.map((text, i) => ({ text, tone: i === parts.length - 1 ? 'accent' : 'light', className: i === parts.length - 1 ? 'jx-morph' : '' }));
+
+    const ref = useSceneMotion(active, {
+        deps: [loading, locale, title],
+        extend: (tl, root) => {
+            weightMorph(tl, root.querySelector('.jx-morph'));
+            runTimeline(tl, root, founded, now);
+        },
+    });
+
+    return (
+        <JxScene
+            ref={ref}
+            id='about'
+            labelledBy='about-heading'
+            busy={loading}
+            priority
+            image={cmsImage(data?.image?.url, '/landing/about-us-bg-1.png')}
+            shade='start'
+        >
+            {loading ? (
+                <p className='sr-only'>{t('loading')}</p>
+            ) : (
+                <div className='w-full max-w-[1180px]'>
+                    <JxTag parts={[eyebrow, slogan].filter(Boolean)} />
+                    <JxHeading as='h1' id='about-heading' lines={lines} className='mt-5 text-[length:var(--jx-fs-mega)] leading-[1.1]' />
+                    {description ? (
+                        <p data-jx='rise' className='mt-6 max-w-[44rem] text-pretty text-[length:var(--jx-fs-lg)] leading-[1.85] text-[var(--jx-text-2)]'>
+                            {description}
+                        </p>
+                    ) : null}
+                    <div className='mt-8'>
+                        <JxButton href='/contact-us'>{t('contact us')}</JxButton>
+                    </div>
+
+                    {/* Timeline: founding year → today */}
+                    <figure data-timeline className='m-0 mt-[clamp(40px,8vh,80px)]' aria-label={tj('timeline')}>
+                        <div className='flex items-end justify-between gap-6'>
+                            <div data-jx='rise'>
+                                <span className='block text-[13px] text-[var(--jx-text-3)]'>{tj('founded')}</span>
+                                <span dir='ltr' className='jx-display jx-accent mt-1 block text-[clamp(2rem,1.2rem+2.4vw,3.4rem)] font-[300] leading-none tabular-nums'>
+                                    {founded}
+                                </span>
+                            </div>
+                            <div data-jx='rise' className='text-end'>
+                                <span className='block text-[13px] text-[var(--jx-text-3)]'>{tj('today')}</span>
+                                <span dir='ltr' data-year-now className='jx-display mt-1 block text-[clamp(2rem,1.2rem+2.4vw,3.4rem)] font-[800] leading-none text-white tabular-nums'>
+                                    {now}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className='relative mt-5 h-6' aria-hidden='true'>
+                            <span className='absolute inset-x-0 top-1/2 h-px bg-[var(--jx-line)]' />
+                            <span data-rail className='absolute inset-x-0 top-1/2 h-px origin-left bg-[linear-gradient(90deg,var(--jx-steel),#fff)] shadow-[0_0_10px_rgba(255,255,255,0.5)] rtl:origin-right rtl:bg-[linear-gradient(270deg,var(--jx-steel),#fff)]' />
+                            <ol className='absolute inset-0 m-0 flex list-none items-center justify-between p-0'>
+                                {years.map((year, i) => (
+                                    <li key={year} data-tick className='relative flex h-full w-px items-center justify-center'>
+                                        <span className={`block w-px bg-[var(--jx-silver)] ${i === 0 || i === years.length - 1 ? 'h-6' : 'h-2.5'}`} />
+                                    </li>
+                                ))}
+                            </ol>
+                            <span data-bead className='absolute top-1/2 size-3 -translate-y-1/2 rounded-full bg-white shadow-[var(--jx-glint-glow)] [inset-inline-start:0]' />
+                        </div>
+
+                        <ol className='m-0 mt-2 hidden list-none justify-between p-0 text-[11.5px] tabular-nums text-[var(--jx-steel)] md:flex' dir='ltr'>
+                            {(locale === 'ar' ? [...years].reverse() : years).map(year => (
+                                <li key={year} className='relative h-4 w-px'>
+                                    <span className='absolute left-1/2 top-0 -translate-x-1/2'>{String(year).slice(2)}</span>
+                                </li>
+                            ))}
+                        </ol>
+                    </figure>
+                </div>
+            )}
+        </JxScene>
+    );
 }
 
-export default function AboutHero({ data, loading }) {
-  const t = useTranslations();
-  const locale = useLocale();
-  const isAr = locale === 'ar';
-  const bodyFont = isAr ? 'font-cairo' : 'font-inter';
-  const title = data?.title?.[locale] || '';
-  const { lead, accent } = splitTitle(title);
-  const description = data?.content?.[locale] || '';
-  const eyebrow = pickUi(data, locale, 'eyebrow', t('Hero.aboutEyebrow'));
-  const slogan = pickUi(data, locale, 'slogan', t('Hero.tagline'));
+function foundingYear(text) {
+    const m = String(text).match(/\b(19[89]\d|20[0-2]\d)\b/);
+    return m ? Number(m[1]) : FALLBACK_FOUNDED;
+}
 
-  return (
-    <section
-      id='about'
-      aria-busy={loading || undefined}
-      className={`relative isolate flex h-full min-h-[793px] w-full items-center justify-center overflow-hidden text-white max-[1200px]:min-h-[700px] max-[768px]:min-h-[680px] max-[480px]:min-h-[620px] ${bodyFont}`}
-    >
-      <div className='pointer-events-none absolute inset-0 -z-[5]'>
-        <CmsFillImage
-          url={data?.image?.url}
-          fallback={BG}
-          alt={data?.image?.alt || ''}
-          priority
-          sizes='100vw'
-          className='object-cover object-center'
-        />
-      </div>
+/* Rail draws → ticks light in sequence → glint travels → present year counts up. */
+function runTimeline(tl, root, founded, now) {
+    const rail = root.querySelector('[data-rail]');
+    const ticks = [...root.querySelectorAll('[data-tick] > span')];
+    const bead = root.querySelector('[data-bead]');
+    const nowEl = root.querySelector('[data-year-now]');
+    const box = root.querySelector('[data-timeline] .relative');
+    if (!rail || !bead || !box) return;
+    const start = 0.9;
+    const span = 2.2;
 
-      <div
-        aria-hidden='true'
-        className='pointer-events-none absolute inset-0 -z-[4] bg-[radial-gradient(ellipse_at_50%_15%,rgba(8,75,130,0.17),transparent_48%),radial-gradient(ellipse_at_0%_45%,rgba(4,67,122,0.15),transparent_35%)]'
-      />
+    gsap.set(rail, { scaleX: 0 });
+    tl.fromTo(rail, { scaleX: 0 }, { scaleX: 1, duration: span, ease: 'power2.inOut', immediateRender: false }, start);
 
-      <div
-        aria-hidden='true'
-        className='about-hero-glow pointer-events-none absolute -start-[240px] top-[90px] -z-[2] size-[420px] rounded-full bg-[rgba(0,106,255,0.5)] blur-[70px] max-[480px]:size-[250px] max-[480px]:blur-[55px]'
-      />
-      <div
-        aria-hidden='true'
-        className='about-hero-glow pointer-events-none absolute -bottom-[150px] -end-[190px] -z-[2] size-[420px] rounded-full bg-[rgba(0,116,255,0.62)] blur-[70px] max-[480px]:size-[250px] max-[480px]:blur-[55px]'
-      />
+    if (ticks.length) {
+        const from = { backgroundColor: 'rgba(140,145,153,0.35)', boxShadow: '0 0 0 rgba(255,255,255,0)' };
+        gsap.set(ticks, from);
+        tl.fromTo(
+            ticks,
+            from,
+            { backgroundColor: '#ffffff', boxShadow: '0 0 8px rgba(255,255,255,0.9)', duration: 0.3, stagger: span / ticks.length, ease: 'power1.out', immediateRender: false },
+            start,
+        );
+    }
 
-      <div
-        aria-hidden='true'
-        className='pointer-events-none absolute -bottom-[75px] -end-[70px] -z-[1] h-[260px] w-[650px] -rotate-45 border-t border-[rgba(12,131,235,0.75)] shadow-[0_-3px_16px_rgba(0,119,255,0.16),0_-1px_40px_rgba(0,119,255,0.12)]'
-      />
+    const dir = document.documentElement.dir === 'rtl' ? -1 : 1;
+    const distance = () => (box.clientWidth - bead.offsetWidth) * dir;
+    gsap.set(bead, { x: 0, opacity: 0 });
+    tl.fromTo(bead, { x: 0, opacity: 0 }, { x: distance, opacity: 1, duration: span, ease: 'power2.inOut', immediateRender: false }, start);
 
-      <div className='relative z-[5] mt-[-40px] w-[min(1100px,calc(100%-80px))] text-center min-[1600px]:mt-[-55px] min-[1600px]:w-[1200px] max-[1200px]:w-[calc(100%-100px)] max-[768px]:mt-[-50px] max-[768px]:w-[calc(100%-40px)] max-[480px]:mt-[-55px] max-[480px]:w-[calc(100%-28px)]'>
-        {loading ? (
-          <div className='flex flex-col items-center gap-5'>
-            <div className='h-4 w-[180px] rounded skeleton-box' />
-            <div className='h-[70px] w-[min(100%,420px)] rounded-lg skeleton-box' />
-            <div className='h-5 w-full max-w-[720px] rounded skeleton-box' />
-            <div className='h-5 w-4/5 max-w-[640px] rounded skeleton-box' />
-          </div>
-        ) : (
-          <>
-            <div className='mb-7 flex items-center justify-center gap-12 max-[768px]:mb-[22px] max-[768px]:gap-[18px] max-[480px]:gap-3'>
-              <span className='block h-px w-[105px] bg-[linear-gradient(90deg,transparent,#078fff)] shadow-[0_0_5px_rgba(0,142,255,0.45)] max-[768px]:w-[55px] max-[480px]:w-8' />
-              <p className={`m-0 whitespace-nowrap text-[14px] font-medium text-[#069af4] [text-shadow:0_0_12px_rgba(0,148,255,0.25)] max-[768px]:text-[10px] max-[480px]:text-[8px] ${isAr ? 'tracking-[4px] max-[768px]:tracking-[3px]' : 'tracking-[7px] max-[768px]:tracking-[4px] max-[480px]:tracking-[3px]'}`}>
-                {eyebrow}
-              </p>
-              <span className='block h-px w-[105px] bg-[linear-gradient(90deg,#078fff,transparent)] shadow-[0_0_5px_rgba(0,142,255,0.45)] max-[768px]:w-[55px] max-[480px]:w-8' />
-            </div>
-
-            {title ? (
-              <h1 className='m-0 text-[clamp(64px,5.5vw,94px)] font-bold leading-[0.98] tracking-[-4px] text-[#f5f8fc] [text-shadow:0_4px_25px_rgba(0,0,0,0.2)] max-[768px]:text-[55px] max-[768px]:tracking-[-2.5px] max-[480px]:text-[43px] max-[480px]:tracking-[-2px]'>
-                {lead ? lead : ''}
-                {lead && accent ? ' ' : null}
-                {accent ? (
-                  <span className='inline-block bg-[linear-gradient(180deg,#8cdbff_0%,#16b9ff_35%,#0876ed_100%)] bg-clip-text text-transparent [filter:drop-shadow(0_0_18px_rgba(0,126,255,0.12))]'>
-                    {accent}
-                  </span>
-                ) : null}
-              </h1>
-            ) : null}
-
-            {description ? (
-              <p className='mx-auto mt-[26px] max-w-[1100px] text-[clamp(17px,1.42vw,23px)] font-normal leading-[1.65] tracking-[-0.25px] text-[rgba(242,246,250,0.91)] [text-shadow:0_2px_8px_rgba(0,0,0,0.3)] min-[1600px]:max-w-[1160px] max-[1200px]:max-w-[920px] max-[768px]:mt-[22px] max-[768px]:text-[15px] max-[768px]:leading-[1.7] max-[480px]:mt-[19px] max-[480px]:text-[13px] max-[480px]:leading-[1.65]'>
-                {description}
-              </p>
-            ) : null}
-
-            <div className='mt-[42px] flex items-center justify-center gap-[30px] max-[768px]:mt-[30px] max-[768px]:gap-[17px] max-[480px]:mt-[25px] max-[480px]:gap-3'>
-              <span className='block h-px w-[60px] bg-[#087de9] shadow-[0_0_7px_rgba(0,139,255,0.55)] max-[768px]:w-[45px] max-[480px]:w-[35px]' />
-              <i className='block size-[11px] rounded-full bg-[#0c7bf1] shadow-[0_0_6px_#078cff,0_0_18px_rgba(0,125,255,0.65)] max-[480px]:size-2' />
-              <span className='block h-px w-[60px] bg-[#087de9] shadow-[0_0_7px_rgba(0,139,255,0.55)] max-[768px]:w-[45px] max-[480px]:w-[35px]' />
-            </div>
-          </>
-        )}
-      </div>
-
-      {loading ? null : (
-        <div className={`pointer-events-none absolute bottom-[84px] left-1/2 w-full -translate-x-1/2 select-none whitespace-nowrap text-center font-light text-[rgba(15,62,105,0.58)] text-[clamp(26px,2.6vw,42px)] tracking-[clamp(12px,1.3vw,25px)] min-[1600px]:bottom-[87px] max-[1200px]:bottom-[60px] max-[1200px]:text-[28px] max-[1200px]:tracking-[15px] max-[768px]:bottom-10 max-[768px]:text-base max-[768px]:tracking-[7px] max-[480px]:bottom-7 max-[480px]:text-[11px] max-[480px]:tracking-[4px] ${isAr ? 'tracking-[10px] max-[1200px]:tracking-[8px]' : ''}`}>
-          {slogan}
-        </div>
-      )}
-    </section>
-  );
+    if (nowEl) {
+        const state = { y: founded };
+        nowEl.textContent = String(founded);
+        tl.to(state, { y: now, duration: span, ease: 'power2.inOut', onUpdate: () => (nowEl.textContent = String(Math.round(state.y))) }, start);
+    }
 }

@@ -1,307 +1,307 @@
 'use client';
 
 import { useValues } from '@/app/context';
-import LandingIcon from '@/components/atoms/LandingIcon';
-import { Link, usePathname } from '@/navigation';
+import { JxButton } from '@/components/jx/primitives';
+import SocialIcon from '@/components/jx/SocialIcon';
+import { Link } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const focusRing =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white';
+/*
+ * Footer — Black & Silver.
+ *
+ *   ┌────────────────────────────────────────────────────────────────┐
+ *   │ ● Let's talk                                                   │
+ *   │ Let's build what's next            [ Contact us → ] [WhatsApp] │
+ *   │ supporting line                                                │
+ *   ├────────────────────────────────────────────────────────────────┤
+ *   │ JOE13 mark      │ Products   │ Services     │ Contact          │
+ *   │ description     │ links      │ links (+more)│ address / mail…  │
+ *   │ (○)(○)(○)       │            │              │ Branches         │
+ *   ├────────────────────────────────────────────────────────────────┤
+ *   │ © copyright        connect · create · grow        Back to top ↑ │
+ *   └────────────────────────────────────────────────────────────────┘
+ *   (an oversized wordmark rests at the bottom as a watermark)
+ */
 
-const socialShadow =
-  'shadow-[inset_0_1px_1px_rgba(143,216,255,0.11),0_4px_13px_rgba(0,0,0,0.18)]';
-
-const cardShadow =
-  'shadow-[inset_0_1px_1px_rgba(145,220,255,0.1),0_0_20px_rgba(0,105,192,0.09)]';
-
-const contactShadow = 'shadow-[inset_0_1px_1px_rgba(140,214,255,0.06)]';
-
-const talkShadow =
-  'shadow-[0_0_20px_rgba(0,134,237,0.14),inset_0_1px_2px_rgba(180,232,255,0.08)]';
+const SERVICE_PREVIEW_COUNT = 8;
 
 const Footer = ({ cn, id }) => {
-  const t = useTranslations('Footer');
-  const locale = useLocale();
-  const isAr = locale === 'ar';
-  const bodyFont = isAr ? 'font-cairo' : 'font-inter';
-  const { projects, loading, settings, services } = useValues();
-  const pathname = usePathname();
-  const [showFooter, setShowFooter] = useState(true);
-  const [showAllServices, setShowAllServices] = useState(false);
-  const SERVICE_PREVIEW_COUNT = 8;
+    const t = useTranslations('Footer');
+    const tj = useTranslations('Jx');
+    const locale = useLocale();
+    const { projects, loading, settings, services } = useValues();
+    const [showAllServices, setShowAllServices] = useState(false);
 
-  const ourProduct = projects?.data?.filter(e => e.department?.id == 1);
-  const productLinks = ourProduct
-    ?.filter(e => e?.slug && (e?.name?.[locale] || e?.name?.en))
-    ?.slice(0, 5)
-    ?.map(e => ({
-      name: e?.name?.[locale],
-      link: `/projects/${e.slug}`,
-    }));
-  const serviceLinks = services?.data
-    ?.filter(e => e?.slug && (e?.title?.[locale] || e?.title?.en))
-    ?.map(e => ({
-      name: e?.title?.[locale],
-      link: `/services/${e.slug}`,
-    }));
-  const visibleServices = showAllServices
-    ? serviceLinks
-    : serviceLinks?.slice(0, SERVICE_PREVIEW_COUNT);
-  const hasMoreServices = (serviceLinks?.length || 0) > SERVICE_PREVIEW_COUNT;
-  const socials = Object.entries(settings?.social_media || {}).filter(([, value]) => value);
-  const address = settings?.contact_us?.address?.[locale];
-  const email = settings?.contact_us?.email;
-  const phone = settings?.contact_us?.phone;
-  const branches = settings?.branch?.[locale] || [];
-  const description = settings?.about_us_footer?.[locale] || t('description');
+    const ourProduct = projects?.data?.filter(e => e.department?.id == 1);
+    const productLinks = ourProduct
+        ?.filter(e => e?.slug && (e?.name?.[locale] || e?.name?.en))
+        ?.slice(0, 6)
+        ?.map(e => ({ name: e?.name?.[locale] || e?.name?.en, link: `/projects/${e.slug}` }));
+    const serviceLinks = services?.data
+        ?.filter(e => e?.slug && (e?.title?.[locale] || e?.title?.en))
+        ?.map(e => ({ name: e?.title?.[locale] || e?.title?.en, link: `/services/${e.slug}` }));
+    const visibleServices = showAllServices ? serviceLinks : serviceLinks?.slice(0, SERVICE_PREVIEW_COUNT);
+    const hasMoreServices = (serviceLinks?.length || 0) > SERVICE_PREVIEW_COUNT;
+    const socials = Object.entries(settings?.social_media || {}).filter(([, value]) => value);
+    const address = settings?.contact_us?.address?.[locale];
+    const email = settings?.contact_us?.email;
+    const phone = settings?.contact_us?.phone;
+    const branches = settings?.branch?.[locale] || [];
+    const description = settings?.about_us_footer?.[locale] || t('description');
+    const year = new Date().getFullYear();
 
-  useEffect(() => {
-    if (pathname.startsWith('/services')) setShowFooter(false);
-    else setShowFooter(true);
-  }, [pathname]);
+    const backToTop = () => {
+        const swiper = document.querySelector('.mySwiper')?.swiper;
+        if (swiper) swiper.slideTo(0);
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-  if (!showFooter) return;
-
-  if (loading) {
-    return (
-      <div className={`relative isolate overflow-hidden py-[100px] text-white ${cn || ''}`}>
-        <p className='sr-only'>{locale === 'ar' ? 'جاري التحميل' : 'Loading'}</p>
-        <div className='mx-auto grid w-[min(1370px,calc(100%-36px))] grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-5'>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className='space-y-4'>
-              <div className='h-5 w-3/4 rounded skeleton-box bg-white/20' />
-              {Array.from({ length: 3 }).map((_, row) => (
-                <div key={row} className='h-4 w-full rounded skeleton-box bg-white/10' />
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <footer
-      id={id}
-      className={`relative isolate z-[1000] min-h-screen overflow-hidden text-white max-[1200px]:min-h-screen max-[1450px]:min-h-screen max-[640px]:min-h-screen max-[640px]:pe-2 ${bodyFont} ${cn || ''}`}
-    >
-      <div className='pointer-events-none absolute inset-0 z-0 overflow-hidden'>
-        <Image
-          src='/landing/bg-footer.png'
-          alt=''
-          fill
-          sizes='100vw'
-          className='object-cover object-center max-[640px]:object-bottom'
-        />
-        <div aria-hidden='true' className='bg-overlay' />
-      </div>
-      <div
-        aria-hidden='true'
-        className='pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_82%_10%,rgba(0,104,211,0.16),transparent_33%),radial-gradient(ellipse_at_16%_58%,rgba(0,117,213,0.08),transparent_29%)]'
-      />
-
-      <div className='relative z-10 mx-auto grid min-h-[805px] w-[min(1370px,calc(100%-120px))] grid-cols-[1.22fr_.95fr_1.22fr_1.12fr_.92fr] pt-2 max-[1450px]:w-[calc(100%-110px)] max-[1200px]:w-[calc(100%-60px)] max-[1200px]:grid-cols-[1.15fr_.9fr_1.25fr_1.1fr] max-[900px]:w-[calc(100%-42px)] max-[900px]:grid-cols-2 max-[900px]:pb-[35px] max-[640px]:block max-[640px]:w-[calc(100%-36px)] max-[640px]:pb-5 max-[390px]:w-[calc(100%-28px)]'>
-        <section className='pe-10 pt-[120px] max-[1450px]:pe-[27px] max-[900px]:col-span-2 max-[900px]:pe-0 max-[900px]:pt-[88px] max-[640px]:pt-[68px]'>
-          <div className='flex w-[198px] flex-col text-[#f8fbff] max-[640px]:w-40'>
-            <span className='block origin-start scale-x-[1.04] text-[51px] font-bold leading-[0.77] tracking-[-5px] [text-shadow:0_0_7px_rgba(255,255,255,0.15)] max-[640px]:text-[42px] max-[390px]:text-[37px]'>
-              JOE13
-            </span>
-            <small className='mt-2.5 ps-1 text-[6.5px] font-medium leading-none tracking-[2px] text-[#e8f3fb] max-[640px]:text-[5px] max-[640px]:tracking-[1.6px]'>
-              {t('tomorrowMade')}
-            </small>
-          </div>
-
-          {description ? (
-            <p className='mt-[29px] text-base font-normal leading-[1.5] tracking-[-0.25px] text-[rgba(227,238,248,0.88)] max-[1200px]:text-sm max-[640px]:mt-[23px] max-[640px]:text-[13px] max-[390px]:text-xs'>
-              {description}
-            </p>
-          ) : null}
-
-          {socials.length > 0 ? (
-            <div className='mt-[17px] flex w-[285px] flex-wrap gap-[7px] max-[640px]:mt-[18px] max-[640px]:w-full max-[640px]:gap-1.5'>
-              {socials.map(([key, value]) => (
-                <a
-                  key={key}
-                  href={value}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label={key}
-                  className={`flex size-[49px] items-center justify-center rounded-[11px] border border-[rgba(13,143,221,0.63)] bg-[linear-gradient(145deg,rgba(8,69,116,0.85),rgba(3,28,53,0.86))] text-white transition duration-[250ms] hover:-translate-y-[3px] hover:border-[rgba(12,170,244,0.95)] hover:shadow-[0_0_14px_rgba(0,153,242,0.3)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-[640px]:size-[43px] max-[640px]:rounded-[9px] max-[390px]:size-10 ${socialShadow} ${focusRing}`}
-                >
-                  <Image className='object-contain' src={`/assets/social/${key}.png`} alt='' width={25} height={25} />
-                </a>
-              ))}
-            </div>
-          ) : null}
-
-          <div className='mt-12 flex items-center gap-[11px] text-[9px] font-medium tracking-[1.55px] text-[#079fe9] max-[640px]:mt-[35px] max-[640px]:text-[7px] max-[640px]:tracking-[1.1px]'>
-            <span>-{t('connect')}</span>
-            <b className='text-[8px] font-medium text-[#1688d0]'>•</b>
-            <span>{t('create')}</span>
-            <b className='text-[8px] font-medium text-[#1688d0]'>•</b>
-            <span>{t('grow')}-</span>
-          </div>
-
-          <Link
-            href='/contact-us'
-            className={`relative mt-[33px] flex min-h-[147px] w-[274px] items-center rounded-[17px] border border-[rgba(13,151,237,0.82)] bg-[linear-gradient(135deg,rgba(4,46,81,0.78),rgba(5,29,53,0.7))] px-[17px] py-[23px] ps-[27px] text-white backdrop-blur-[3px] transition duration-300 hover:-translate-y-1 hover:border-[rgba(18,176,247,1)] hover:shadow-[0_0_25px_rgba(0,130,230,0.22)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-[1200px]:w-full max-[640px]:mt-[26px] max-[640px]:min-h-[128px] max-[640px]:p-[21px] max-[390px]:min-h-[120px] ${cardShadow} ${focusRing}`}
-          >
-            <div>
-              <strong className='block text-[15px] font-semibold leading-[1.22] text-[#f8fbff] max-[640px]:text-sm'>
-                {t('letsBuild')}
-              </strong>
-              <p className='mt-[13px] text-[11px] leading-[1.45] text-[rgba(216,232,246,0.8)] max-[640px]:text-[10px]'>
-                {t('brighterFuture')}
-              </p>
-            </div>
-          </Link>
-        </section>
-
-        {productLinks?.length ? (
-        <FooterColumn className='max-[1200px]:px-5' heading={ourProduct?.[0]?.department?.name?.[locale] || t('ourProduct')}>
-          <ul className='mt-[19px] list-none p-0'>
-            {productLinks.map((item, index) => (
-              <li
-                key={item.link || index}
-                className="relative mb-[17px] ps-[34px] before:absolute before:start-0 before:top-[-2px] before:text-[25px] before:font-light before:leading-none before:text-[#079ee9] before:content-['›'] rtl:before:content-['‹']"
-              >
-                <Link
-                  href={item.link}
-                  className={`text-sm font-normal leading-[1.3] text-[rgba(227,236,245,0.9)] transition-colors duration-200 hover:text-[#11aeef] max-[640px]:text-[13px] ${focusRing}`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </FooterColumn>
-        ) : null}
-
-        {visibleServices?.length ? (
-        <FooterColumn className='max-[900px]:col-span-2 max-[1200px]:px-5' heading={t('services')}>
-          <ul className='mt-[19px] list-none p-0 max-[900px]:columns-2 max-[640px]:columns-1'>
-            {visibleServices.map((item, index) => (
-              <li
-                key={item.link || index}
-                className="relative mb-3.5 break-inside-avoid ps-[34px] before:absolute before:start-0 before:top-[-2px] before:text-[25px] before:font-light before:leading-none before:text-[#079ee9] before:content-['›'] rtl:before:content-['‹'] max-[640px]:mb-[13px]"
-              >
-                <Link
-                  href={item.link}
-                  className={`text-sm font-normal leading-[1.22] text-[rgba(227,236,245,0.9)] transition-colors duration-200 hover:text-[#11aeef] max-[640px]:text-[13px] ${focusRing}`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {hasMoreServices ? (
-            <button
-              type='button'
-              onClick={() => setShowAllServices(open => !open)}
-              className={`mt-1 ps-[34px] text-sm font-medium text-[#11aeef] transition-colors duration-200 hover:text-[#7ad4ff] max-[640px]:text-[13px] ${focusRing}`}
-            >
-              {showAllServices ? t('showLess') : t('readMore')}
-            </button>
-          ) : null}
-        </FooterColumn>
-        ) : null}
-
-        <FooterColumn className='max-[1200px]:px-5' heading={t('contact_us')}>
-          {address ? (
-            <div className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow}`}>
-              <ContactIcon src='/landing/location.png' />
-              <span>{address}</span>
-            </div>
-          ) : null}
-
-          {email ? (
-            <a
-              href={`mailto:${email}`}
-              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-[3px] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow} ${focusRing}`}
-            >
-              <ContactIcon src='/landing/emails.png' />
-              <span>{email}</span>
-            </a>
-          ) : null}
-
-          {phone ? (
-            <a
-              href={`https://wa.me/${phone}`}
-              target='_blank'
-              rel='noopener noreferrer'
-              dir='ltr'
-              className={`mt-2.5 flex min-h-[85px] w-full items-center gap-[17px] rounded-2xl border border-[rgba(8,127,202,0.39)] bg-[linear-gradient(135deg,rgba(5,48,80,0.65),rgba(3,28,51,0.53))] px-3.5 py-2.5 text-[13px] leading-[1.35] text-[#eef5fa] transition duration-[250ms] hover:translate-x-[3px] hover:border-[rgba(10,161,239,0.75)] hover:bg-[rgba(5,55,91,0.72)] motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:text-right rtl:hover:-translate-x-[3px] max-[640px]:min-h-[64px] max-[640px]:gap-3 max-[640px]:px-3 max-[640px]:text-xs ${contactShadow} ${focusRing}`}
-            >
-              <ContactIcon src='/landing/phone.png' />
-              <span className='underline underline-offset-2'>{phone}</span>
-            </a>
-          ) : null}
-
-          <Link
-            href='/contact-us'
-            className={`relative mt-[19px] flex min-h-[113px] w-full items-center rounded-2xl border border-[rgba(8,153,237,0.9)] bg-[linear-gradient(135deg,rgba(7,68,116,0.75),rgba(3,36,65,0.69))] p-[15px] text-white transition duration-[250ms] hover:-translate-y-[3px] hover:shadow-[0_0_28px_rgba(0,142,243,0.28),inset_0_1px_2px_rgba(180,232,255,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 max-[640px]:min-h-[88px] max-[640px]:p-3 ${talkShadow} ${focusRing}`}
-          >
-            <span className='relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-9'>
-              <LandingIcon src='/landing/msg.png' />
-            </span>
-            <span className='ms-3 flex flex-col'>
-              <strong className='text-[15px] font-semibold leading-[1.2]'>{t('letsTalk')}</strong>
-              <small className='mt-[9px] text-[10px] leading-[1.35] text-[rgba(224,237,248,0.8)]'>{t('talkHelp')}</small>
-            </span>
-          </Link>
-        </FooterColumn>
-
-        <FooterColumn className='max-[1200px]:px-5' heading={t('branch_office')}>
-          <ul className='mt-[19px] list-none p-0'>
-            {branches.map((branch, index) => (
-              <li key={index} className='mb-[11px]'>
-                <div className='flex min-h-[57px] items-center gap-[17px] rounded-[15px] border border-[rgba(7,117,190,0.26)] bg-[linear-gradient(135deg,rgba(5,47,79,0.57),rgba(3,28,51,0.45))] px-[13px] py-1.5 text-[13px] text-[rgba(227,236,245,0.9)] max-[640px]:min-h-[55px]'>
-                  <ContactIcon src='/landing/location.png' />
-                  <span>{branch}</span>
+    if (loading) {
+        return (
+            <div className={`jx relative min-h-screen bg-[var(--jx-ink)] py-[120px] ${cn || ''}`}>
+                <p className='sr-only'>{locale === 'ar' ? 'جاري التحميل' : 'Loading'}</p>
+                <div className='mx-auto grid w-[min(1400px,calc(100%-40px))] gap-8 sm:grid-cols-2 xl:grid-cols-4'>
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className='h-40 rounded-[var(--jx-r-md)] skeleton-box bg-white/10' />
+                    ))}
                 </div>
-              </li>
-            ))}
-          </ul>
-        </FooterColumn>
-      </div>
+            </div>
+        );
+    }
 
-      <div className='relative z-10 mx-auto flex min-h-[94px] w-[min(1370px,calc(100%-120px))] items-center justify-between border-t border-[rgba(11,151,232,0.74)] max-[1450px]:w-[calc(100%-110px)] max-[1200px]:w-[calc(100%-60px)] max-[900px]:w-[calc(100%-42px)] max-[640px]:min-h-[125px] max-[640px]:w-[calc(100%-36px)] max-[640px]:flex-col max-[640px]:items-start max-[640px]:justify-center max-[640px]:gap-[23px] max-[640px]:pb-7 max-[390px]:w-[calc(100%-28px)]'>
-        {settings?.copyright?.[locale] ? (
-          <span className='text-[13px] leading-none text-[rgba(221,234,246,0.83)] max-[640px]:text-[11px]'>
-            {settings.copyright[locale]}
-          </span>
-        ) : null}
-      </div>
-    </footer>
-  );
+    return (
+        <footer
+            id={id}
+            className={`jx relative isolate z-[1000] flex min-h-screen flex-col overflow-hidden bg-[var(--jx-ink)] text-[var(--jx-text)] ${cn || ''}`}
+        >
+            {/* atmosphere: silver blooms, grain, and the resting wordmark */}
+            <div aria-hidden='true' className='pointer-events-none absolute inset-0 -z-[1]'>
+                <div className='absolute inset-0 bg-[radial-gradient(60%_50%_at_85%_0%,rgba(199,203,209,0.10),transparent_70%),radial-gradient(50%_45%_at_10%_100%,rgba(199,203,209,0.07),transparent_70%)] rtl:bg-[radial-gradient(60%_50%_at_15%_0%,rgba(199,203,209,0.10),transparent_70%),radial-gradient(50%_45%_at_90%_100%,rgba(199,203,209,0.07),transparent_70%)]' />
+                <div className='jx-scene-grain' />
+                <div className='absolute inset-x-[4%] bottom-[-3vw] h-[22vw] opacity-[0.045] [-webkit-mask:linear-gradient(to_bottom,#000_30%,transparent)] [mask:linear-gradient(to_bottom,#000_30%,transparent)]'>
+                    <Image src='/assets/svg/logo-white.svg' alt='' fill sizes='92vw' className='object-contain object-bottom' />
+                </div>
+            </div>
+
+            <div className='mx-auto flex w-full max-w-[1400px] flex-1 flex-col px-[clamp(20px,5vw,72px)] pb-8 pt-[clamp(108px,14vh,160px)] max-md:!pr-[52px]'>
+                {/* 1 — invitation */}
+                <div className='grid items-end gap-x-10 gap-y-8 border-b border-[var(--jx-line)] pb-[clamp(44px,8vh,88px)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]'>
+                    <div>
+                        <p className='jx-tag'>{t('letsTalk')}</p>
+                        <h2 className='jx-display m-0 mt-5 text-[length:var(--jx-fs-4xl)] font-[700] leading-[1.15]'>
+                            <span className='jx-accent'>{t('letsBuild')}</span>
+                        </h2>
+                        <p className='m-0 mt-4 max-w-[34rem] text-[length:var(--jx-fs-lg)] leading-[1.75] text-[var(--jx-text-2)]'>{t('brighterFuture')}</p>
+                    </div>
+                    <div className='flex flex-wrap gap-3 lg:justify-end'>
+                        <JxButton href='/contact-us' motion={null}>
+                            {t('contact_us')}
+                        </JxButton>
+                        {phone ? (
+                            <a
+                                href={`https://wa.me/${String(phone).replace(/[^\d]/g, '')}`}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                className='jx-btn jx-btn--ghost'
+                            >
+                                <span>WhatsApp</span>
+                                <span className='jx-btn-orb' aria-hidden='true'>
+                                    <svg viewBox='0 0 24 24'>
+                                        <path d='M4 20l1.3-4A8 8 0 1 1 8 18.7z' />
+                                        <path d='M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1-1.3 1.8.8c0 1.2-1 2-2.3 2A6.3 6.3 0 0 1 7.5 9.3c0-1.3.8-2.3 2-2.3l.8 1.8z' />
+                                    </svg>
+                                </span>
+                            </a>
+                        ) : null}
+                    </div>
+                </div>
+
+                {/* 2 — directory */}
+                <div className='grid gap-x-[clamp(24px,4vw,64px)] gap-y-12 py-[clamp(44px,8vh,80px)] sm:grid-cols-2 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1.2fr)]'>
+                    <section className='sm:col-span-2 xl:col-span-1'>
+                        <Link href='/?section=home' aria-label='JOE13' className='relative block h-[46px] w-[170px]'>
+                            <Image src='/assets/svg/logo-white.svg' alt='JOE13' fill sizes='170px' className='object-contain object-left rtl:object-right' />
+                        </Link>
+                        <p className='m-0 mt-3 text-[13px] text-[var(--jx-steel)]'>{t('tomorrowMade')}</p>
+                        {description ? (
+                            <p className='m-0 mt-5 max-w-[26rem] text-[15px] leading-[1.8] text-[var(--jx-text-2)]'>{description}</p>
+                        ) : null}
+                        {socials.length ? (
+                            <div className='mt-7'>
+                                <p className='m-0 mb-3 text-[13px] text-[var(--jx-text-3)]'>{tj('followUs')}</p>
+                                <ul className='m-0 flex list-none flex-wrap gap-2.5 p-0'>
+                                    {socials.map(([key, value]) => (
+                                        <li key={key}>
+                                            <a
+                                                href={value}
+                                                target='_blank'
+                                                rel='noopener noreferrer'
+                                                aria-label={key}
+                                                className='grid size-11 place-items-center rounded-full text-[var(--jx-silver)] shadow-[inset_0_0_0_1px_var(--jx-line-strong)] transition-[color,background,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:bg-[image:var(--jx-brushed)] hover:text-[var(--jx-ink)] hover:shadow-[var(--jx-shadow-metal)]'
+                                            >
+                                                <SocialIcon name={key} />
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : null}
+                    </section>
+
+                    {productLinks?.length ? (
+                        <FooterColumn heading={ourProduct?.[0]?.department?.name?.[locale] || t('ourProduct')}>
+                            <LinkList items={productLinks} />
+                        </FooterColumn>
+                    ) : null}
+
+                    {visibleServices?.length ? (
+                        <FooterColumn heading={t('services')}>
+                            <LinkList items={[...visibleServices, { name: tj('allServices'), link: '/services' }]} />
+                            {hasMoreServices ? (
+                                <button
+                                    type='button'
+                                    onClick={() => setShowAllServices(open => !open)}
+                                    aria-expanded={showAllServices}
+                                    className='mt-4 inline-flex items-center gap-2 text-[14px] font-[700] text-[var(--jx-platinum)] underline decoration-[var(--jx-line-strong)] underline-offset-[6px] transition-colors hover:decoration-white'
+                                >
+                                    {showAllServices ? t('showLess') : t('readMore')}
+                                </button>
+                            ) : null}
+                        </FooterColumn>
+                    ) : null}
+
+                    <FooterColumn heading={t('contact_us')}>
+                        <ul className='m-0 grid list-none gap-1 p-0'>
+                            {address ? <ContactRow icon='pin'>{address}</ContactRow> : null}
+                            {email ? (
+                                <ContactRow icon='mail' href={`mailto:${email}`}>
+                                    {email}
+                                </ContactRow>
+                            ) : null}
+                            {phone ? (
+                                <ContactRow icon='phone' href={`tel:${phone}`} ltr>
+                                    {phone}
+                                </ContactRow>
+                            ) : null}
+                        </ul>
+                        {branches.length ? (
+                            <>
+                                <h4 className='jx-display m-0 mt-8 text-[14px] font-[700] text-[var(--jx-silver)]'>{tj('branches')}</h4>
+                                <ul className='m-0 mt-3 flex list-none flex-wrap gap-2 p-0'>
+                                    {branches.map((branch, i) => (
+                                        <li key={i} className='rounded-full px-3.5 py-1.5 text-[13px] text-[var(--jx-text-2)] shadow-[inset_0_0_0_1px_var(--jx-line)]'>
+                                            {branch}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                        ) : null}
+                    </FooterColumn>
+                </div>
+
+                {/* 3 — signature bar */}
+                <div className='mt-auto flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[var(--jx-line)] pt-6 text-[13px] text-[var(--jx-text-3)]'>
+                    <span>{settings?.copyright?.[locale] || `© ${year} JOE13`}</span>
+                    <span className='flex items-center gap-3 text-[var(--jx-steel)]'>
+                        <span>{t('connect')}</span>
+                        <i aria-hidden='true' className='block h-px w-5 bg-[var(--jx-line-strong)]' />
+                        <span>{t('create')}</span>
+                        <i aria-hidden='true' className='block h-px w-5 bg-[var(--jx-line-strong)]' />
+                        <span>{t('grow')}</span>
+                    </span>
+                    <button
+                        type='button'
+                        onClick={backToTop}
+                        className='group inline-flex items-center gap-3 text-[var(--jx-text-2)] transition-colors hover:text-white'
+                    >
+                        {tj('backToTop')}
+                        <span className='grid size-9 place-items-center rounded-full shadow-[inset_0_0_0_1px_var(--jx-line-strong)] transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-[inset_0_0_0_1px_#fff,var(--jx-glow-sm)]'>
+                            <svg viewBox='0 0 24 24' aria-hidden='true' className='size-4 fill-none stroke-current stroke-[1.8] [stroke-linecap:round] [stroke-linejoin:round]'>
+                                <path d='M12 19V5' />
+                                <path d='m6 11 6-6 6 6' />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    );
 };
 
-function FooterColumn({ heading, children, className = '' }) {
-  return (
-    <section
-      className={`relative px-[34px] pb-[70px] pt-[120px] before:absolute before:bottom-12 before:start-0 before:top-[123px] before:w-px before:bg-[linear-gradient(to_bottom,rgba(30,107,163,0.16),rgba(30,107,163,0.4)_28%,rgba(30,107,163,0.13)_85%,transparent)] max-[1450px]:px-[27px] max-[640px]:px-0 max-[640px]:pb-[25px] max-[640px]:pt-[52px] max-[640px]:before:hidden max-[900px]:pb-[25px] max-[900px]:pt-[60px] ${className}`}
-    >
-      {heading ? (
-        <>
-          <h3 className='m-0 whitespace-nowrap text-[17px] font-semibold leading-[1.2] text-[#f4f7fa] max-[640px]:text-base'>
-            {heading}
-          </h3>
-          <span className='mt-3.5 block h-1 w-[43px] rounded bg-[linear-gradient(90deg,#08aaf1,#0785df)] shadow-[0_0_7px_rgba(0,157,239,0.25)]' />
-        </>
-      ) : null}
-      {children}
-    </section>
-  );
+function FooterColumn({ heading, children }) {
+    return (
+        <section>
+            {heading ? (
+                <h3 className='jx-display m-0 flex items-center gap-3 text-[17px] font-[700] text-[var(--jx-platinum)]'>
+                    <i aria-hidden='true' className='block h-px w-6 bg-[linear-gradient(90deg,#fff,var(--jx-steel))] rtl:bg-[linear-gradient(270deg,#fff,var(--jx-steel))]' />
+                    {heading}
+                </h3>
+            ) : null}
+            <div className='mt-5'>{children}</div>
+        </section>
+    );
 }
 
-function ContactIcon({ src, className = '' }) {
-  return (
-    <span className={`relative flex size-[52px] shrink-0 items-center justify-center max-[640px]:size-9 ${className}`}>
-      <LandingIcon src={src} />
-    </span>
-  );
+function LinkList({ items }) {
+    return (
+        <ul className='m-0 grid list-none gap-0.5 p-0'>
+            {items.map((item, i) => (
+                <li key={item.link || i}>
+                    <Link
+                        href={item.link}
+                        className='group flex items-center gap-0 py-1.5 text-[15px] leading-[1.5] text-[var(--jx-text-2)] transition-colors duration-300 hover:text-white'
+                    >
+                        <i aria-hidden='true' className='block h-px w-0 bg-white transition-[width,margin] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:me-2.5 group-hover:w-3.5' />
+                        {item.name}
+                    </Link>
+                </li>
+            ))}
+        </ul>
+    );
+}
+
+const CONTACT_ICONS = {
+    pin: (
+        <>
+            <path d='M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11Z' />
+            <circle cx='12' cy='10' r='2.4' />
+        </>
+    ),
+    mail: (
+        <>
+            <rect x='3.5' y='5.5' width='17' height='13' rx='2' />
+            <path d='m4.5 7 7.5 6 7.5-6' />
+        </>
+    ),
+    phone: <path d='M6.6 3.8 9 4.5l1.3 4-2 1.6a12.5 12.5 0 0 0 5.6 5.6l1.6-2 4 1.3.7 2.4c-.4 1.6-1.8 2.6-3.4 2.6A15.6 15.6 0 0 1 4 6.9c0-1.6 1-3 2.6-3.1Z' />,
+};
+
+function ContactRow({ icon, href, ltr, children }) {
+    const inner = (
+        <>
+            <span className='grid size-10 shrink-0 place-items-center rounded-full text-[var(--jx-silver)] shadow-[inset_0_0_0_1px_var(--jx-line-strong)] transition-[color,background,box-shadow] duration-300 group-hover:bg-[image:var(--jx-brushed)] group-hover:text-[var(--jx-ink)] group-hover:shadow-[var(--jx-shadow-metal)]'>
+                <svg viewBox='0 0 24 24' aria-hidden='true' className='size-[18px] fill-none stroke-current stroke-[1.6] [stroke-linecap:round] [stroke-linejoin:round]'>
+                    {CONTACT_ICONS[icon]}
+                </svg>
+            </span>
+            <span dir={ltr ? 'ltr' : undefined} className='min-w-0 break-words text-[15px] leading-[1.6] text-[var(--jx-text-2)] transition-colors group-hover:text-white'>
+                {children}
+            </span>
+        </>
+    );
+    return (
+        <li>
+            {href ? (
+                <a href={href} className='group flex items-center gap-3.5 py-2'>
+                    {inner}
+                </a>
+            ) : (
+                <div className='group flex items-center gap-3.5 py-2'>{inner}</div>
+            )}
+        </li>
+    );
 }
 
 export default Footer;

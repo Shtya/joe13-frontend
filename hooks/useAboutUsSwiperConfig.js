@@ -133,6 +133,7 @@ function layoutPagination(swiper) {
     pag.style.setProperty('--rail-height', `${Math.max(0, bottom - top)}px`);
 
     const active = pag.querySelector('.swiper-pagination-bullet-active') || first;
+    pag.style.setProperty('--rail-fill', `${Math.max(0, active.offsetTop + active.offsetHeight / 2 - top)}px`);
     if (thumb) {
         const y = active.offsetTop + (active.offsetHeight - thumb.offsetHeight) / 2;
         thumb.style.transform = `translate(-50%, ${Math.max(0, y)}px)`;
@@ -185,13 +186,18 @@ function resetAutoplay(swiper) {
     swiper.autoplay.start();
 }
 
+function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    return String(text).replace(/[&<>"']/g, c => map[c]);
+}
+
 function markLastSlidePagination(swiper) {
     const pag = swiper?.pagination?.el;
     if (!pag) return;
     pag.classList.remove('is-last');
 }
 
-export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide) {
+export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide, { labels } = {}) {
     const { isModalOpen } = useValues();
     const swiperRef = useRef(null);
     const userIntentRef = useRef(false);
@@ -259,8 +265,12 @@ export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide) {
             el: '.swiper-pagination',
             type: 'bullets',
             clickable: true,
-            renderBullet: (index, className) =>
-                `<button type="button" class="${className}" aria-label="Slide ${index + 1}"><span class="hero-bullet-core"></span></button>`,
+            renderBullet: (index, className) => {
+                const label = labels?.[index];
+                const name = label ? escapeHtml(label) : `Slide ${index + 1}`;
+                const tip = label ? `<span class="hero-bullet-label" aria-hidden="true">${name}</span>` : '';
+                return `<button type="button" class="${className}" aria-label="${name}"><span class="hero-bullet-core"></span>${tip}</button>`;
+            },
         },
 
         onInit: swiper => {

@@ -1,71 +1,43 @@
 'use client';
-import React, { useRef , useState , useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-import 'swiper/css/effect-creative';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/mousewheel';
+import JxSlider from '@/components/jx/JxSlider';
 import Footer from '@/components/molecules/Footer';
 import AboutHero from '@/components/pages/aboutus/AboutHero';
-import AboutVision from '@/components/pages/aboutus/AboutVision';
 import AboutMission from '@/components/pages/aboutus/AboutMission';
-
-import VerticalSlider from '@/hooks/useAboutUsSwiperConfig';
-import { useAboutUsSwiperConfig } from '@/hooks/useAboutUsSwiperConfig';
-import { usePages } from '@/hooks/usePages';
+import AboutVision from '@/components/pages/aboutus/AboutVision';
 import Board from '@/components/pages/aboutus/Board';
+import { usePages } from '@/hooks/usePages';
+import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 
-
+/*
+ * About us — Black & Silver, on the shared scene slider.
+ *   1. Who we are — chrome title + a timeline from the founding year to today
+ *   2. Team — spotlight + roster
+ *   3. Vision — horizon glyph + pillars
+ *   4. Mission — compass glyph + pillars
+ *   5. Footer
+ */
 export default function Page({ initialData, initialTeam }) {
-    const { loading , data } = usePages({ page_name: 'about-us', initialData });
-    const section1 = data?.sections?.find(e => e.id == 'sec1');
-    const section2 = data?.sections?.find(e => e.id == 'sec2');
-    const section3 = data?.sections?.find(e => e.id == 'sec3');
+    const { loading, data } = usePages({ page_name: 'about-us', initialData });
+    const tj = useTranslations('Jx');
+    const section = id => data?.sections?.find(e => e.id == id);
+    const section1 = section('sec1');
+    const section2 = section('sec2');
+    const section3 = section('sec3');
 
+    const labels = useMemo(() => {
+        const raw = tj.raw('aboutSlides');
+        return Array.isArray(raw) ? raw : undefined;
+    }, [tj]);
 
-    const swiperRef = useRef(null);
-    const [isLastSlide, setIsLastSlide] = useState(false);
-    const { handleScrollInside } = VerticalSlider();
+    const slides = [
+        { key: 'about', render: active => <AboutHero data={section1} loading={loading} active={active} /> },
+        { key: 'team', scrollable: true, render: active => <Board initialTeam={initialTeam} active={active} /> },
+        { key: 'vision', scrollable: true, render: active => <AboutVision data={section2} loading={loading} active={active} /> },
+        { key: 'mission', scrollable: true, render: active => <AboutMission data={section3} loading={loading} active={active} /> },
+        { key: 'footer', scrollable: true, className: 'footer-slide', render: () => <Footer id='footer2' /> },
+    ];
 
-    const config = useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide);
-
-    useEffect(() => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-        handleScrollInside(swiperRef.current.swiper);
-    }
-    }, []);
-  
-   
-
-    return (
-        <div>
-            <Swiper {...config} ref={swiperRef} className='mySwiper h-screen'>
-                <SwiperSlide>  <AboutHero data={section1} loading={loading} /> </SwiperSlide>
-                
-
-                <SwiperSlide className='!flex h-full items-stretch overflow-hidden'>
-                    <div className='z-[100] h-full max-h-screen w-full overflow-hidden'>
-                        <Board initialTeam={initialTeam} />
-                    </div>
-                </SwiperSlide>
-
-
-                <SwiperSlide> <AboutVision loading={loading} data={section2} /> </SwiperSlide>
-                <SwiperSlide> <AboutMission loading={loading} data={section3} /> </SwiperSlide>
-
-                <SwiperSlide className='footer-slide overflow-auto !flex flex-col'>
-                    <div data-scrollable style={{ backgroundColor: 'rgba(255,255,255,0.001)', touchAction: 'pan-y', willChange: 'scroll-position' }} className='z-[100] max-h-screen min-h-screen w-full overflow-auto'>
-                        <Footer id={'footer2'} />
-                    </div>
-                </SwiperSlide>
-
-            </Swiper>
-
-            <div className='swiper-pagination hero-pagination'></div>
-        </div>
-    );
+    return <JxSlider slides={slides} labels={labels} />;
 }
-
-

@@ -7,6 +7,7 @@ import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useId, useState } from 'react';
 import SwitchLang from '../atoms/SwitchLang';
 import { useValues } from '@/app/context';
+import SocialIcon from '@/components/jx/SocialIcon';
 
 const focusRing =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white';
@@ -14,6 +15,7 @@ const focusRing =
 export default function Navbar({ isclick, handleClick }) {
   const t = useTranslations('Navbar');
   const tFooter = useTranslations('Footer');
+  const tj = useTranslations('Jx');
   const locale = useLocale();
   const isAr = locale === 'ar';
   const bodyFont = isAr ? 'font-cairo' : 'font-inter';
@@ -45,7 +47,7 @@ export default function Navbar({ isclick, handleClick }) {
           id: 'services',
           value: '/projects',
           name: t('our-services'),
-          list: serviceLinks,
+          list: [{ name: tj('allServices'), value: '/services' }, ...serviceLinks],
         }
       : null,
     productLinks.length
@@ -198,168 +200,143 @@ export default function Navbar({ isclick, handleClick }) {
       <aside
         id='joe13-mobile-menu'
         aria-labelledby={menuTitleId}
-        className={`fixed inset-y-0 start-0 z-[100050] flex h-screen w-[320px] flex-col overflow-visible border-e border-[rgba(16,130,203,0.82)] bg-[linear-gradient(180deg,#031a2d_0%,#02182b_44%,#031d34_100%)] py-3 font-inter text-white shadow-[12px_0_45px_rgba(0,0,0,0.48),inset_-1px_0_rgba(41,162,229,0.1)] transition-[transform] duration-300 before:pointer-events-none before:absolute before:-start-[110px] before:-bottom-[70px] before:-z-[1] before:h-[310px] before:w-[410px] before:-rotate-[12deg] before:rounded-full before:bg-[radial-gradient(ellipse_at_center,rgba(7,92,162,0.34)_0%,rgba(2,42,76,0.19)_44%,transparent_72%)] after:pointer-events-none after:absolute after:-start-[120px] after:-bottom-3 after:-z-[1] after:h-px after:w-[440px] after:-rotate-[30deg] after:bg-[linear-gradient(90deg,transparent,rgba(19,153,229,0.75),rgba(19,153,229,0.05))] after:shadow-[0_0_8px_rgba(0,148,239,0.38)] motion-reduce:transition-none max-[360px]:w-[280px] rtl:shadow-[-12px_0_45px_rgba(0,0,0,0.48),inset_1px_0_rgba(41,162,229,0.1)] ${
+        className={`jx fixed inset-y-0 start-0 z-[100050] flex h-[100dvh] w-[320px] flex-col overflow-y-auto overflow-x-hidden bg-[var(--jx-ink)] text-[var(--jx-text)] shadow-[inset_-1px_0_0_var(--jx-line-strong),24px_0_60px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [scrollbar-width:none] motion-reduce:transition-none max-[360px]:w-[280px] rtl:shadow-[inset_1px_0_0_var(--jx-line-strong),-24px_0_60px_rgba(0,0,0,0.6)] ${
           isclick ? 'translate-x-0' : 'pointer-events-none -translate-x-full rtl:translate-x-full'
         }`}
       >
-          <div className='relative flex h-[70px] shrink-0 items-center px-5'>
-            <Link
-              href='/?section=home'
-              onClick={closeMenu}
-              id={menuTitleId}
-              className={`relative block w-[114px] text-[#f5f9fd] no-underline ${focusRing}`}
-            >
-              <span className='inline-block font-sans text-[29px] font-bold leading-[0.82] tracking-[-2.8px]'>JOE</span>
-              <b className='ms-px inline-block font-sans text-[29px] font-bold leading-[0.82] tracking-[-2.8px] text-[#099ee9]'>
-                13
-              </b>
-              <small className='mt-[5px] block whitespace-nowrap font-sans text-[4.2px] font-medium leading-none tracking-[1.25px] text-[rgba(239,247,252,0.83)]'>
-                {tFooter('tomorrowMade')}
-              </small>
-            </Link>
-          </div>
+        <div aria-hidden='true' className='pointer-events-none absolute inset-0 -z-[1] bg-[radial-gradient(90%_40%_at_0%_100%,rgba(199,203,209,0.09),transparent_70%)] rtl:bg-[radial-gradient(90%_40%_at_100%_100%,rgba(199,203,209,0.09),transparent_70%)]' />
 
-          <nav className='relative w-full shrink-0 border-t border-[rgba(22,109,163,0.1)]'>
-            {links.map(link => {
+        <div className='flex shrink-0 items-end justify-between border-b border-[var(--jx-line)] px-6 pb-5 pt-7'>
+          <Link href='/?section=home' onClick={closeMenu} id={menuTitleId} aria-label='JOE13' className={`relative block h-9 w-[132px] ${focusRing}`}>
+            <CmsFillImage className='object-contain object-left rtl:object-right' url='/assets/svg/logo-white.svg' fallback='/assets/svg/logo-white.svg' alt='JOE13' sizes='132px' />
+          </Link>
+          <span className='pb-0.5 text-[12px] text-[var(--jx-steel)]'>{tFooter('tomorrowMade')}</span>
+        </div>
+
+        <nav className='shrink-0 px-3 py-4'>
+          <ul className='m-0 grid list-none gap-0.5 p-0'>
+            {links.map((link, index) => {
               const active = isLinkActive(link);
               const expanded = openSubmenu === link.id;
-              const itemClass = `relative flex h-9 w-full items-center border-0 border-b border-[rgba(20,104,158,0.22)] bg-transparent px-5 text-start text-[rgba(237,244,249,0.92)] no-underline transition duration-[220ms] hover:bg-[rgba(7,75,119,0.42)] hover:text-white motion-reduce:transition-none ${focusRing} ${
-                active
-                  ? 'border border-[rgba(11,151,232,0.76)] bg-[linear-gradient(100deg,rgba(8,99,164,0.72),rgba(5,52,87,0.7))] shadow-[inset_0_1px_1px_rgba(125,210,255,0.09),0_0_12px_rgba(0,128,217,0.1)]'
-                  : ''
-              }`;
+              const enter = { transitionDelay: isclick ? `${120 + index * 35}ms` : '0ms' };
+              const rowClass = `group relative flex h-12 w-full items-center gap-3.5 rounded-[12px] px-3.5 text-start transition-[background,color,opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[var(--jx-graphite)] ${focusRing} ${
+                active ? 'bg-[var(--jx-graphite)] text-white' : 'text-[var(--jx-text-2)] hover:text-white'
+              } ${isclick ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0 rtl:translate-x-3'}`;
 
               const inner = (
                 <>
-                  <span
-                    className={`flex size-[26px] shrink-0 items-center justify-center ${
-                      active ? 'text-[#50b8f4] [filter:drop-shadow(0_0_5px_rgba(0,150,240,0.42))]' : 'text-[#8fcdf2]'
-                    }`}
-                  >
-                    <NavIcon id={link.id} active={active} />
+                  {active ? <span aria-hidden='true' className='absolute inset-y-3 start-0 w-[2px] rounded-full bg-white shadow-[var(--jx-glint-glow)]' /> : null}
+                  <span className={`grid size-6 shrink-0 place-items-center transition-colors ${active ? 'text-white' : 'text-[var(--jx-steel)] group-hover:text-[var(--jx-silver)]'}`}>
+                    <NavIcon id={link.id} active={false} />
                   </span>
-                  <span className={`${bodyFont} ms-[13px] min-w-0 flex-1 whitespace-nowrap text-[13px] font-normal leading-none`}>
-                    {link.name}
-                  </span>
+                  <span className={`min-w-0 flex-1 truncate text-[15px] leading-none ${active ? 'font-[700]' : 'font-[400]'}`}>{link.name}</span>
                   {link.list ? (
                     <svg
                       viewBox='0 0 24 24'
                       aria-hidden='true'
-                      className='ms-auto size-3.5 shrink-0 fill-none stroke-[#79bce7] stroke-[1.6] [stroke-linecap:round] [stroke-linejoin:round] rtl:rotate-180'
+                      className={`size-4 shrink-0 fill-none stroke-current stroke-[1.6] text-[var(--jx-steel)] transition-transform duration-300 [stroke-linecap:round] [stroke-linejoin:round] ${expanded ? 'rotate-180' : ''}`}
                     >
-                      <path d='m9 5 7 7-7 7' />
+                      <path d='m6 9 6 6 6-6' />
                     </svg>
                   ) : null}
                 </>
               );
 
               return (
-                <div key={link.id} className='group relative'>
+                <li key={link.id}>
                   {link.list ? (
-                    <button
-                      type='button'
-                      className={itemClass}
-                      aria-expanded={expanded}
-                      onClick={() => setOpenSubmenu(expanded ? null : link.id)}
-                    >
+                    <button type='button' style={enter} className={rowClass} aria-expanded={expanded} onClick={() => setOpenSubmenu(expanded ? null : link.id)}>
                       {inner}
                     </button>
                   ) : (
-                    <Link href={link.value} className={itemClass} onClick={closeMenu} aria-current={active ? 'page' : undefined}>
+                    <Link href={link.value} style={enter} className={rowClass} onClick={closeMenu} aria-current={active ? 'page' : undefined}>
                       {inner}
                     </Link>
                   )}
 
                   {link.list ? (
-                    <div
-                      className={`absolute start-full top-0 z-[10001] hidden ps-4 group-hover:block ${
-                        expanded ? '!block' : ''
-                      }`}
-                    >
-                      <ul className='m-0 min-w-[220px] list-none overflow-hidden rounded-[12px] border border-[rgba(16,130,203,0.75)] bg-[linear-gradient(180deg,#031a2d_0%,#02182b_100%)] p-0 shadow-[8px_10px_28px_rgba(0,0,0,0.35)] rtl:shadow-[-8px_10px_28px_rgba(0,0,0,0.35)]'>
-                      {link.list.map(item => {
-                        const childActive = pathname === item.value || pathname.startsWith(`${item.value}/`);
-                        return (
-                          <li key={item.value}>
-                            <Link
-                              href={item.value}
-                              onClick={closeMenu}
-                              aria-current={childActive ? 'page' : undefined}
-                              className={`${bodyFont} ${focusRing} flex min-h-10 items-center border-b border-[rgba(20,104,158,0.22)] px-4 text-[13px] leading-[1.3] text-[rgba(220,236,247,0.9)] transition-colors duration-200 last:border-b-0 hover:bg-[rgba(7,75,119,0.45)] hover:text-white ${
-                                childActive ? 'bg-[rgba(8,99,164,0.45)] text-[#19a9f1]' : ''
-                              }`}
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
+                    <div className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                      <ul className='m-0 list-none overflow-hidden p-0'>
+                        <li aria-hidden='true' className='h-1' />
+                        {link.list.map(item => {
+                          const childActive = pathname === item.value || (item.value !== '/services' && pathname.startsWith(`${item.value}/`));
+                          return (
+                            <li key={item.value}>
+                              <Link
+                                href={item.value}
+                                onClick={closeMenu}
+                                tabIndex={expanded ? undefined : -1}
+                                aria-current={childActive ? 'page' : undefined}
+                                className={`group/sub relative flex min-h-10 items-center rounded-[10px] py-2 pe-3 ps-[50px] text-[14px] leading-[1.4] transition-colors hover:bg-[var(--jx-graphite)] hover:text-white ${focusRing} ${
+                                  childActive ? 'font-[700] text-white' : 'text-[var(--jx-text-3)]'
+                                }`}
+                              >
+                                <i
+                                  aria-hidden='true'
+                                  className={`absolute start-[26px] top-1/2 block h-px -translate-y-1/2 transition-[width,background] duration-300 ${
+                                    childActive ? 'w-4 bg-white' : 'w-2.5 bg-[var(--jx-gunmetal)] group-hover/sub:w-4 group-hover/sub:bg-white'
+                                  }`}
+                                />
+                                {item.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                        <li aria-hidden='true' className='h-2' />
                       </ul>
                     </div>
                   ) : null}
-                </div>
+                </li>
               );
             })}
-          </nav>
+          </ul>
+        </nav>
 
+        <div className='mt-auto shrink-0 px-4 pb-6'>
           <Link
             href='/contact-us'
             onClick={closeMenu}
-            className={`relative mx-5 mt-4 flex h-[90px] shrink-0 items-center rounded-[11px] border border-[rgba(9,143,222,0.74)] bg-[linear-gradient(140deg,rgba(5,74,122,0.8),rgba(3,38,67,0.77))] px-[11px] py-3 text-white no-underline shadow-[inset_0_1px_2px_rgba(159,224,255,0.08),0_0_16px_rgba(0,108,193,0.1)] transition duration-[250ms] hover:-translate-y-0.5 hover:border-[rgba(18,173,241,0.95)] hover:shadow-[0_0_20px_rgba(0,136,226,0.22)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${focusRing}`}
+            className={`group relative flex items-center gap-4 overflow-hidden rounded-[18px] bg-[image:var(--jx-brushed)] p-5 text-[var(--jx-ink)] shadow-[var(--jx-shadow-metal)] transition-transform duration-300 hover:-translate-y-0.5 ${focusRing}`}
           >
-            <span className='flex size-9 shrink-0 items-center justify-center rounded-[9px] bg-[linear-gradient(145deg,#0c9de8,#075fae)] shadow-[0_0_12px_rgba(0,154,241,0.25)]'>
-              <svg
-                viewBox='0 0 24 24'
-                aria-hidden='true'
-                className='size-[23px] fill-none stroke-[#dff5ff] stroke-[1.55] [stroke-linecap:round] [stroke-linejoin:round] [filter:drop-shadow(0_0_4px_rgba(255,255,255,0.35))]'
-              >
-                <path d='M8 18a7 7 0 1 1 8 0' />
-                <path d='M9 18v-4a3 3 0 0 1 6 0v4' />
-                <path d='M7 17h2v3H7zM15 17h2v3h-2z' />
-              </svg>
+            <span className='flex min-w-0 flex-1 flex-col'>
+              <small className='text-[12px] font-[700] text-[#3a3e44]'>{tFooter('letsTalk')}</small>
+              <strong className='mt-1 text-[16px] font-[700] leading-[1.35]'>{t('haveProject')}</strong>
+              <span className='mt-1.5 text-[12.5px] leading-[1.5] text-[#3a3e44]'>{t('talkHelp')}</span>
             </span>
-            <span className={`${bodyFont} ms-2.5 flex min-w-0 flex-col`}>
-              <small className='text-[6px] font-medium leading-none tracking-[1.2px] text-[#0ba5ee]'>{tFooter('letsTalk')}</small>
-              <strong className='mt-1 text-[11px] font-semibold leading-[1.15] text-[#f5f9fc]'>{t('haveProject')}</strong>
-              <em className='mt-[7px] text-[7.5px] not-italic leading-[1.35] text-[rgba(208,229,243,0.75)]'>{t('talkHelp')}</em>
-            </span>
-            <span className='ms-auto flex size-7 shrink-0 items-center justify-center rounded-full border border-[rgba(17,161,236,0.74)] bg-[rgba(6,69,111,0.56)]'>
-              <svg
-                viewBox='0 0 24 24'
-                aria-hidden='true'
-                className='size-4 fill-none stroke-[#e8f7ff] stroke-[1.5] [stroke-linecap:round] [stroke-linejoin:round] rtl:rotate-180'
-              >
-                <path d='M4 12h15' />
-                <path d='m13 5 7 7-7 7' />
+            <span className='grid size-10 shrink-0 place-items-center rounded-full bg-[var(--jx-ink)] text-white transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1'>
+              <svg viewBox='0 0 24 24' aria-hidden='true' className='size-4 fill-none stroke-current stroke-[1.8] [stroke-linecap:round] [stroke-linejoin:round] rtl:-scale-x-100'>
+                <path d='M5 12h14' />
+                <path d='m13 6 6 6-6 6' />
               </svg>
             </span>
           </Link>
 
           {socials.length > 0 ? (
-            <div className='mx-5 mt-4 grid w-[calc(100%-40px)] grid-flow-col auto-cols-fr gap-2'>
+            <ul className='m-0 mt-5 flex list-none flex-wrap justify-center gap-2.5 p-0'>
               {socials.map(([key, value]) => (
-                <a
-                  key={key}
-                  href={value}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label={key}
-                  className={`flex aspect-square w-full items-center justify-center rounded-[7px] border border-[rgba(11,120,188,0.46)] bg-[linear-gradient(145deg,rgba(9,76,124,0.84),rgba(3,40,68,0.86))] text-[#f3f8fc] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] no-underline transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(13,169,241,0.9)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${focusRing}`}
-                >
-                  <SocialIcon name={key} />
-                </a>
+                <li key={key}>
+                  <a
+                    href={value}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label={key}
+                    className={`grid size-10 place-items-center rounded-full text-[var(--jx-silver)] shadow-[inset_0_0_0_1px_var(--jx-line-strong)] transition-[color,background,box-shadow] duration-300 hover:bg-[image:var(--jx-brushed)] hover:text-[var(--jx-ink)] hover:shadow-[var(--jx-shadow-metal)] ${focusRing}`}
+                  >
+                    <SocialIcon name={key} />
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           ) : null}
 
-          <div className='mx-5 mt-3 flex items-center gap-2 text-[#078ed8]'>
-            <span className='me-[5px] block h-px w-5 bg-[linear-gradient(90deg,rgba(19,166,239,0.8),rgba(19,166,239,0.25))] rtl:bg-[linear-gradient(90deg,rgba(19,166,239,0.25),rgba(19,166,239,0.8))]' />
-            <small className='text-[5.5px] font-medium leading-none tracking-[1.25px] text-[#078fd9]'>{tFooter('connect')}</small>
-            <b className='text-[5px] font-semibold text-[#079de8]'>•</b>
-            <small className='text-[5.5px] font-medium leading-none tracking-[1.25px] text-[#078fd9]'>{tFooter('create')}</small>
-            <b className='text-[5px] font-semibold text-[#079de8]'>•</b>
-            <small className='text-[5.5px] font-medium leading-none tracking-[1.25px] text-[#078fd9]'>{tFooter('grow')}</small>
-          </div>
+          <p className='m-0 mt-5 flex items-center justify-center gap-3 text-[12px] text-[var(--jx-steel)]'>
+            <span>{tFooter('connect')}</span>
+            <i aria-hidden='true' className='block h-px w-4 bg-[var(--jx-gunmetal)]' />
+            <span>{tFooter('create')}</span>
+            <i aria-hidden='true' className='block h-px w-4 bg-[var(--jx-gunmetal)]' />
+            <span>{tFooter('grow')}</span>
+          </p>
+        </div>
       </aside>
     </nav>
   );
@@ -458,77 +435,6 @@ function NavIcon({ id, active }) {
     <svg viewBox='0 0 24 24' aria-hidden='true' className={stroke}>
       <rect x='3' y='5' width='18' height='14' rx='2' />
       <path d='m4 7 8 6 8-6' />
-    </svg>
-  );
-}
-
-function SocialIcon({ name }) {
-  const key = String(name || '').toLowerCase();
-  const fill = 'size-[52%] fill-current';
-  const stroke = 'size-[52%] fill-none stroke-current stroke-[1.7]';
-
-  if (key.includes('tiktok')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M14.2 3c.5 2.6 2 4.2 4.8 4.5v3.1c-1.7-.1-3.3-.6-4.7-1.6v6.5c0 3.5-2.5 5.7-5.7 5.7C5.4 21.2 3 19 3 15.9c0-3 2.3-5.4 5.5-5.7v3.2c-1.3.2-2.2 1.1-2.2 2.4 0 1.4 1 2.3 2.4 2.3 1.5 0 2.4-1 2.4-2.5V3h3.1Z' />
-      </svg>
-    );
-  }
-
-  if (key.includes('twitter') || key === 'x') {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M5 4h3.9l4.1 5.4L17.5 4H20l-5.9 7 5.9 9h-3.9l-4.4-5.9L6.5 20H4l6.2-7.5L5 4Z' />
-      </svg>
-    );
-  }
-
-  if (key.includes('facebook')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1Z' />
-      </svg>
-    );
-  }
-
-  if (key.includes('linkedin')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M5 8H2v13h3V8Zm.2-4.1C5.2 2.8 4.4 2 3.5 2S1.8 2.8 1.8 3.9s.8 1.9 1.7 1.9 1.7-.8 1.7-1.9ZM22 13.5c0-3.9-2.1-5.7-4.9-5.7-2.3 0-3.3 1.3-3.9 2.2V8H10v13h3.2v-7.2c0-1.9.4-3.7 2.7-3.7 2.2 0 2.2 2 2.2 3.8V21H21v-7.5h1Z' />
-      </svg>
-    );
-  }
-
-  if (key.includes('snap')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M12 2.5c-3.4 0-5.7 2.5-5.7 6v2.3c0 .8-.4 1.2-1.3 1.5l-1.2.4c-.5.2-.6.8-.2 1.1.7.6 1.7 1 2.5 1.2.4.1.6.4.5.8-.2.7.2 1.2.9 1.2.5 0 1-.1 1.4-.3.5-.2.9-.1 1.3.3.5.6 1.2 1.1 2 1.3.5.1.9.2 1.3.2.4 0 .8-.1 1.3-.2.8-.2 1.5-.7 2-1.3.4-.4.8-.5 1.3-.3.4.2.9.3 1.4.3.7 0 1.1-.5.9-1.2-.1-.4.1-.7.5-.8.8-.2 1.8-.6 2.5-1.2.4-.3.3-.9-.2-1.1l-1.2-.4c-.9-.3-1.3-.7-1.3-1.5V8.5c0-3.5-2.3-6-5.7-6Z' />
-      </svg>
-    );
-  }
-
-  if (key.includes('instagram')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={stroke}>
-        <rect x='3' y='3' width='18' height='18' rx='5' />
-        <circle cx='12' cy='12' r='4' />
-        <circle cx='17.4' cy='6.7' r='1' />
-      </svg>
-    );
-  }
-
-  if (key.includes('youtube')) {
-    return (
-      <svg viewBox='0 0 24 24' aria-hidden='true' className={fill}>
-        <path d='M22 8.2a3 3 0 0 0-2.1-2.1C18.2 5.6 12 5.6 12 5.6s-6.2 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.5 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.7.5 7.9.5 7.9.5s6.2 0 7.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22.5 12 31 31 0 0 0 22 8.2ZM10 15.5v-7l6 3.5-6 3.5Z' />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox='0 0 24 24' aria-hidden='true' className={stroke}>
-      <circle cx='12' cy='12' r='8' />
-      <path d='M8 12h8M12 8v8' />
     </svg>
   );
 }

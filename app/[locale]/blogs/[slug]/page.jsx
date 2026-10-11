@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { baseUrl } from '@/helpers/baseUrl';
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from '@/helpers/seo';
 import ClientPage from './ClientPage';
+import { BLOGS_QUERY, getCollection } from '@/hooks/getPageData';
 
 export async function fetchBlogBySlug(slug) {
   const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug}`, {
@@ -35,8 +36,19 @@ export async function generateMetadata({ params }) {
   });
 }
 
+/** Up to three other articles — same department first, then the latest. */
+function pickMore(all, blog) {
+  const others = (all || []).filter((b) => b.slug !== blog.slug);
+  const same = others.filter((b) => b.department?.id && b.department?.id === blog.department?.id);
+  const rest = others.filter((b) => !same.includes(b));
+  return [...same, ...rest].slice(0, 3).map(({ id, slug, title, content, image_url, image_alt, author, published_at, created_at, department }) => ({
+    id, slug, title, content, image_url, image_alt, author, published_at, created_at,
+    department: department ? { id: department.id, name: department.name } : null,
+  }));
+}
+
 export default async function page({ params }) {
-  const initialData = await fetchBlogBySlug(params.slug);
+  const [initialData, collection] = await Promise.all([fetchBlogBySlug(params.slug), getCollection(BLOGS_QUERY)]);
   if (!initialData) notFound();
 
   const { title, description } = blogText(initialData, params.locale);
@@ -59,7 +71,7 @@ export default async function page({ params }) {
           inLanguage: params.locale,
         }}
       />
-      <ClientPage initialData={initialData} />
+      <ClientPage initialData={initialData} more={pickMore(collection?.data, initialData)} />
     </>
   )
 }

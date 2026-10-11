@@ -1,238 +1,182 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
-import LandingIcon from '@/components/atoms/LandingIcon';
-import GlowCtaButton from '@/components/atoms/GlowCtaButton';
-import { TITLE_ACCENT } from '@/components/atoms/titleAccent';
+import { JxButton, JxHeading, JxScene, JxTag, splitAtComma } from '@/components/jx/primitives';
+import { useSceneMotion } from '@/components/jx/motion';
+import gsap from 'gsap';
 import { cmsImage, pickUi } from '@/helpers/cms';
-import Image from 'next/image';
-import React from 'react';
-import CountUp from 'react-countup';
-import { useInView } from 'react-intersection-observer';
+import { useLocale, useTranslations } from 'next-intl';
+
+/*
+ * Slide 2 — "Telemetry".
+ * The figures are read off an orbital arc instead of being boxed in cards:
+ * each number hangs above its node, its meaning below. On phones the arc
+ * folds into a two-column readout on hairlines.
+ */
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const ARC = { p0: [20, 236], p1: [500, -40], p2: [980, 236], w: 1000, h: 260 };
 
-const cardShadow =
-  'shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),inset_0_0_22px_rgba(38,127,205,0.08),0_12px_28px_rgba(0,0,0,0.16)]';
-
-export default function Section2({ data, loading }) {
-  const t = useTranslations();
-  const locale = useLocale();
-  const isAr = locale === 'ar';
-  const bodyFont = isAr ? 'font-cairo' : 'font-inter';
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
-
-  const title = data?.title?.[locale] || t('section2');
-  const description = data?.content?.[locale] || t('Hero.successDescription');
-  const stats = data?.objectData?.[locale]
-    ? Object.entries(data.objectData[locale]).filter(([key]) => !String(key).startsWith('_'))
-    : [];
-  const captions = pickUi(data, locale, 'statCaptions');
-
-  const downloadPDF = () => {
-    const link = document.createElement('a');
-    link.href = pickUi(data, locale, 'pdf', '/joe-pdf-en2.pdf');
-    link.download = 'JOE13 Profile';
-    link.click();
-  };
-
-  return (
-    <section
-      id='success'
-      aria-busy={loading || undefined}
-      aria-labelledby={title ? 'home-success-heading' : undefined}
-      className='relative isolate flex h-full min-h-screen flex-col overflow-x-clip overflow-y-hidden text-white max-md:overflow-y-auto'
-    >
-      <div className='hero-slide-bg pointer-events-none absolute inset-0 z-0 overflow-hidden'>
-        <Image
-          src={cmsImage(data?.image?.url, '/landing/bg-2-section.png')}
-          alt={data?.image?.alt || ''}
-          fill
-          sizes='100vw'
-          className='img-overlay object-cover object-center'
-        />
-        <div aria-hidden='true' className='bg-overlay' />
-      </div>
-      <div aria-hidden='true' className='hero-slide-veil pointer-events-none absolute inset-0 z-[1] bg-black/0' />
-
-      <div className='relative z-10 mx-auto flex min-h-screen w-full max-w-[1440px] flex-1 flex-col items-center justify-center px-6 py-[72px] pointer-events-auto max-md:justify-center max-md:px-4 max-md:py-[88px] max-[390px]:px-3 md:px-12 lg:px-[96px] lg:py-[80px]'>
-        {loading ? (
-          <>
-            <p className='sr-only'>{t('loading')}</p>
-            <SuccessSkeleton />
-          </>
-        ) : (
-          <div className='hero-stage mx-auto flex w-full max-w-[1180px] flex-col items-center text-center'>
-            <div className='mx-auto w-full max-w-[920px]'>
-              <div
-                className={`mb-9 flex items-center justify-center gap-[22px] text-[#169be9] [text-shadow:0_0_12px_rgba(0,155,255,0.35)] max-md:mb-[23px] max-md:gap-[13px] ${
-                  isAr
-                    ? 'font-cairo text-[11px] font-medium tracking-[2px] max-md:text-[9px]'
-                    : 'font-inter text-[14px] font-medium tracking-[6px] max-md:text-[9px] max-md:tracking-[3.5px]'
-                }`}
-              >
-                <i className='block h-px w-[74px] bg-[linear-gradient(90deg,transparent,rgba(190,222,255,0.9))] max-md:w-[45px]' />
-                <span>{pickUi(data, locale, 'eyebrow', t('Hero.impact'))}</span>
-                <i className='block h-px w-[74px] bg-[linear-gradient(90deg,rgba(190,222,255,0.9),transparent)] max-md:w-[45px]' />
-              </div>
-
-              {title ? (
-                <SuccessTitle id='home-success-heading' title={title} locale={locale} accent={pickUi(data, locale, 'titleAccent')} className={bodyFont} />
-              ) : null}
-
-              {description ? (
-                <p
-                  className={`${bodyFont} mt-[25px] text-[clamp(17px,1.45vw,22px)] font-normal leading-[1.38] tracking-[-0.35px] text-[rgba(226,234,245,0.78)] max-md:mt-[17px] max-md:text-sm max-md:leading-[1.45]`}
-                >
-                  {description}
-                </p>
-              ) : null}
-            </div>
-
-            <div
-              ref={ref}
-              className='mx-auto mt-[35px] grid w-full min-w-0 grid-cols-2 gap-2 max-[390px]:gap-1.5 md:gap-3 lg:mt-10 lg:grid-cols-5 lg:gap-3'
-            >
-              {stats.map(([name, rawValue], i) => (
-                <StatCard
-                  key={name}
-                  name={name}
-                  rawValue={rawValue}
-                  inView={inView}
-                  iconIndex={i}
-                  caption={(Array.isArray(captions) && captions[i]) || statCaption(name, t)}
-                  bodyFont={bodyFont}
-                />
-              ))}
-            </div>
-
-            <GlowCtaButton icon='download' onClick={downloadPDF} className={`${bodyFont} mt-[31px] lg:mt-10`}>
-              {pickUi(data, locale, 'cta', t('Download PDF'))}
-            </GlowCtaButton>
-          </div>
-        )}
-      </div>
-    </section>
-  );
+function arcPoint(t) {
+    const u = 1 - t;
+    const x = u * u * ARC.p0[0] + 2 * u * t * ARC.p1[0] + t * t * ARC.p2[0];
+    const y = u * u * ARC.p0[1] + 2 * u * t * ARC.p1[1] + t * t * ARC.p2[1];
+    return [x, y];
 }
 
-function SuccessTitle({ id, title, locale, className, accent: accentOverride }) {
-  const accent = accentOverride || (locale === 'ar' ? 'عبر مختلف الصناعات' : 'Across Industries');
-  const titleClass = `${className} m-0 mx-auto w-full min-w-0 max-w-[16.5em] whitespace-normal text-balance text-[clamp(22px,6.2vw,30px)] font-bold leading-[1.18] tracking-[-0.6px] text-[#f5f7fb] [text-shadow:0_2px_12px_rgba(0,0,0,0.2)] max-md:px-1 lg:text-[clamp(36px,3.45vw,54px)] lg:leading-[1.12] lg:tracking-[-1.8px]`;
-  const accentClass = TITLE_ACCENT;
+export default function Section2({ data, loading, active = false }) {
+    const t = useTranslations();
+    const locale = useLocale();
+    const isAr = locale === 'ar';
 
-  const withAccent = text => {
-    const start = text.indexOf(accent);
-    if (start < 0) return text;
+    const title = data?.title?.[locale] || t('section2');
+    const description = data?.content?.[locale] || t('Hero.successDescription');
+    const stats = data?.objectData?.[locale]
+        ? Object.entries(data.objectData[locale]).filter(([key]) => !String(key).startsWith('_'))
+        : [];
+    const captions = pickUi(data, locale, 'statCaptions');
+    const titleLines = splitAtComma(title).map((text, i, all) => ({ text, tone: i === all.length - 1 && all.length > 1 ? 'accent' : 'light' }));
+
+    const ref = useSceneMotion(active, { deps: [loading, locale, stats.length], extend: igniteNodes });
+
+    const downloadPDF = () => {
+        const link = document.createElement('a');
+        link.href = pickUi(data, locale, 'pdf', '/joe-pdf-en2.pdf');
+        link.download = 'JOE13 Profile';
+        link.click();
+    };
+
+    const n = stats.length;
+
     return (
-      <>
-        {text.slice(0, start)}
-        <span className={accentClass}>{accent}</span>
-        {text.slice(start + accent.length)}
-      </>
-    );
-  };
+        <JxScene
+            ref={ref}
+            id='success'
+            labelledBy='home-success-heading'
+            busy={loading}
+            image={cmsImage(data?.image?.url, '/landing/bg-2-section.png')}
+            shade='center'
+            bodyClassName='items-center text-center'
+        >
+            {loading ? (
+                <p className='sr-only'>{t('loading')}</p>
+            ) : (
+                <div className='mx-auto flex w-full max-w-[1120px] flex-col items-center'>
+                    <JxTag>{pickUi(data, locale, 'eyebrow', t('Hero.impact'))}</JxTag>
 
-  const comma = Math.max(title.indexOf(','), title.indexOf('،'));
-  if (comma >= 0) {
+                    <JxHeading
+                        id='home-success-heading'
+                        lines={titleLines}
+                        className='mt-5 text-[length:var(--jx-fs-3xl)] leading-[1.15] tracking-[-0.02em]'
+                    />
+
+                    {description ? (
+                        <p data-jx='rise' className='mt-5 max-w-[40rem] text-pretty text-[length:var(--jx-fs-lg)] font-[400] leading-[1.6] text-[var(--jx-text-2)]'>
+                            {description}
+                        </p>
+                    ) : null}
+
+                    {n ? (
+                        <div className='relative mt-10 w-full max-md:grid max-md:grid-cols-2 max-md:gap-x-5 max-md:gap-y-6 md:mt-[clamp(56px,9vh,104px)] md:aspect-[1000/260]'>
+                            <svg viewBox={`0 0 ${ARC.w} ${ARC.h}`} aria-hidden='true' data-jx-track='ambient' className='absolute inset-0 size-full overflow-visible text-[var(--jx-silver)] max-md:hidden'>
+                                <path
+                                    d={`M${ARC.p0.join(' ')} Q${ARC.p1.join(' ')} ${ARC.p2.join(' ')}`}
+                                    pathLength='1'
+                                    data-jx='draw'
+                                    className='jx-stroke jx-stroke--mid'
+                                />
+                                <path
+                                    d={`M${ARC.p0.join(' ')} Q${ARC.p1.join(' ')} ${ARC.p2.join(' ')}`}
+                                    pathLength='1'
+                                    className='jx-comet jx-loop'
+                                    style={{ animationDelay: '2.2s', animationDuration: '5s' }}
+                                />
+                                <g data-jx='fade'>
+                                    <path
+                                        d={`M${ARC.p0[0]} ${ARC.p0[1] + 22} Q${ARC.p1[0]} ${ARC.p1[1] + 22} ${ARC.p2[0]} ${ARC.p2[1] + 22}`}
+                                        pathLength='1'
+                                        className='jx-stroke jx-stroke--dim'
+                                        strokeDasharray='0.004 0.006'
+                                    />
+                                </g>
+                            </svg>
+
+                            {stats.map(([name, rawValue], i) => {
+                                const tt = n === 1 ? 0.5 : 0.1 + (0.8 * i) / (n - 1);
+                                const [x, y] = arcPoint(tt);
+                                const left = ((isAr ? ARC.w - x : x) / ARC.w) * 100;
+                                const top = (y / ARC.h) * 100;
+                                const caption = (Array.isArray(captions) && captions[i]) || statCaption(name, t);
+                                return (
+                                    <Stat
+                                        key={name}
+                                        name={name}
+                                        rawValue={rawValue}
+                                        caption={caption}
+                                        style={{ '--x': `${left.toFixed(3)}%`, '--y': `${top.toFixed(3)}%` }}
+                                    />
+                                );
+                            })}
+                        </div>
+                    ) : null}
+
+                    <div className='mt-12 md:mt-[clamp(56px,8vh,88px)]'>
+                        <JxButton icon='download' variant='ghost' onClick={downloadPDF}>
+                            {pickUi(data, locale, 'cta', t('Download PDF'))}
+                        </JxButton>
+                    </div>
+                </div>
+            )}
+        </JxScene>
+    );
+}
+
+function Stat({ name, rawValue, caption, style }) {
+    const { number, suffix } = parseStatValue(rawValue);
     return (
-      <h2 id={id} className={titleClass}>
-        {withAccent(title.slice(0, comma + 1).trim())}
-        <br />
-        {withAccent(title.slice(comma + 1).trim())}
-      </h2>
+        <article
+            data-jx='rise'
+            style={style}
+            className='group relative text-start max-md:border-t max-md:border-[var(--jx-line-strong)] max-md:pt-3 md:absolute md:left-[var(--x)] md:top-[var(--y)] md:size-0 md:text-center'
+        >
+            <p dir='ltr' className='jx-display m-0 whitespace-nowrap text-[clamp(2.4rem,1rem+2.9vw,4.3rem)] font-[400] leading-none tracking-[-0.04em] text-[var(--jx-text)] tabular-nums max-md:text-start md:absolute md:bottom-[18px] md:left-1/2 md:-translate-x-1/2 rtl:max-md:text-end'>
+                <span className='me-0.5 align-top text-[0.42em] font-[400] text-[var(--jx-silver)]'>+</span>
+                <span className='jx-accent' data-jx-count={number}>{number}</span>
+                {suffix ? <span className='text-[0.5em] font-[300] text-[var(--jx-text-2)]'>{suffix}</span> : null}
+            </p>
+            <span
+                aria-hidden='true'
+                data-node className='absolute left-0 top-0 hidden size-[11px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--jx-silver)] bg-[var(--jx-ink)] transition-[background-color,box-shadow,transform] duration-300 group-hover:scale-125 group-hover:bg-[var(--jx-glint)] group-hover:shadow-[var(--jx-glint-glow)] md:block'
+            />
+            <div className='mt-2 md:absolute md:left-1/2 md:top-[18px] md:mt-0 md:w-[min(17vw,200px)] md:-translate-x-1/2'>
+                <h3 className='jx-display m-0 text-[16px] font-[600] leading-[1.35] text-[var(--jx-text)] md:text-[18px]'>{name}</h3>
+                {caption ? <p className='m-0 mt-1 text-[12.5px] font-[400] leading-[1.45] text-[var(--jx-text-3)] max-sm:hidden md:text-[13px]'>{caption}</p> : null}
+            </div>
+        </article>
     );
-  }
-
-  return (
-    <h2 id={id} className={titleClass}>
-      {withAccent(title)}
-    </h2>
-  );
-}
-
-function StatCard({ name, rawValue, inView, iconIndex, caption, bodyFont }) {
-  const { number, suffix } = parseStatValue(rawValue);
-
-  return (
-    <article
-      className={`relative min-w-0 overflow-hidden rounded-[14px] border border-[rgba(100,173,226,0.43)] bg-[linear-gradient(145deg,rgba(20,66,105,0.65)_0%,rgba(17,37,61,0.68)_48%,rgba(16,31,49,0.76)_100%)] p-2.5 text-start backdrop-blur-[4px] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(130deg,rgba(87,178,245,0.15),transparent_27%,transparent_73%,rgba(72,163,229,0.06))] after:pointer-events-none after:absolute after:-start-[50px] after:-top-[80px] after:h-[150px] after:w-[180px] after:rounded-full after:bg-[rgba(0,130,240,0.12)] after:blur-[35px] max-[390px]:p-2 md:rounded-[16px] md:p-4 lg:rounded-[18px] lg:p-4 ${cardShadow}`}
-    >
-      <div className='relative z-[2] flex min-w-0 items-center justify-between gap-1'>
-        <StatIcon index={iconIndex} />
-        <StatNumber number={number} suffix={suffix} inView={inView} />
-      </div>
-
-      <h3 className={`${bodyFont} relative z-[2] mt-1.5 text-[11px] font-semibold leading-[1.15] tracking-[-0.3px] text-[#f2f5fa] max-[390px]:text-[10px] md:mt-2 md:text-[13px] lg:mt-2.5 lg:text-[17px]`}>
-        {name}
-      </h3>
-
-      {caption ? (
-        <p className={`${bodyFont} relative z-[2] mt-1 hidden text-[10px] font-normal leading-[1.35] tracking-[-0.15px] text-[rgba(196,208,224,0.67)] sm:block lg:mt-1.5 lg:text-[13px] lg:leading-[1.38]`}>
-          {caption}
-        </p>
-      ) : null}
-    </article>
-  );
-}
-
-function StatNumber({ number, suffix, inView }) {
-  return (
-    <div
-      className={`${TITLE_ACCENT} min-w-0 flex-1 text-end text-[20px] font-bold leading-none tracking-[-0.05em] tabular-nums max-[390px]:text-[18px] md:text-[clamp(26px,2.1vw,38px)]`}
-    >
-      {inView ? (
-        <span dir='ltr' className='inline-block max-w-full whitespace-nowrap'>
-          +
-          <CountUp start={0} end={number} duration={5} delay={0.1} />
-          {suffix ? <span>{suffix}</span> : null}
-        </span>
-      ) : (
-        <span dir='ltr' className='inline-block whitespace-nowrap'>
-          +0{suffix}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function StatIcon({ index }) {
-  return (
-    <div className='relative size-[56px] shrink-0 max-[390px]:size-[52px] md:size-[64px] lg:size-[72px]'>
-      <LandingIcon src={`/landing/icon-4-${(index % 5) + 1}.png`} />
-    </div>
-  );
 }
 
 function parseStatValue(rawValue) {
-  const value = String(rawValue ?? '');
-  const hasPercent = value.includes('%') || value.includes('٪');
-  const normalized = value.replace(/[٠-٩]/g, d => String(ARABIC_DIGITS.indexOf(d)));
-  const number = parseFloat(hasPercent ? normalized.split(/[%٪]/)[0] : normalized) || 0;
-  return { number, suffix: hasPercent ? '%' : '' };
+    const value = String(rawValue ?? '');
+    const hasPercent = value.includes('%') || value.includes('٪');
+    const normalized = value.replace(/[٠-٩]/g, d => String(ARABIC_DIGITS.indexOf(d)));
+    const number = parseFloat(hasPercent ? normalized.split(/[%٪]/)[0] : normalized) || 0;
+    return { number, suffix: hasPercent ? '%' : '' };
 }
 
 function statCaption(name, t) {
-  const key = String(name || '').toLowerCase();
-  if (key.includes('city') || key.includes('cities') || key.includes('مدن')) return t('Hero.statCities');
-  if (key.includes('growth') || key.includes('نمو')) return t('Hero.statGrowth');
-  if (key.includes('client') || key.includes('عملاء')) return t('Hero.statClients');
-  if (key.includes('project') || key.includes('مشروع')) return t('Hero.statProjects');
-  return null;
+    const key = String(name || '').toLowerCase();
+    if (key.includes('city') || key.includes('cities') || key.includes('مدن')) return t('Hero.statCities');
+    if (key.includes('growth') || key.includes('نمو')) return t('Hero.statGrowth');
+    if (key.includes('client') || key.includes('عملاء')) return t('Hero.statClients');
+    if (key.includes('project') || key.includes('مشروع')) return t('Hero.statProjects');
+    return null;
 }
 
-function SuccessSkeleton() {
-  return (
-    <div className='flex w-full max-w-[1325px] flex-col items-center'>
-      <div className='h-3 w-40 rounded skeleton-box bg-white/20' />
-      <div className='mt-8 h-10 w-full max-w-[520px] rounded skeleton-box bg-white/20' />
-      <div className='mt-3 h-6 w-full max-w-[360px] rounded skeleton-box bg-white/20' />
-      <div className='mt-10 grid w-full grid-cols-2 gap-3 lg:grid-cols-5'>
-        {[0, 1, 2, 3, 4].map(i => (
-          <div key={i} className='h-[215px] rounded-[16px] skeleton-box bg-white/15 lg:h-[255px]' />
-        ))}
-      </div>
-      <div className='mt-8 h-[58px] w-[235px] rounded-full skeleton-box bg-white/20' />
-    </div>
-  );
+/* Each figure's node ignites in turn as the arc finishes drawing. */
+function igniteNodes(tl, root) {
+    const nodes = [...root.querySelectorAll('[data-node]')];
+    if (!nodes.length) return;
+    const from = { backgroundColor: 'rgba(5,5,6,1)', boxShadow: '0 0 0 rgba(255,255,255,0)' };
+    gsap.set(nodes, from);
+    tl.fromTo(nodes, from, { backgroundColor: 'rgba(255,255,255,1)', boxShadow: '0 0 10px rgba(255,255,255,0.95), 0 0 24px rgba(255,255,255,0.45)', duration: 0.45, stagger: 0.16, ease: 'power2.out', immediateRender: false }, 1.1);
 }

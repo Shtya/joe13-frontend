@@ -12,6 +12,9 @@ export default async function Page({ params }) {
 
   return (
     <>
+      {/* Lets the design system hide entrance-animated content before first paint
+          (only when JS runs; a CSS failsafe reveals it if the motion engine never boots). */}
+      <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('jx-js')" }} />
       <JsonLd data={pageJsonLd(initialData, params.locale)} />
       <ClientPage initialData={initialData} />
     </>
