@@ -691,24 +691,7 @@
 /* --------------------------------------------------------------------------
    10. Reduced motion
    -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-    .jx-scene-bg,
-    .jx-scene-glyph,
-    .jx-tilt,
-    .jx-kenburns { transform: none !important; transition: none !important; }
-    .jx-pulse,
-    .jx-spin,
-    .jx-comet,
-    .jx-mark-glint { animation: none !important; }
-    .jx-comet { display: none; }
-    .jx-btn::after { display: none; }
-    .jx-scan,
-    .jx-aperture { display: none !important; }
-    .jx-js .jx [data-jx] { opacity: 1 !important; animation: none !important; }
-    .jx-js .jx [data-jx='line'] { transform: none !important; }
-    .jx-js .jx [data-jx='draw'] { stroke-dashoffset: 0 !important; }
-    .jx-home .hero-pagination::after { transition: none; }
-}
+/* Windows battery-saver sets prefers-reduced-motion; keep brand motion. */
 
 /* --------------------------------------------------------------------------
    11. Glyph life — one ambient behaviour per business unit (loops run only
@@ -763,10 +746,7 @@
 }
 @keyframes jx-radar { to { transform: rotate(360deg); } }
 
-@media (prefers-reduced-motion: reduce) {
-    .jx-emit, .jx-fire { animation: none !important; opacity: 0 !important; }
-    .jx-sway, .jx-float, .jx-radar, .jx-floor-bead { animation: none !important; }
-}
+/* Keep ambient loops running even when the OS asks to reduce motion. */
 
 /* Scrolling pages (not the home slider): ambient loops always run */
 .jx-page .jx-loop { animation-play-state: running !important; }
@@ -1000,10 +980,6 @@
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: none; }
 }
-@media (prefers-reduced-motion: reduce) {
-    .jx-field::after, .jx-form .jx-control::after { transition: none; }
-    .jx-sheet-body > * { animation: none; }
-}
 /* invalid legacy atoms: the atom renders `.error` beside its control */
 .jx-form :has(> .error) > .jx-control { box-shadow: inset 0 0 0 1px rgba(240, 104, 108, 0.55); }
 .jx-form .jx-upload:has(> .error) label { outline-color: rgba(240, 104, 108, 0.6); }
@@ -1013,4 +989,3 @@
 /* Late content (arrives after the scene timeline was built, e.g. settings
    from context): a CSS entrance on its own clock. */
 .jx-enter { animation: jx-sheet-rise 0.9s var(--jx-ease-out) var(--jx-enter-at, 0.6s) both; }
-@media (prefers-reduced-motion: reduce) { .jx-enter { animation: none; } }

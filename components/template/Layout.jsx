@@ -24,7 +24,13 @@ export default function Layout({ children, initialSettings, initialNav }) {
       duration: 500,
       easing: "ease-in-out",
       once: true,
+      disable: false,
+      startEvent: "DOMContentLoaded",
     });
+    const failsafe = window.setTimeout(() => {
+      document.querySelectorAll("[data-aos]").forEach(el => el.classList.add("aos-animate"));
+    }, 2500);
+    return () => window.clearTimeout(failsafe);
   }, []);
 
   const pathname = usePathname();

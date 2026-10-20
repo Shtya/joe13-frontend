@@ -156,11 +156,6 @@ html {
     animation: aboutGlow 5s ease-in-out infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .about-hero-glow {
-        animation: none;
-    }
-}
 
 @keyframes joinFadeIn {
     from {
@@ -220,14 +215,6 @@ html {
     will-change: transform, opacity;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .join-slide-up,
-    .join-slide-down,
-    .join-backdrop-in,
-    .join-backdrop-out {
-        animation: none;
-    }
-}
 
 .full-square {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
@@ -740,24 +727,6 @@ html {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .mySwiper .swiper-slide,
-    .hero-pagination-thumb,
-    .mySwiper .hero-stage > *,
-    .mySwiper .hero-slide-bg .img-overlay,
-    .mySwiper .hero-slide-veil,
-    .swiper-pagination-bullet .hero-bullet-core { transition: none !important; }
-
-    .mySwiper .hero-stage > *,
-    .mySwiper .swiper-slide-active .hero-stage > * {
-        opacity: 1 !important;
-        filter: none !important;
-        transform: none !important;
-    }
-
-    .hero-progress-ring { opacity: 0; }
-    .hero-pagination-pause { display: none; }
-}
 
 .swiper-slide {
     overflow-y: auto !important;

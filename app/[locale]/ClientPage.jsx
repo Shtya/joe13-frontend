@@ -97,7 +97,7 @@ export default function ClientPage({ initialData }) {
     // Pointer depth: one rAF-throttled listener feeds --jx-px / --jx-py to the
     // visible slide only (photo, glyph and logo layers read them in CSS).
     useEffect(() => {
-        if (prefersReducedMotion() || !window.matchMedia('(pointer: fine)').matches) return undefined;
+        if (prefersReducedMotion()) return undefined;
         let frame = 0;
         let x = 0;
         let y = 0;

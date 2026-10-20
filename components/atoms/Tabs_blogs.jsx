@@ -95,7 +95,7 @@ export default function Tabs_blogs({ loading, projects }) {
   };
 
   useEffect(() => {
-    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    setReduceMotion(false);
   }, []);
 
   useEffect(() => {

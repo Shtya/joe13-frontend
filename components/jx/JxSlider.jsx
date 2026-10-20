@@ -38,7 +38,7 @@ export default function JxSlider({ slides, labels }) {
     }, []);
 
     useEffect(() => {
-        if (prefersReducedMotion() || !window.matchMedia('(pointer: fine)').matches) return undefined;
+        if (prefersReducedMotion()) return undefined;
         let frame = 0;
         let x = 0;
         let y = 0;

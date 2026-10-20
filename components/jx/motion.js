@@ -42,8 +42,8 @@ const PATTERNS = {
         gap: 0.1,
     },
     rise: {
-        from: { opacity: 0, y: 26, filter: 'blur(8px)' },
-        to: { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: EASE.out, clearProps: 'filter' },
+        from: { opacity: 0, y: 26 },
+        to: { opacity: 1, y: 0, duration: 0.9, ease: EASE.out },
         gap: 0.08,
     },
     fade: {
@@ -62,8 +62,8 @@ const PATTERNS = {
         gap: 0.04,
     },
     bloom: {
-        from: { opacity: 0, scale: 0.86, filter: 'blur(16px)' },
-        to: { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: EASE.out, clearProps: 'filter' },
+        from: { opacity: 0, scale: 0.86 },
+        to: { opacity: 1, scale: 1, duration: 1.5, ease: EASE.out },
         gap: 0,
     },
     draw: {
@@ -79,8 +79,10 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') wind
 export const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export function prefersReducedMotion() {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Windows "Battery saver" / "Adjust for best performance" sets
+    // prefers-reduced-motion. That is not an accessibility choice here —
+    // it was freezing GSAP, Swiper, and leaving content at opacity 0.
+    return false;
 }
 
 function formatCount(value, target) {
@@ -221,12 +223,12 @@ export function useViewMotion({ threshold = 0.18, ...opts } = {}) {
  */
 export function weightMorph(tl, el, at = 0.05) {
     if (!el) return;
-    const from = { fontVariationSettings: "'wght' 100", letterSpacing: '0.14em', backgroundPosition: '120% 50%', filter: 'blur(10px)' };
+    const from = { fontVariationSettings: "'wght' 100", letterSpacing: '0.14em', backgroundPosition: '120% 50%' };
     gsap.set(el, from);
     tl.fromTo(
         el,
         from,
-        { fontVariationSettings: "'wght' 800", letterSpacing: '0em', backgroundPosition: '0% 50%', filter: 'blur(0px)', duration: 2.2, ease: 'expo.out', immediateRender: false, clearProps: 'filter' },
+        { fontVariationSettings: "'wght' 800", letterSpacing: '0em', backgroundPosition: '0% 50%', duration: 2.2, ease: 'expo.out', immediateRender: false },
         at,
     );
 }

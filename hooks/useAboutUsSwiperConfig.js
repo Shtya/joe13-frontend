@@ -1,6 +1,7 @@
 'use client';
 
 import { useValues } from '@/app/context';
+import { prefersReducedMotion } from '@/components/jx/motion';
 import { usePathname } from '@/navigation';
 import { useEffect, useRef } from 'react';
 import { EffectCreative, Pagination, Navigation, Autoplay, Mousewheel } from 'swiper/modules';
@@ -24,11 +25,6 @@ function writeStoredPaused(paused) {
     } catch {
         /* ignore quota / private-mode errors */
     }
-}
-
-function prefersReducedMotion() {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 function markUserIntent(ref) {
@@ -362,23 +358,6 @@ export function useAboutUsSwiperConfig(handleScrollInside, setIsLastSlide, { lab
         const swiper = swiperRef.current;
         bgNavbar(swiper);
     }, [pathnmae]);
-
-    useEffect(() => {
-        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const apply = () => {
-            const swiper = swiperRef.current;
-            if (!swiper) return;
-            if (mq.matches) {
-                swiper.params.speed = 0;
-                swiper.autoplay?.stop();
-            } else {
-                swiper.params.speed = SLIDE_SPEED;
-                if (!swiper.isEnd && !isUserPaused(swiper)) swiper.autoplay?.start();
-            }
-        };
-        mq.addEventListener('change', apply);
-        return () => mq.removeEventListener('change', apply);
-    }, []);
 
     return config;
 }

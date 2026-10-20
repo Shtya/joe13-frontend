@@ -85,7 +85,7 @@ export default function Tabs({ loading, projects }) {
   };
 
   useEffect(() => {
-    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    setReduceMotion(false);
   }, []);
 
   useEffect(() => {
