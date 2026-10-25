@@ -90,9 +90,9 @@ const Footer = ({ cn, id }) => {
                 <div className='grid items-end gap-x-10 gap-y-8 border-b border-[var(--jx-line)] pb-[clamp(44px,8vh,88px)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]'>
                     <div>
                         <p className='jx-tag'>{t('letsTalk')}</p>
-                        <h2 className='jx-display m-0 mt-5 text-[length:var(--jx-fs-4xl)] font-[700] leading-[1.15]'>
+                        <p className='jx-display m-0 mt-5 text-[length:var(--jx-fs-4xl)] font-[700] leading-[1.15]'>
                             <span className='jx-accent'>{t('letsBuild')}</span>
-                        </h2>
+                        </p>
                         <p className='m-0 mt-4 max-w-[34rem] text-[length:var(--jx-fs-lg)] leading-[1.75] text-[var(--jx-text-2)]'>{t('brighterFuture')}</p>
                     </div>
                     <div className='flex flex-wrap gap-3 lg:justify-end'>
@@ -188,7 +188,7 @@ const Footer = ({ cn, id }) => {
                         </ul>
                         {branches.length ? (
                             <>
-                                <h4 className='jx-display m-0 mt-8 text-[14px] font-[700] text-[var(--jx-silver)]'>{tj('branches')}</h4>
+                                <p className='jx-display m-0 mt-8 text-[14px] font-[700] text-[var(--jx-silver)]'>{tj('branches')}</p>
                                 <ul className='m-0 mt-3 flex list-none flex-wrap gap-2 p-0'>
                                     {branches.map((branch, i) => (
                                         <li key={i} className='rounded-full px-3.5 py-1.5 text-[13px] text-[var(--jx-text-2)] shadow-[inset_0_0_0_1px_var(--jx-line)]'>
@@ -234,10 +234,10 @@ function FooterColumn({ heading, children }) {
     return (
         <section>
             {heading ? (
-                <h3 className='jx-display m-0 flex items-center gap-3 text-[17px] font-[700] text-[var(--jx-platinum)]'>
+                <div className='jx-display m-0 flex items-center gap-3 text-[17px] font-[700] text-[var(--jx-platinum)]'>
                     <i aria-hidden='true' className='block h-px w-6 bg-[linear-gradient(90deg,#fff,var(--jx-steel))] rtl:bg-[linear-gradient(270deg,#fff,var(--jx-steel))]' />
                     {heading}
-                </h3>
+                </div>
             ) : null}
             <div className='mt-5'>{children}</div>
         </section>

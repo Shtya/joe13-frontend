@@ -5,7 +5,11 @@ import { cmsImage, resolveMeta } from '@/helpers/cms';
 // no locale prefix, English pages are prefixed with /en.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.joe13th.com').replace(/\/+$/, '');
 export const SITE_NAME = 'JOE13';
-const DEFAULT_IMAGE = '/landing/bg-hero.png';
+// 1200×630 share card; dimensions are declared so platforms can lay out the
+// preview before fetching it.
+const DEFAULT_IMAGE = '/og-image.jpg';
+const DEFAULT_IMAGE_META = { width: 1200, height: 630, type: 'image/jpeg' };
+const INDEX_ROBOTS = { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 };
 
 const pathFor = (locale, path) => {
   const suffix = path ? `/${path}` : '';
@@ -23,7 +27,7 @@ export function getAlternates(locale, path = '') {
     canonical: pathFor(locale, path),
     languages: {
       en: pathFor('en', path),
-      ar: pathFor('ar', path),
+      'ar-SA': pathFor('ar', path),
       'x-default': pathFor('ar', path),
     },
   };
@@ -48,12 +52,14 @@ export function metaText(value, locale, fallback) {
 export function buildMetadata({ locale = 'ar', path = '', title, description, keywords, image, ogTitle, ogDescription, type = 'website', noIndex = false }) {
   const desc = plain(description, 160);
   const ogDesc = plain(ogDescription, 200) || desc;
-  const img = absoluteUrl(image || DEFAULT_IMAGE);
+  // The default card lives in this app's /public, not on the CMS host.
+  const img = image ? absoluteUrl(image) : `${SITE_URL}${DEFAULT_IMAGE}`;
+  const imgMeta = image ? {} : DEFAULT_IMAGE_META;
   const alternates = getAlternates(locale, path);
   const kw = Array.isArray(keywords) ? keywords.filter(Boolean).join(', ') : plain(keywords, 400);
 
   return {
-    title: plain(title, 120) || SITE_NAME,
+    title: plain(title, 60) || SITE_NAME,
     description: desc,
     keywords: kw || undefined,
     alternates,
@@ -65,7 +71,7 @@ export function buildMetadata({ locale = 'ar', path = '', title, description, ke
       locale: locale === 'en' ? 'en_US' : 'ar_SA',
       alternateLocale: locale === 'en' ? ['ar_SA'] : ['en_US'],
       type,
-      images: img ? [{ url: img }] : undefined,
+      images: img ? [{ url: img, ...imgMeta }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
@@ -73,7 +79,7 @@ export function buildMetadata({ locale = 'ar', path = '', title, description, ke
       description: ogDesc,
       images: img ? [img] : undefined,
     },
-    robots: noIndex ? { index: false, follow: false } : undefined,
+    robots: noIndex ? { index: false, follow: false } : INDEX_ROBOTS,
   };
 }
 

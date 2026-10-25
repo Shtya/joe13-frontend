@@ -65,7 +65,42 @@ export const metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
    },
+  manifest: "/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
+  },
+  // Geo-targeting for Saudi Arabia.
+  other: {
+    'geo.region': 'SA',
+    'geo.country': 'SA',
+    'geo.placename': 'Saudi Arabia',
+  },
+};
+
+// Official accounts, merged with whatever the CMS settings list.
+const OFFICIAL_PROFILES = [
+    'https://x.com/joe13ksa',
+    'https://www.linkedin.com/company/joe13ksa/',
+    'https://www.facebook.com/joe13ksa',
+    'https://www.tiktok.com/@joe13ksa',
+    'https://www.snapchat.com/add/joe13ksa',
+    'https://www.instagram.com/joe13ksa',
+];
+
+const SA_REGIONS = [
+    'Riyadh', 'Makkah', 'Madinah', 'Eastern Province', 'Qassim', 'Asir', 'Tabuk',
+    'Hail', 'Northern Borders', 'Jazan', 'Najran', 'Al Bahah', 'Al Jawf',
+];
+
+const ORG_DESCRIPTION = {
+    ar: 'حلول متخصصة لقطاع الأعمال (B2B) تغطي كافة أرجاء المملكة العربية السعودية.',
+    en: 'Specialised B2B solutions covering every region of Saudi Arabia.',
 };
 
 export const viewport = {
@@ -80,15 +115,30 @@ function organizationLd(settings, locale) {
         '@context': 'https://schema.org',
         '@graph': [
             {
-                '@type': 'Organization',
+                '@type': 'ProfessionalService',
                 '@id': `${SITE_URL}/#organization`,
                 name: settings?.site_name?.[locale] || settings?.site_name?.en || SITE_NAME,
                 url: SITE_URL,
                 logo: absoluteUrl(settings?.site_logo?.url || '/assets/svg/logo-white.svg'),
+                image: `${SITE_URL}/og-image.jpg`,
+                description: ORG_DESCRIPTION[locale] || ORG_DESCRIPTION.ar,
                 email: contact.email || undefined,
                 telephone: contact.phone || undefined,
-                address: contact.address?.[locale] || undefined,
-                sameAs: Object.values(settings?.social_media || {}).filter(v => typeof v === 'string' && v.startsWith('http')),
+                address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: contact.address?.[locale] || undefined,
+                    addressCountry: 'SA',
+                },
+                areaServed: [
+                    { '@type': 'Country', name: 'Saudi Arabia' },
+                    ...SA_REGIONS.map(name => ({ '@type': 'AdministrativeArea', name, containedInPlace: { '@type': 'Country', name: 'Saudi Arabia' } })),
+                ],
+                sameAs: [
+                    ...new Set([
+                        ...OFFICIAL_PROFILES,
+                        ...Object.values(settings?.social_media || {}).filter(v => typeof v === 'string' && v.startsWith('http')),
+                    ]),
+                ],
             },
             {
                 '@type': 'WebSite',

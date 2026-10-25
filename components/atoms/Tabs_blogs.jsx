@@ -320,6 +320,8 @@ function BlogCard({ project }) {
             <img
               src={baseImage(project.image_url)}
               alt={project.image_alt || project.title?.[locale] || ''}
+              width={560}
+              height={312}
               loading='lazy'
               decoding='async'
               onError={e => {

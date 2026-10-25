@@ -4,12 +4,18 @@ import Section1 from '@/components/pages/home/Section1';
 import Section2 from '@/components/pages/home/Section2';
 import Section3 from '@/components/pages/home/Section3';
 import Section4 from '@/components/pages/home/Section4';
-import Section5 from '@/components/pages/home/Section5';
-import Section6 from '@/components/pages/home/Section6';
-import Section8 from '@/components/pages/home/Section8';
-import Section9 from '@/components/pages/home/Section9';
-import Section10 from '@/components/pages/home/Section10';
-import Section11 from '@/components/pages/home/Section11';
+import dynamic from 'next/dynamic';
+
+// Slides past the first four are off-screen at load: split them into their own
+// chunks so they don't weigh on the initial bundle. SSR stays on so their
+// content is still in the HTML for crawlers.
+const Section5 = dynamic(() => import('@/components/pages/home/Section5'));
+const Section6 = dynamic(() => import('@/components/pages/home/Section6'));
+const Section8 = dynamic(() => import('@/components/pages/home/Section8'));
+const Section9 = dynamic(() => import('@/components/pages/home/Section9'));
+const Section10 = dynamic(() => import('@/components/pages/home/Section10'));
+const Section11 = dynamic(() => import('@/components/pages/home/Section11'));
+const Footer = dynamic(() => import('@/components/molecules/Footer'));
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import gsap from 'gsap';
@@ -21,7 +27,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/mousewheel';
 import VerticalSlider, { useAboutUsSwiperConfig } from '@/hooks/useAboutUsSwiperConfig';
 import { useSearchParams } from 'next/navigation';
-import Footer from '@/components/molecules/Footer';
 import { usePages } from '@/hooks/usePages';
 import { useLocale, useTranslations } from 'next-intl';
 import { prefersReducedMotion } from '@/components/jx/motion';

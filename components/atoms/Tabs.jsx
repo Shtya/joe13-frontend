@@ -326,6 +326,8 @@ function ProjectCard({ project }) {
             <img
               src={baseImage(mainImage.url)}
               alt={mainImage.alt || project.name?.[locale] || ''}
+              width={560}
+              height={312}
               loading='lazy'
               decoding='async'
               onError={e => {
@@ -349,6 +351,8 @@ function ProjectCard({ project }) {
               <img
                 src={baseImage(miniImage.url)}
                 alt=''
+                width={100}
+                height={100}
                 loading='lazy'
                 decoding='async'
                 onError={e => {

@@ -22,7 +22,7 @@ export const JxScene = forwardRef(function JxScene(
                         fill
                         priority={priority}
                         sizes='100vw'
-                        quality={72}
+                        quality={60}
                         className='jx-kenburns object-cover'
                         style={{ objectPosition: imagePosition }}
                     />
