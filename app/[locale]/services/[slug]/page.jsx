@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 export async function fetchServiceMeta(slug) {
     const res = await fetch(`${baseUrl}/api/v1/services/slug/${slug}`, {
-        next: { revalidate: 60 },
+        next: { revalidate: 10, tags: [`page-seo-services/${slug}`, 'page-seo-services'] },
     });
 
     if (!res.ok) return null;
@@ -33,6 +33,7 @@ export async function generateMetadata({ params }) {
     if (!data) return buildMetadata({ locale: params.locale, noIndex: true });
 
     const { meta, title, description, ogTitle, ogDescription } = serviceText(data, params.locale);
+    const ogImage = meta?.ogImage?.url || (typeof meta?.ogImage === 'string' ? meta.ogImage : '') || data.image?.url || data.hero?.images?.[0]?.url;
     return buildMetadata({
         locale: params.locale,
         path: `services/${params.slug}`,
@@ -40,8 +41,12 @@ export async function generateMetadata({ params }) {
         description,
         ogTitle,
         ogDescription,
-        keywords: params.locale === 'en' ? undefined : meta.keywords,
-        image: data.image?.url || data.hero?.images?.[0]?.url,
+        keywords: meta.keywords,
+        image: ogImage,
+        robots: meta.robots,
+        noIndex: meta.noIndex,
+        canonicalUrl: meta.canonicalUrl,
+        type: meta.ogType === 'article' ? 'article' : 'website',
     });
 }
 

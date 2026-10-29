@@ -1,5 +1,6 @@
 import React from "react";
 import { baseUrl } from "@/helpers/baseUrl";
+import { localizedSeo } from "@/helpers/cms";
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from "@/helpers/seo";
 import ClientPage from "./ClientPage";
 import { notFound } from "next/navigation";
@@ -15,10 +16,14 @@ async function fetchProjectBySlug(slug) {
   return res.json();
 }
 
-const projectText = (project, locale) => ({
-  title: metaText(project.meta_title, locale, project.name?.[locale] || project.name?.en),
-  description: metaText(project.meta_description, locale, project.description?.[locale] || project.description?.en),
-});
+const projectText = (project, locale) => {
+  const name = project.name?.[locale] || project.name?.en;
+  const body = project.description?.[locale] || project.description?.en;
+  return {
+    title: metaText(localizedSeo(project.meta_title, locale, name), locale, name),
+    description: metaText(localizedSeo(project.meta_description, locale, body), locale, body),
+  };
+};
 
 export async function generateMetadata({ params }) {
   const project = await fetchProjectBySlug(params.slug);

@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 const BACKEND_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://back.joe13th.com').replace(/\/+$/, '');
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.joe13th.com').replace(/\/+$/, '');
-const STATIC_PATHS = ['', 'about-us', 'contact-us', 'blogs', 'join-us', 'projects'];
+const STATIC_PATHS = ['', 'about-us', 'contact-us', 'blogs', 'join-us', 'projects', 'services'];
 
 async function fetchSlugs(endpoint) {
   try {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation';
 import { baseUrl } from '@/helpers/baseUrl';
+import { localizedSeo } from '@/helpers/cms';
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from '@/helpers/seo';
 import ClientPage from './ClientPage';
 import { BLOGS_QUERY, getCollection } from '@/hooks/getPageData';
@@ -16,8 +17,8 @@ export async function fetchBlogBySlug(slug) {
 }
 
 const blogText = (blog, locale) => ({
-  title: metaText(blog.meta_title, locale, blog.title?.[locale] || blog.title?.en),
-  description: metaText(blog.meta_description, locale, blog.content?.[locale] || blog.content?.en),
+  title: metaText(localizedSeo(blog.meta_title, locale, blog.title?.[locale] || blog.title?.en), locale, blog.title?.[locale] || blog.title?.en),
+  description: metaText(localizedSeo(blog.meta_description, locale, blog.content?.[locale] || blog.content?.en), locale, blog.content?.[locale] || blog.content?.en),
 });
 
 export async function generateMetadata({ params }) {

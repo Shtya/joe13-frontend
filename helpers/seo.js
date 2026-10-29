@@ -49,7 +49,7 @@ export function metaText(value, locale, fallback) {
   return text;
 }
 
-export function buildMetadata({ locale = 'ar', path = '', title, description, keywords, image, ogTitle, ogDescription, type = 'website', noIndex = false }) {
+export function buildMetadata({ locale = 'ar', path = '', title, description, keywords, image, ogTitle, ogDescription, type = 'website', noIndex = false, robots, canonicalUrl } = {}) {
   const desc = plain(description, 160);
   const ogDesc = plain(ogDescription, 200) || desc;
   // The default card lives in this app's /public, not on the CMS host.
@@ -57,6 +57,22 @@ export function buildMetadata({ locale = 'ar', path = '', title, description, ke
   const imgMeta = image ? {} : DEFAULT_IMAGE_META;
   const alternates = getAlternates(locale, path);
   const kw = Array.isArray(keywords) ? keywords.filter(Boolean).join(', ') : plain(keywords, 400);
+  const hide = noIndex || /noindex/i.test(String(robots || ''));
+  // Prefer locale-correct generated canonical. Only honor a CMS override when
+  // its path matches this locale (so EN never inherits an Arabic /about-us URL).
+  const cmsCanonical = String(canonicalUrl || '');
+  if (cmsCanonical && !/yourdomain|localhost/i.test(cmsCanonical)) {
+    try {
+      const url = new URL(cmsCanonical.startsWith('http') ? cmsCanonical : `${SITE_URL}${cmsCanonical}`);
+      const path = `${url.pathname}${url.search}` || '/';
+      const looksEn = path === '/en' || path.startsWith('/en/');
+      if ((locale === 'en' && looksEn) || (locale !== 'en' && !looksEn)) {
+        alternates.canonical = path;
+      }
+    } catch {
+      /* keep generated canonical */
+    }
+  }
 
   return {
     title: plain(title, 60) || SITE_NAME,
@@ -66,7 +82,7 @@ export function buildMetadata({ locale = 'ar', path = '', title, description, ke
     openGraph: {
       title: plain(ogTitle, 120) || plain(title, 120) || SITE_NAME,
       description: ogDesc,
-      url: alternates.canonical,
+      url: pageUrl(locale, path),
       siteName: SITE_NAME,
       locale: locale === 'en' ? 'en_US' : 'ar_SA',
       alternateLocale: locale === 'en' ? ['ar_SA'] : ['en_US'],
@@ -79,7 +95,7 @@ export function buildMetadata({ locale = 'ar', path = '', title, description, ke
       description: ogDesc,
       images: img ? [img] : undefined,
     },
-    robots: noIndex ? { index: false, follow: false } : INDEX_ROBOTS,
+    robots: hide ? { index: false, follow: false } : INDEX_ROBOTS,
   };
 }
 

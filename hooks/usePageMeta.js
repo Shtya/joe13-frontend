@@ -5,7 +5,7 @@ import { buildMetadata } from '@/helpers/seo';
 export async function getPageMetadata(slug, { locale, path = '', fallbackTitle } = {}) {
     try {
         const res = await fetch(`${baseUrl}/api/v1/pages/${slug}`, {
-            next: { revalidate: 60 },
+            next: { revalidate: 10, tags: [`page-seo-${slug}`] },
         });
 
         if (!res.ok) throw new Error('Failed to fetch');
@@ -24,6 +24,9 @@ export async function getPageMetadata(slug, { locale, path = '', fallbackTitle }
             ogDescription: meta?.ogDescription,
             image: ogImage,
             type: meta?.ogType === 'article' ? 'article' : 'website',
+            robots: meta?.robots,
+            noIndex: meta?.noIndex,
+            canonicalUrl: meta?.canonicalUrl,
         });
     } catch {
         return buildMetadata({ locale, path, title: fallbackTitle });
