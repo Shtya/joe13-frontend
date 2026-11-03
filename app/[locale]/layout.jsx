@@ -7,6 +7,9 @@ import Layout from '@/components/template/Layout';
 import { baseUrl } from '@/helpers/baseUrl';
 import { JsonLd, SITE_NAME, SITE_URL, absoluteUrl } from '@/helpers/seo';
 import { cleanExternalUrl, uniqueUrls } from '@/helpers/url';
+import Script from 'next/script';
+
+const GA_ID = 'G-579TVYSCXM';
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -195,6 +198,17 @@ export default function RootLayout({ children, params: { locale } }) {
             <NextIntlClientProvider locale={locale} messages={messages}>
                 <body className={locale === 'en' ? 'font-montserrat' : 'font-cairo'}>
                     <SettingsLayout locale={locale}> {children} </SettingsLayout>
+
+                    {/* Google Analytics GA4 */}
+                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy='afterInteractive' />
+                    <Script id='google-analytics' strategy='afterInteractive'>
+                        {`
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', '${GA_ID}');
+                        `}
+                    </Script>
                 </body>
             </NextIntlClientProvider>
         </html>
