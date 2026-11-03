@@ -18,7 +18,7 @@ async function loadServices() {
 
 export async function GET() {
     const services = await loadServices();
-    const serviceLines = services.map(s => `- [${(s.title?.ar || s.title?.en || s.slug).trim()}](${SITE_URL}/services/${s.slug})`);
+    const serviceLines = services.map(s => `- [${(s.title?.ar || s.title?.en || s.slug).trim()}](${SITE_URL}/services/${s.slug.toLowerCase()})`);
 
     const body = [
         '# JOE13 - B2B Solutions in Saudi Arabia',

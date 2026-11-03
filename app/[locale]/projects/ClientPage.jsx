@@ -2,7 +2,10 @@
 
 import { JxButton, JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
 import { useViewMotion, weightMorph } from '@/components/jx/motion';
-import ProjectArchive from '@/components/jx/projects/ProjectArchive';
+import dynamic from 'next/dynamic';
+
+// Below the fold: own chunk, SSR kept so the item links stay in the HTML.
+const ProjectArchive = dynamic(() => import('@/components/jx/projects/ProjectArchive'));
 import ProjectDeck from '@/components/jx/projects/ProjectDeck';
 import { parseFigure } from '@/components/jx/projects/utils';
 import { cmsImage, pickUi } from '@/helpers/cms';

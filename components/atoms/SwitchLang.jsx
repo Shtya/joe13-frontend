@@ -1,14 +1,18 @@
-import { useRouter, usePathname } from '@/navigation'
+import { usePathname } from '@/navigation'
+import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import React from 'react'
+import { localizePath } from '@/helpers/url'
 
 export default function SwitchLang({cn}) {
 	const locale = useLocale()
 	const pathname = usePathname()
 	const router = useRouter()
 
+	// Go straight to the final URL: next-intl's router would push /ar/... and
+	// take the middleware's 301 on the way back to Arabic.
 	const handleLanguageChange = () => {
-		router.push(pathname, { locale: locale == 'ar' ? 'en' : 'ar' });
+		router.push(localizePath(pathname, locale == 'ar' ? 'en' : 'ar'));
 	};
 
   return (

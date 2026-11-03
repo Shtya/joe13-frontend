@@ -1,5 +1,5 @@
 import React from "react";
-import { baseUrl } from "@/helpers/baseUrl";
+import { fetchBySlug } from "@/helpers/slug";
 import { localizedSeo } from "@/helpers/cms";
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from "@/helpers/seo";
 import ClientPage from "./ClientPage";
@@ -7,13 +7,7 @@ import { notFound } from "next/navigation";
 import { PROJECTS_QUERY, getCollection } from "@/hooks/getPageData";
 
 async function fetchProjectBySlug(slug) {
-  const res = await fetch(`${baseUrl}/api/v1/projects/slug/${slug}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) return null;
-
-  return res.json();
+  return fetchBySlug("projects", slug, { next: { revalidate: 60 } });
 }
 
 const projectText = (project, locale) => {

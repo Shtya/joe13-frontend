@@ -1,8 +1,9 @@
 'use client';
 
 import { Link, usePathname } from '@/navigation';
+import { cleanExternalUrl } from '@/helpers/url';
 import { useLocale, useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useHashSection } from '@/hooks/useHashSection';
 import CmsFillImage from '@/components/atoms/CmsFillImage';
 import { useEffect, useId, useState } from 'react';
 import SwitchLang from '../atoms/SwitchLang';
@@ -20,7 +21,6 @@ export default function Navbar({ isclick, handleClick }) {
   const isAr = locale === 'ar';
   const bodyFont = isAr ? 'font-cairo' : 'font-inter';
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { projects, services, settings } = useValues();
   const menuTitleId = useId();
 
@@ -37,10 +37,10 @@ export default function Navbar({ isclick, handleClick }) {
       name: e?.name?.[locale],
       value: `/projects/${e.slug}`,
     }));
-  const socials = Object.entries(settings?.social_media || {}).filter(([, value]) => value);
+  const socials = Object.entries(settings?.social_media || {}).map(([key, value]) => [key, cleanExternalUrl(value)]).filter(([, value]) => value);
 
   const links = [
-    { id: 'home', value: '/?section=home', name: t('home') },
+    { id: 'home', value: '/', name: t('home') },
     { id: 'departments', value: '/projects', name: t('our-department') },
     serviceLinks.length
       ? {
@@ -58,7 +58,7 @@ export default function Navbar({ isclick, handleClick }) {
           list: productLinks,
         }
       : null,
-    { id: 'partners', value: '/?section=partners', name: t('our-partners') },
+    { id: 'partners', value: '/#partners', name: t('our-partners') },
     { id: 'blogs', value: '/blogs', name: t('blogs') },
     { id: 'join', value: '/join-us', name: t('join-us') },
     { id: 'about', value: '/about-us', name: t('about-us') },
@@ -118,7 +118,7 @@ export default function Navbar({ isclick, handleClick }) {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isclick]);
 
-  const section = searchParams.get('section');
+  const section = useHashSection();
 
   const isLinkActive = link => {
     if (link.id === 'home') return pathname === '/' && section !== 'partners';
@@ -175,7 +175,7 @@ export default function Navbar({ isclick, handleClick }) {
             </div>
           </div>
           <Link
-            href='/?section=home'
+            href='/'
             className={`outline-none ${focusRing}`}
             aria-label='Joe13'
           >
@@ -207,7 +207,7 @@ export default function Navbar({ isclick, handleClick }) {
         <div aria-hidden='true' className='pointer-events-none absolute inset-0 -z-[1] bg-[radial-gradient(90%_40%_at_0%_100%,rgba(199,203,209,0.09),transparent_70%)] rtl:bg-[radial-gradient(90%_40%_at_100%_100%,rgba(199,203,209,0.09),transparent_70%)]' />
 
         <div className='flex shrink-0 items-end justify-between border-b border-[var(--jx-line)] px-6 pb-5 pt-7'>
-          <Link href='/?section=home' onClick={closeMenu} id={menuTitleId} aria-label='JOE13' className={`relative block h-9 w-[132px] ${focusRing}`}>
+          <Link href='/' onClick={closeMenu} id={menuTitleId} aria-label='JOE13' className={`relative block h-9 w-[132px] ${focusRing}`}>
             <CmsFillImage className='object-contain object-left rtl:object-right' url='/assets/svg/logo-white.svg' fallback='/assets/svg/logo-white.svg' alt='JOE13' sizes='132px' />
           </Link>
           <span className='pb-0.5 text-[12px] text-[var(--jx-steel)]'>{tFooter('tomorrowMade')}</span>

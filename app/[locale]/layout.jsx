@@ -6,6 +6,7 @@ import '@/style/joe-system.css';
 import Layout from '@/components/template/Layout';
 import { baseUrl } from '@/helpers/baseUrl';
 import { JsonLd, SITE_NAME, SITE_URL, absoluteUrl } from '@/helpers/seo';
+import { cleanExternalUrl, uniqueUrls } from '@/helpers/url';
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -55,7 +56,14 @@ export async function getSettings() {
         next: { revalidate: 60 },
     });
     if (!res.ok) return null;
-    return res.json();
+    const settings = await res.json();
+    // Drop share-sheet tracking params before the settings reach the page payload.
+    if (settings?.social_media) {
+        settings.social_media = Object.fromEntries(
+            Object.entries(settings.social_media).map(([key, value]) => [key, cleanExternalUrl(value)]).filter(([, value]) => value),
+        );
+    }
+    return settings;
 }
 
 export const metadata = {
@@ -93,11 +101,6 @@ const OFFICIAL_PROFILES = [
     'https://www.instagram.com/joe13ksa',
 ];
 
-const SA_REGIONS = [
-    'Riyadh', 'Makkah', 'Madinah', 'Eastern Province', 'Qassim', 'Asir', 'Tabuk',
-    'Hail', 'Northern Borders', 'Jazan', 'Najran', 'Al Bahah', 'Al Jawf',
-];
-
 const ORG_DESCRIPTION = {
     ar: 'حلول متخصصة لقطاع الأعمال (B2B) تغطي كافة أرجاء المملكة العربية السعودية.',
     en: 'Specialised B2B solutions covering every region of Saudi Arabia.',
@@ -129,16 +132,9 @@ function organizationLd(settings, locale) {
                     streetAddress: contact.address?.[locale] || undefined,
                     addressCountry: 'SA',
                 },
-                areaServed: [
-                    { '@type': 'Country', name: 'Saudi Arabia' },
-                    ...SA_REGIONS.map(name => ({ '@type': 'AdministrativeArea', name, containedInPlace: { '@type': 'Country', name: 'Saudi Arabia' } })),
-                ],
-                sameAs: [
-                    ...new Set([
-                        ...OFFICIAL_PROFILES,
-                        ...Object.values(settings?.social_media || {}).filter(v => typeof v === 'string' && v.startsWith('http')),
-                    ]),
-                ],
+                areaServed: { '@type': 'Country', name: 'Saudi Arabia' },
+                // CMS links carry share-sheet params (?_t, ?mibextid…); strip them and dedupe.
+                sameAs: uniqueUrls([...OFFICIAL_PROFILES, ...Object.values(settings?.social_media || {})]),
             },
             {
                 '@type': 'WebSite',

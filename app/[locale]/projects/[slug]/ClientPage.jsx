@@ -3,7 +3,7 @@
 import { JxButton, JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
 import { useViewMotion } from '@/components/jx/motion';
 import ProjectCard from '@/components/jx/projects/ProjectCard';
-import ProjectGallery from '@/components/jx/projects/ProjectGallery';
+import ProjectGallery from '@/components/jx/projects/LazyProjectGallery';
 import { paragraphs, projectImages, projectName } from '@/components/jx/projects/utils';
 import { Link } from '@/navigation';
 import gsap from 'gsap';

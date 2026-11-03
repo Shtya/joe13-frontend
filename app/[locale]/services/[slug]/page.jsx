@@ -1,18 +1,14 @@
 import React from 'react';
-import { baseUrl } from '@/helpers/baseUrl';
+import { fetchBySlug } from '@/helpers/slug';
 import { resolveMeta } from '@/helpers/cms';
 import { JsonLd, SITE_NAME, buildMetadata, metaText, pageUrl, parseJsonLd } from '@/helpers/seo';
 import ClientPage from './ClientPage';
 import { notFound } from 'next/navigation';
 
 export async function fetchServiceMeta(slug) {
-    const res = await fetch(`${baseUrl}/api/v1/services/slug/${slug}`, {
+    return fetchBySlug('services', slug, {
         next: { revalidate: 10, tags: [`page-seo-services/${slug}`, 'page-seo-services'] },
     });
-
-    if (!res.ok) return null;
-
-    return res.json();
 }
 
 const serviceText = (data, locale) => {

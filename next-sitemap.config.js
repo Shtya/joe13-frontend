@@ -8,7 +8,8 @@ async function fetchSlugs(endpoint) {
     const res = await fetch(`${BACKEND_URL}/api/v1/${endpoint}?limit=10000`);
     if (!res.ok) return [];
     const json = await res.json();
-    return (json?.data || []).map((item) => item.slug).filter(Boolean);
+    // URLs are served lowercase (middleware.js 301s anything else).
+    return (json?.data || []).map((item) => item.slug).filter(Boolean).map((slug) => slug.toLowerCase());
   } catch {
     return [];
   }

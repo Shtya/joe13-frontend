@@ -1,6 +1,9 @@
 'use client';
 
-import JxArchive from '@/components/jx/JxArchive';
+import dynamic from 'next/dynamic';
+
+// Below the fold: own chunk, SSR kept so the item links stay in the HTML.
+const JxArchive = dynamic(() => import('@/components/jx/JxArchive'));
 import { JxButton, JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
 import { useViewMotion, weightMorph } from '@/components/jx/motion';
 import ServiceCard from '@/components/jx/services/ServiceCard';

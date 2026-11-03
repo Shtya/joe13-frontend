@@ -26,7 +26,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/mousewheel';
 import VerticalSlider, { useAboutUsSwiperConfig } from '@/hooks/useAboutUsSwiperConfig';
-import { useSearchParams } from 'next/navigation';
+import { useHashSection } from '@/hooks/useHashSection';
 import { usePages } from '@/hooks/usePages';
 import { useLocale, useTranslations } from 'next-intl';
 import { prefersReducedMotion } from '@/components/jx/motion';
@@ -85,8 +85,7 @@ export default function ClientPage({ initialData }) {
         }
     }, []);
 
-    const searchParams = useSearchParams();
-    const name = searchParams.get('section');
+    const name = useHashSection();
 
     const goToSlide = index => {
         if (swiperRef.current && swiperRef.current.swiper) {
@@ -96,7 +95,7 @@ export default function ClientPage({ initialData }) {
 
     useEffect(() => {
         if (name === 'partners') goToSlide(2);
-        if (name === 'home') goToSlide(0);
+        if (name === 'home' || name === null) goToSlide(0);
     }, [name]);
 
     // Pointer depth: one rAF-throttled listener feeds --jx-px / --jx-py to the

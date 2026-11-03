@@ -2,7 +2,7 @@
 
 import { JxButton, JxHeading, JxScene, JxTag, splitTitle } from '@/components/jx/primitives';
 import { useViewMotion } from '@/components/jx/motion';
-import ProjectGallery from '@/components/jx/projects/ProjectGallery';
+import ProjectGallery from '@/components/jx/projects/LazyProjectGallery';
 import { Benefits, Call, Capabilities, Faq, Impact, PartnersStrip, useL } from '@/components/jx/services/ServiceSections';
 import { cmsImage } from '@/helpers/cms';
 import { Link } from '@/navigation';

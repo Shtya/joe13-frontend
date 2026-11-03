@@ -1,19 +1,13 @@
 import React from 'react'
 import { notFound } from 'next/navigation';
-import { baseUrl } from '@/helpers/baseUrl';
+import { fetchBySlug } from '@/helpers/slug';
 import { localizedSeo } from '@/helpers/cms';
 import { JsonLd, SITE_NAME, absoluteUrl, buildMetadata, metaText, pageUrl } from '@/helpers/seo';
 import ClientPage from './ClientPage';
 import { BLOGS_QUERY, getCollection } from '@/hooks/getPageData';
 
 export async function fetchBlogBySlug(slug) {
-  const res = await fetch(`${baseUrl}/api/v1/blogs/slug/${slug}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) return null;
-
-  return res.json();
+  return fetchBySlug('blogs', slug, { next: { revalidate: 60 } });
 }
 
 const blogText = (blog, locale) => ({

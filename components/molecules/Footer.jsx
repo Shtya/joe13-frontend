@@ -4,6 +4,7 @@ import { useValues } from '@/app/context';
 import { JxButton } from '@/components/jx/primitives';
 import SocialIcon from '@/components/jx/SocialIcon';
 import { Link } from '@/navigation';
+import { cleanExternalUrl } from '@/helpers/url';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -44,7 +45,7 @@ const Footer = ({ cn, id }) => {
         ?.map(e => ({ name: e?.title?.[locale] || e?.title?.en, link: `/services/${e.slug}` }));
     const visibleServices = showAllServices ? serviceLinks : serviceLinks?.slice(0, SERVICE_PREVIEW_COUNT);
     const hasMoreServices = (serviceLinks?.length || 0) > SERVICE_PREVIEW_COUNT;
-    const socials = Object.entries(settings?.social_media || {}).filter(([, value]) => value);
+    const socials = Object.entries(settings?.social_media || {}).map(([key, value]) => [key, cleanExternalUrl(value)]).filter(([, value]) => value);
     const address = settings?.contact_us?.address?.[locale];
     const email = settings?.contact_us?.email;
     const phone = settings?.contact_us?.phone;
@@ -121,7 +122,7 @@ const Footer = ({ cn, id }) => {
                 {/* 2 — directory */}
                 <div className='grid gap-x-[clamp(24px,4vw,64px)] gap-y-12 py-[clamp(44px,8vh,80px)] sm:grid-cols-2 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1.2fr)]'>
                     <section className='sm:col-span-2 xl:col-span-1'>
-                        <Link href='/?section=home' aria-label='JOE13' className='relative block h-[46px] w-[170px]'>
+                        <Link href='/' aria-label='JOE13' className='relative block h-[46px] w-[170px]'>
                             <Image src='/assets/svg/logo-white.svg' alt='JOE13' fill sizes='170px' className='object-contain object-left rtl:object-right' />
                         </Link>
                         <p className='m-0 mt-3 text-[13px] text-[var(--jx-steel)]'>{t('tomorrowMade')}</p>

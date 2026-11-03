@@ -1,0 +1,11 @@
+# Modern evergreen browsers only (all support ES modules natively), so SWC
+# skips legacy transforms. Next.js 14 still emits polyfills-*.js, but as a
+# <script noModule> that these browsers never download.
+chrome >= 109
+edge >= 109
+firefox >= 115
+safari >= 15.4
+ios_saf >= 15.4
+samsung >= 21
+# Keep: server bundles are compiled with this list too.
+maintained node versions
